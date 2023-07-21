@@ -1,0 +1,116 @@
+footer {
+  background-color: #f6f6f7;
+  display: flex;
+  justify-content: center;
+  padding: 64px 0px;
+  margin-top: 100px;
+}
+@media (max-width: 700px) {
+  footer {
+    background-color: #f6f6f7;
+    display: flex;
+    justify-content: center;
+    padding: 64px 0 0 0;
+    margin-top: 100px;
+  }
+}
+@media (max-width: 500px) {
+  footer {
+    background-color: #f6f6f7;
+    /* display: flex;
+    justify-content: center; */
+    padding: 64px 0 0 0;
+    margin-top: 100px;
+  }
+}
+@media (max-width: 500px) {
+  .footer-content {
+    display: flex;
+    max-width: 612px;
+    justify-content: center;
+    gap: 36px;
+  }
+}
+.footer-content {
+  display: flex;
+  max-width: 1216px;
+  flex-grow: 1;
+  justify-content: center;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+@media (max-width: 1240px) {
+  /* .footer-content {
+    display: flex;
+    max-width: 1216px;
+    justify-content: center;
+    gap: 64px;
+    flex-wrap: wrap;
+  } */
+}
+.footer-info {
+  display: flex;
+  width: 289px;
+  flex-direction: column;
+  align-self: flex-start;
+  gap: 24px;
+}
+.link {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+.quick-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 24px;
+}
+.bolder {
+  color: #181a2a;
+  font-weight: 600;
+}
+.link .footer-category {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.footer-info h1 {
+  color: #181a2a;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+}
+.footer-info p {
+  color: #696a75;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  width: 280px;
+}
+.About {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.link-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  color: #3b3c4a;
+}
+.category-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  color: #3b3c4a;
+}

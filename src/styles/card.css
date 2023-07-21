@@ -1,0 +1,144 @@
+.Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.o-classLayOut {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.Card-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1216px;
+  gap: 20px;
+}
+
+.m-post-card-grid {
+  max-width: 392px;
+  height: auto;
+  width: 100%;
+  padding: 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  border-radius: 12px;
+  border: 1px solid #e8e8ea;
+  background-color: #fff;
+}
+
+.m-post-card-grid img {
+  width: 360px;
+  height: 240px;
+  border-radius: 6px;
+  background: lightgray 50% / cover no-repeat;
+}
+
+.card-content {
+  display: flex;
+  padding: 24px 8px 8px 8px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  align-self: stretch;
+}
+
+.card-category {
+  display: flex;
+  padding: 4px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  color: #4b6bfb;
+  border-radius: 6px;
+  background: rgba(75, 107, 251, 0.05);
+  font-weight: 500;
+}
+
+.card-title {
+  color: #181a2a;
+  display: flex;
+  align-items: stretch;
+
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.card-author {
+  display: flex;
+  align-items: center;
+
+  color: #97989f;
+}
+
+.card-author img {
+  width: 36px;
+  height: 36px;
+  border-radius: 28px;
+  background: lightgray 50% / cover no-repeat;
+  margin-right: 12px;
+}
+.author-name {
+  margin-right: 20px;
+  font-weight: 500;
+}
+
+.latest {
+  color: #181a2a;
+  align-self: flex-start;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 28px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* viewMorepost css */
+
+.viewPost {
+  margin-top: 32px;
+  font-weight: 500;
+  display: flex;
+  padding: 12px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(105, 106, 117, 0.3);
+  color: #696a75;
+}
+
+.card-parent {
+  max-width: 1216px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+@media (max-width: 1215px) {
+  .card-parent {
+    max-width: 1216px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+}
