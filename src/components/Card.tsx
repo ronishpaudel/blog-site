@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { DOMAttributes } from "react";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
@@ -47,9 +48,11 @@ function Card({
   onProfileClick,
   ...rest
 }: CardProps) {
+  const { push } = useRouter();
+
   return (
     <>
-      <div className="m-post-card-grid">
+      <div className="m-post-card-grid" onClick={onCardClick}>
         <img src={"/rct.png"} />
         <div className="card-content">
           <div className="card-category">{category}</div>

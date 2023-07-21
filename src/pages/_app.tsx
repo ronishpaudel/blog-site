@@ -4,6 +4,7 @@ import "../styles/content.css";
 import "../styles/card.css";
 import "../styles/footer.css";
 import "../styles/newsLetter.css";
+import "../pages/[id]/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Work_Sans } from "@next/font/google";
 

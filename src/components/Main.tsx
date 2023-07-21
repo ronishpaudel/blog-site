@@ -2,6 +2,7 @@ import React from "react";
 import { Content } from "./Content";
 import Card from "./Card";
 import Ad from "./Ad";
+import { useRouter } from "next/router";
 
 const Main = () => {
   const CARD_DATA: Array<{
@@ -104,7 +105,7 @@ const Main = () => {
       image: "https://example.com/images/books.jpg",
     },
   ];
-
+  const { push } = useRouter();
   return (
     <>
       <main>
@@ -124,7 +125,14 @@ const Main = () => {
                 profilePic={a.profilePic}
                 title={a.title}
                 image={a.image}
-                onCardClick={() => console.log("navigate to page with id")}
+                onCardClick={() => {
+                  push({
+                    pathname: "/[id]",
+                    query: {
+                      id: a.id,
+                    },
+                  });
+                }}
                 onProfileClick={() =>
                   console.log("navigate to profile with id")
                 }

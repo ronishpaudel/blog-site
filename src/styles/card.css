@@ -39,6 +39,7 @@
   border-radius: 12px;
   border: 1px solid #e8e8ea;
   background-color: #fff;
+  cursor: pointer;
 }
 
 .m-post-card-grid img {

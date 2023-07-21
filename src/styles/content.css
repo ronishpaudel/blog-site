@@ -61,6 +61,8 @@
   text-align: center;
   border-radius: 5px;
   color: white;
+  min-width: 60px;
+  max-width: max-content;
 }
 .author {
   display: flex;
@@ -78,6 +80,7 @@
   display: flex;
   font-weight: 600;
   margin-bottom: 24px;
+  cursor: pointer;
 }
 
 /* Ad css */
