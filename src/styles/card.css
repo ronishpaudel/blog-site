@@ -115,6 +115,7 @@
 
 .viewPost {
   margin-top: 32px;
+  cursor: pointer;
   font-weight: 500;
   display: flex;
   padding: 12px 20px;
