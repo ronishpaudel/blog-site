@@ -1,9 +1,39 @@
-.id {
-  max-width: 1920px;
-}
-
 .page-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 800px;
+  margin: 0px auto;
+  gap: 32px;
+}
+
+.blog-image {
+  max-width: 100%;
+}
+
+.blog-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blog-info h1 {
+  color: #181a2a;
+  font-family: Work Sans;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 40px;
+}
+.blog-box {
+  border-radius: 12px;
+  border-left: 4px solid #e8e8ea;
+  background: #f6f6f7;
+  padding: 32px;
+}
+.blog-box p {
+  color: #181a2a;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 400;
 }

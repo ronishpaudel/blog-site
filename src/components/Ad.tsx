@@ -1,9 +1,9 @@
 import React from "react";
 
-const Ad = () => {
+const Ad = ({ style }: any) => {
   return (
     <>
-      <div className="AD">
+      <div style={style} className="AD">
         <div className="ADs">You can place ads</div>
       </div>
     </>

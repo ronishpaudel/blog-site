@@ -41,7 +41,9 @@
   background-color: #fff;
   cursor: pointer;
 }
-
+.m-post-card-grid:hover {
+  background-color: azure;
+}
 .m-post-card-grid img {
   width: 360px;
   height: 240px;
