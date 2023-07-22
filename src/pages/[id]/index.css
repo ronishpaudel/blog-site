@@ -4,6 +4,7 @@
   align-items: center;
   max-width: 800px;
   margin: 0px auto;
+  padding: var(--spacing);
   gap: 32px;
 }
 
