@@ -4,8 +4,13 @@ import { Footer } from "@/components/Footer";
 import { Author } from "@/components/Author";
 import { Tag } from "@/components/Tag";
 import Ad from "@/components/Ad";
+import { useRouter } from "next/router";
 
 const index = () => {
+  const { push } = useRouter();
+  const onHandlePush = () => {
+    return push("/auth");
+  };
   return (
     <div>
       <Header />
@@ -191,6 +196,7 @@ const index = () => {
             ride.
           </p>
         </div>
+        <button onClick={onHandlePush}>auth</button>
       </div>
       <Footer />
     </div>

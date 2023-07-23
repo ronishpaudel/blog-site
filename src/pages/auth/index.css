@@ -1,0 +1,85 @@
+.page {
+  display: flex;
+  height: 100vh;
+}
+.login {
+  width: 42%;
+}
+.promo {
+  width: 58%;
+  background-color: #fafafba2;
+  border: solid black 2px;
+}
+.login-header-logo {
+  display: flex;
+  padding: var(--spacing);
+}
+.login-header-logo img {
+  width: 244px;
+  height: 40px;
+}
+.login-form {
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+}
+.login-form h6 {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%;
+  letter-spacing: 0.15px;
+  margin-right: 275px;
+}
+.login-form input {
+  max-width: 345px;
+  width: 100%;
+  padding: 16px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+}
+.login-btn {
+  display: flex;
+  align-items: center;
+}
+.login-btn p {
+  margin-left: 50px;
+}
+.login-btn button {
+  max-width: 115px;
+  width: 100%;
+  border-radius: 4px;
+  background: #0057ff;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+}
+.create-btn {
+  border-radius: 4px;
+  background: #000;
+  max-width: 344px;
+  width: 100%;
+  color: white;
+  padding: 8px 22px;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+}
+.input-box span {
+  position: relative;
+  top: -70px;
+  left: 0;
+  padding: 20px;
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.65em;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+.input-box input:valid ~ span,
+.input-box input:focus ~ span {
+  color: black;
+  left: 8px;
+  font-size: 0.7rem;
+  padding: 8px;
+  background-color: white;
+}
