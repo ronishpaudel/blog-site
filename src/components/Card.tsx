@@ -53,7 +53,7 @@ function Card({
 
   return (
     <>
-      {data &&
+      {/* {data &&
         data.map((blog) => (
           <div className="m-post-card-grid" onClick={onCardClick}>
             <img src={"/rct.png"} />
@@ -67,7 +67,19 @@ function Card({
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
+      <div className="m-post-card-grid" onClick={onCardClick}>
+        <img src={"/rct.png"} />
+        <div className="card-content">
+          <div className="card-category">{category}</div>
+          <div className="card-title">{title}</div>
+          <div className="card-author" onClick={onProfileClick}>
+            <img src="author.png" className="author-img" />
+            <p className="author-name">{authorName}</p>
+            <p>{formatDateToCustomFormat(createdAt)}</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
