@@ -1,3 +1,4 @@
+import { useQueryBlog } from "@/hooks/useQueryBlog";
 import { useRouter } from "next/router";
 import React, { DOMAttributes } from "react";
 
@@ -48,22 +49,25 @@ function Card({
   onProfileClick,
   ...rest
 }: CardProps) {
-  const { push } = useRouter();
+  const { data } = useQueryBlog();
 
   return (
     <>
-      <div className="m-post-card-grid" onClick={onCardClick}>
-        <img src={"/rct.png"} />
-        <div className="card-content">
-          <div className="card-category">{category}</div>
-          <div className="card-title">{title}</div>
-          <div className="card-author" onClick={onProfileClick}>
-            <img src="author.png" className="author-img" />
-            <p className="author-name">{authorName}</p>
-            <p>{formatDateToCustomFormat(createdAt)}</p>
+      {data &&
+        data.map((blog) => (
+          <div className="m-post-card-grid" onClick={onCardClick}>
+            <img src={"/rct.png"} />
+            <div className="card-content">
+              <div className="card-category">{category}</div>
+              <div className="card-title">{blog.title}</div>
+              <div className="card-author" onClick={onProfileClick}>
+                <img src="author.png" className="author-img" />
+                <p className="author-name">{authorName}</p>
+                <p>{formatDateToCustomFormat(createdAt)}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        ))}
     </>
   );
 }

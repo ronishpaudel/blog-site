@@ -23,31 +23,21 @@ footer {
     margin-top: 100px;
   }
 }
-@media (max-width: 500px) {
-  .footer-content {
-    display: flex;
-    max-width: 612px;
-    justify-content: center;
-    gap: 36px;
-  }
-}
 .footer-content {
   display: flex;
   max-width: 1216px;
+  width: 100%;
   flex-grow: 1;
-  justify-content: center;
+  justify-content: space-between;
   gap: 64px;
   flex-wrap: wrap;
 }
-@media (max-width: 1240px) {
-  /* .footer-content {
-    display: flex;
-    max-width: 1216px;
+@media (max-width: 1250px) {
+  .footer-content {
     justify-content: center;
-    gap: 64px;
-    flex-wrap: wrap;
-  } */
+  }
 }
+
 .footer-info {
   display: flex;
   width: 289px;
