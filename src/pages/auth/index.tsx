@@ -23,7 +23,11 @@ const index = () => {
             <button className="create-btn"> CREATE NEW ACCOUNT</button>
           </div>
         </div>
-        <div className="promo"> hello </div>
+        <div className="promo">
+          <div className="login-promotion">
+            <div className="vector"></div>
+          </div>
+        </div>
       </div>
     </>
   );

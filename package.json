@@ -23,5 +23,8 @@
     "react-icons": "^4.10.1",
     "styled-components": "^6.0.4",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@svgr/webpack": "^8.0.1"
   }
 }
