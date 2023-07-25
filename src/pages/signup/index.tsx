@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import { SrLogo } from "../../../public";
 import { InputName } from "@/components/InputName";
-import { CompanyName } from "@/components/CompanyName";
 import Button from "@/components/Button";
+import Dropdown from "@/components/Dropdown";
 
 const SignUp = () => {
   const { push } = useRouter();
@@ -19,21 +19,31 @@ const SignUp = () => {
               <InputName placeholder="First Name" text="First Name" />
               <InputName placeholder="Last Name" text="Last Name" />
             </div>
-            <CompanyName />
+            <InputName
+              placeholder="Email Address"
+              text="Email Address"
+              style={{ width: "438px" }}
+            />
+            <InputName
+              placeholder="Company Name"
+              text="Company Name"
+              style={{ width: "438px" }}
+            />
             <div className="signup-name">
               <div className="input-box-name">
-                <input
-                  className="input-phone-n-country"
+                <Dropdown
                   style={{ width: "195px" }}
-                  placeholder="Country"
-                  required
+                  options={[
+                    { displayName: "usa", id: 1 },
+                    { displayName: "nepal", id: 2 },
+                    { displayName: "canada", id: 3 },
+                  ]}
+                  onChange={(val) => console.log(val)}
+                  label="Select Country"
                 />
-                <img src="/Dropdown.png" />
-                <span>Country</span>
               </div>
               <div className="input-box-name">
                 <input
-                  className="input-phone-n-country"
                   style={{ width: "195px" }}
                   placeholder="Phone #"
                   required
@@ -41,42 +51,11 @@ const SignUp = () => {
                 <span>Phone #</span>
               </div>
             </div>
-            <div className="input-box-name">
-              <input
-                style={{ width: "410px", padding: "15px 12px" }}
-                placeholder="Default Timezone"
-                required
-              />
-              <img src="/Dropdown.png" />
-              <span>Default Timezone</span>
-            </div>
+            <Button onClick={() => push("/auth")} text={"SIGN UP"} />
             <Button
               onClick={() => push("/auth")}
-              style={{
-                borderRadius: "4px",
-                backgroundColor: "#0057FF",
-                color: "white",
-                maxWidth: "440px",
-                width: "100%",
-                height: "42px",
-                marginTop: "28px",
-                border: "none",
-              }}
-              text={"SIGN UP"}
-            />
-            <Button
-              onClick={() => push("/auth")}
-              style={{
-                borderRadius: "4px",
-                backgroundColor: "#000",
-                color: "white",
-                maxWidth: "440px",
-                width: "100%",
-                height: "42px",
-                marginTop: "20px",
-                border: "none",
-              }}
               text={"BACK TO LOGIN"}
+              style={{ backgroundColor: "black" }}
             />
           </div>
         </div>

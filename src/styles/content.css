@@ -12,6 +12,9 @@
   background: #fff;
   box-shadow: 0px 12px 24px -6px rgba(24, 26, 42, 0.12);
 }
+.content:hover {
+  background-color: azure;
+}
 @media (max-width: 1240px) {
   .content {
     margin-left: 100px;
@@ -101,4 +104,13 @@
 .ronish {
   margin-right: 20px;
   font-weight: 500;
+}
+
+.dd-list-item:hover {
+  background: lightyellow;
+  cursor: pointer;
+}
+.dd-list-label {
+  background: lightyellow;
+  cursor: pointer;
 }

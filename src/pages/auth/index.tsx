@@ -3,6 +3,7 @@ import { Vector } from "../../../public";
 import { useRouter } from "next/router";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { InputName } from "@/components/InputName";
+import Button from "@/components/Button";
 
 const index = () => {
   const { push } = useRouter();
@@ -29,9 +30,11 @@ const index = () => {
               </button>
               <p>Forgot you password?</p>
             </div>
-            <button className="create-btn" onClick={() => push("/signup")}>
-              CREATE NEW ACCOUNT
-            </button>
+            <Button
+              onClick={() => push("/signup")}
+              text={"CREATE NEW ACCOUNT"}
+              style={{ backgroundColor: "black", width: "344px" }}
+            />
           </div>
         </div>
         <div className="promo">

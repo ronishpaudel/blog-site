@@ -1,12 +1,13 @@
 import React from "react";
 interface buttonProps {
-  style: any;
   onClick: () => void;
   text: string;
+  className?: React.CSSProperties;
+  style?: React.CSSProperties;
 }
-const Button = ({ style, onClick, text }: buttonProps) => {
+const Button = ({ className, onClick, text, style }: buttonProps) => {
   return (
-    <button style={style} onClick={onClick}>
+    <button style={style} onClick={onClick} className={`auth-btn ${className}`}>
       {text}
     </button>
   );

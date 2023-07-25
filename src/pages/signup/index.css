@@ -45,6 +45,8 @@
 }
 .input-box-name input {
   padding: 16px 12px;
+  max-width: 438px;
+  width: 100%;
   border: transparent;
 }
 .input-box-name span {
@@ -69,8 +71,4 @@
 .input-box-name img {
   height: 24px;
   width: 24px;
-}
-.input-phone-n-country {
-  border: none;
-  outline: none;
 }
