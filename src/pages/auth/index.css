@@ -6,16 +6,22 @@
   width: 42%;
 }
 .promo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58%;
+  background-color: #fafafba2;
+  border: solid black 2px;
   width: 58%;
   background-color: #fafafba2;
   border: solid black 2px;
 }
-.login-header-logo {
+.auth-header-logo {
   display: flex;
   padding: var(--spacing);
 }
-.login-header-logo img {
-  width: 244px;
+.auth-header-logo img {
+  width: 250px;
   height: 40px;
 }
 .login-form {
@@ -64,22 +70,18 @@
   padding: 8px 22px;
   border: 1px solid rgba(0, 0, 0, 0.23);
 }
-.input-box span {
-  position: relative;
-  top: -70px;
-  left: 0;
-  padding: 20px;
-  pointer-events: none;
-  color: rgba(255, 255, 255, 0.25);
-  font-size: 0.65em;
-  text-transform: uppercase;
-  transition: 0.5s;
+
+.login-promotion {
+  width: 468px;
+  height: 469px;
+  border: 2px solid black;
 }
-.input-box input:valid ~ span,
-.input-box input:focus ~ span {
-  color: black;
-  left: 8px;
-  font-size: 0.7rem;
-  padding: 8px;
-  background-color: white;
+.vector {
+  margin-top: -15px;
+  margin-left: 179px;
+}
+.promo-text {
+  display: flex;
+  font-weight: 800;
+  flex-direction: column;
 }
