@@ -1,6 +1,6 @@
 import React from "react";
 interface buttonProps {
-  onClick: () => void;
+  onClick?: () => void;
   text: string;
   className?: React.CSSProperties;
   style?: React.CSSProperties;

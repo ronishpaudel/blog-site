@@ -4,6 +4,9 @@
 }
 .login {
   width: 42%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .promo {
   display: flex;
@@ -17,13 +20,11 @@
   border: solid black 2px;
 }
 .auth-header-logo {
-  display: flex;
-  padding: var(--spacing);
+  width: 100%;
+  max-width: 244px;
+  padding: 10px;
 }
-.auth-header-logo img {
-  width: 250px;
-  height: 40px;
-}
+
 .login-form {
   margin-top: 100px;
   display: flex;

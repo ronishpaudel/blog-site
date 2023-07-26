@@ -4,6 +4,8 @@
 }
 .signup {
   width: 64%;
+  /* display: flex;
+  justify-content: center; */
 }
 .promotion {
   width: 46%;
@@ -34,6 +36,8 @@
 .input-box {
   display: flex;
   gap: 22px;
+  width: 100%;
+  max-width: 436px;
 }
 .input-box-name {
   position: relative;

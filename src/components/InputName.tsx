@@ -3,7 +3,7 @@ interface InputProps {
   style?: React.CSSProperties;
   text: string;
   placeholder: string;
-  className?: React.CSSProperties;
+  className?: string;
 }
 const InputName = ({ style, text, placeholder, className }: InputProps) => {
   return (

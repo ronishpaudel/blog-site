@@ -1,7 +1,7 @@
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { useRouter } from "next/router";
 import React from "react";
-import { SrLogo } from "../../../public";
+import { SrLogo } from "../../../../public";
 import { InputName } from "@/components/InputName";
 import Button from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
@@ -51,7 +51,10 @@ const SignUp = () => {
                 <span>Phone #</span>
               </div>
             </div>
-            <Button onClick={() => push("/auth")} text={"SIGN UP"} />
+            <Button
+              onClick={() => push("/auth/email-confirm")}
+              text={"SIGN UP"}
+            />
             <Button
               onClick={() => push("/auth")}
               text={"BACK TO LOGIN"}

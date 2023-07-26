@@ -10,8 +10,8 @@ const index = () => {
   return (
     <>
       <div className="page">
+        <AuthHeaderlogo />
         <div className="login">
-          <AuthHeaderlogo />
           <div className="login-form">
             <h6>Sign in</h6>
             <InputName
@@ -31,7 +31,7 @@ const index = () => {
               <p>Forgot you password?</p>
             </div>
             <Button
-              onClick={() => push("/signup")}
+              onClick={() => push("/auth/signup")}
               text={"CREATE NEW ACCOUNT"}
               style={{ backgroundColor: "black", width: "344px" }}
             />
