@@ -8,6 +8,7 @@ import "../pages/[id]/index.css";
 import "../pages/auth/index.css";
 import "./auth/signup/index.css";
 import "./auth/email-confirm/index.css";
+import "./auth/forgetPw/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Work_Sans } from "@next/font/google";
 
