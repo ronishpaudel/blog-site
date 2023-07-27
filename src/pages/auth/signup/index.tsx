@@ -22,17 +22,17 @@ const SignUp = () => {
             <InputName
               placeholder="Email Address"
               text="Email Address"
-              style={{ width: "438px" }}
+              maxWidth="mW438"
             />
             <InputName
               placeholder="Company Name"
               text="Company Name"
-              style={{ width: "438px" }}
+              maxWidth="mW438"
             />
             <div className="signup-name">
               <div className="input-box-name">
                 <Dropdown
-                  style={{ width: "195px" }}
+                  style={{ maxWidth: "205px", width: "100%" }}
                   options={[
                     { displayName: "usa", id: 1 },
                     { displayName: "nepal", id: 2 },
@@ -42,27 +42,27 @@ const SignUp = () => {
                   label="Select Country"
                 />
               </div>
-              <div className="input-box-name">
-                <input
-                  style={{ width: "195px" }}
-                  placeholder="Phone #"
-                  required
-                />
-                <span>Phone #</span>
-              </div>
+
+              <InputName
+                style={{ maxWidth: "205px", width: "100%" }}
+                placeholder="Phone #"
+                text={"Phone #"}
+              />
             </div>
             <Button
               onClick={() => push("/auth/email-confirm")}
               text={"SIGN UP"}
+              maxWidth="mW438"
             />
             <Button
               onClick={() => push("/auth")}
               text={"BACK TO LOGIN"}
-              style={{ backgroundColor: "black" }}
+              preset="secondary"
+              maxWidth="mW438"
             />
           </div>
         </div>
-        <div className="promotion">
+        <div className="promo">
           <SrLogo />
         </div>
       </div>

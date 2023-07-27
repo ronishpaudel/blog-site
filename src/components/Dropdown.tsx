@@ -37,24 +37,26 @@ function Dropdown({
 
   return (
     <div>
-      <div
-        style={{
-          width: "210px",
-          height: "55px",
-          padding: "15px 12px",
-        }}
-        className="dd-header"
-        onClick={toggleDropdown}
-      >
+      <div>
         <div
-          className="dd-header-title"
           style={{
-            display: "flex",
-            justifyContent: "space-between",
+            width: "210px",
+            height: "55px",
+            padding: "15px 12px",
           }}
+          className="dd-header"
+          onClick={toggleDropdown}
         >
-          {selectedOption || label}
-          <DropDown style={{ width: "30px", marginLeft: "36px" }} />
+          <div
+            className="dd-header-title"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            {selectedOption || label}
+            <DropDown style={{ width: "30px", marginLeft: "36px" }} />
+          </div>
         </div>
       </div>
       {isOpen && (

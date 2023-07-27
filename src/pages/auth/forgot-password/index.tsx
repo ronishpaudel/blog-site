@@ -9,22 +9,10 @@ const index = () => {
   const { push } = useRouter();
   return (
     <>
-      <div className="signup-page">
+      <div className="password-page-wrapper">
         <AuthHeaderlogo />
-        <div
-          className="signup"
-          style={{
-            width: "75%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <div
-            className="inputNbtns"
-            style={{ maxWidth: "440px", width: "100%" }}
-          >
+        <div className="pw-input">
+          <div className="inputNbtns">
             <div className="forgetpw-text">
               <span> RESET YOUR PASSWORD</span>
               <p>Type in your registered email address to reset password</p>
@@ -32,12 +20,13 @@ const index = () => {
             <InputName
               text="Email Address"
               placeholder="Email Address*"
-              style={{ maxWidth: "345px", width: "100%" }}
+              maxWidth="mW345"
             />
             <Button
-              onClick={() => push("/auth/resetEmailPw")}
+              onClick={() => push("/auth/reset-email-password")}
               text={"NEXT"}
               style={{ maxWidth: "110px", marginBottom: "77px" }}
+              preset="primary"
             />
             <Button
               onClick={() => push("/auth/finalise-registration")}

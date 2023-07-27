@@ -6,38 +6,28 @@ import React from "react";
 const index = () => {
   const { push } = useRouter();
   return (
-    <div className="signup-page">
+    <div>
       <AuthHeaderlogo />
-      <div
-        className="signup"
-        style={{
-          width: "75%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          className="inputNbtns"
-          style={{ maxWidth: "440px", width: "100%" }}
-        >
+      <div className="email-wrapper">
+        <div className="inputNbtns">
           <div className="forgetpw-text">
             <span> Recovery Email Sent!</span>
-            <p style={{ fontSize: "13px" }}>
+            <p>
               Please check your email for next steps to reset your password.
             </p>
           </div>
 
           <Button
-            onClick={() => push("/auth/resetpw")}
+            onClick={() => push("/auth/reset-password")}
             text={"contact Support"}
-            style={{ maxWidth: "188px", width: "100%", marginBottom: "172px" }}
+            className="email-btn"
+            maxWidth="mW188"
           />
           <Button
             onClick={() => push("/auth/forgetPw")}
             text={"BACK TO LOGIN"}
-            style={{ backgroundColor: "black", width: "344px" }}
+            maxWidth="mW345"
+            preset="secondary"
           />
         </div>
       </div>

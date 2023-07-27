@@ -7,37 +7,38 @@ const index = () => {
   const { push } = useRouter();
   return (
     <div className="signup-page">
-      <AuthHeaderlogo />
-      <div
-        style={{ display: "flex", justifyContent: "center" }}
-        className="signup"
-      >
-        <div className="email-confirm">
-          <div className="email-txt">
-            <span>Confirm your email address</span>
-            <p>Please check your email for the next step for signup.</p>
-          </div>
-          <div className="email-btns">
-            <Button text={"CONTACT SUPPORT"} style={{ width: "188px" }} />
+      <div className="signup-page-wrapper">
+        <AuthHeaderlogo />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div className="email-confirm">
+            <div className="email-txt">
+              <span>Confirm your email address</span>
+              <p>Please check your email for the next step for signup.</p>
+            </div>
+
+            <Button text={"CONTACT SUPPORT"} maxWidth="mW188" />
             <Button
               onClick={() => push("/auth/finalise-registration")}
               text={"CONTINUE UX"}
-              style={{
-                backgroundColor: "black",
-                width: "145px",
-                marginBottom: "115px",
-              }}
+              preset="secondary"
+              maxWidth="mW145"
             />
             <Button
               onClick={() => push("/auth/signup")}
               text={"BACK TO LOGIN"}
-              style={{ backgroundColor: "black", width: "344px" }}
+              preset="secondary"
+              maxWidth="mW345"
             />
           </div>
         </div>
       </div>
 
-      <div className="promotion" style={{ backgroundColor: "#C9CCD3" }}>
+      <div className="promo" style={{ backgroundColor: "#C9CCD3" }}>
         <SrLogo />
       </div>
     </div>

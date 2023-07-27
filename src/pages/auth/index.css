@@ -13,20 +13,15 @@
   align-items: center;
   justify-content: center;
   width: 58%;
-  background-color: #fafafba2;
-  border: solid black 2px;
-  width: 58%;
-  background-color: #fafafba2;
-  border: solid black 2px;
+  background-color: #0057ff;
 }
 .auth-header-logo {
   width: 100%;
   max-width: 244px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .login-form {
-  margin-top: 100px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -50,17 +45,16 @@
 }
 .login-btn {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
 }
 .login-btn p {
-  margin-left: 50px;
+  margin-left: 130px;
+  font-size: 14px;
 }
 .login-btn button {
   max-width: 115px;
   width: 100%;
   border-radius: 4px;
-  background: #0057ff;
-  border: 1px solid rgba(0, 0, 0, 0.23);
 }
 .create-btn {
   border-radius: 4px;
@@ -86,7 +80,7 @@
   font-weight: 800;
   flex-direction: column;
 }
-.auth-btn {
+.btn {
   border-radius: 4px;
   background-color: #0057ff;
   color: white;
@@ -95,4 +89,152 @@
   height: 42px;
   margin-top: 28px;
   border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: red;
+}
+.btn.pri-btn {
+  background-color: #0057ff;
+}
+.btn.sec-btn {
+  background-color: black;
+}
+.input-box-name.mW188 {
+  max-width: 188px;
+  width: 100%;
+}
+.input-box-name.mW210 {
+  max-width: 210px;
+  width: 100%;
+}
+.input-box-name.mW333 {
+  max-width: 333px;
+  width: 100%;
+}
+.input-box-name.mW345 {
+  max-width: 345px;
+  width: 100%;
+}
+.input-box-name.mW438 {
+  max-width: 438px;
+  width: 100%;
+}
+.input-box-name.mW440 {
+  max-width: 440px;
+  width: 100%;
+}
+.btn.mW188 {
+  max-width: 188px;
+  width: 100%;
+}
+.btn.mW210 {
+  max-width: 210px;
+  width: 100%;
+}
+.btn.mW333 {
+  max-width: 333px;
+  width: 100%;
+}
+.btn.mW345 {
+  max-width: 345px;
+  width: 100%;
+}
+.btn.mW438 {
+  max-width: 438px;
+  width: 100%;
+}
+.btn.mW440 {
+  max-width: 440px;
+  width: 100%;
+}
+.btn.mW115 {
+  max-width: 115px;
+  width: 100%;
+}
+.text-btn {
+  display: flex;
+  max-width: 345px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.text-btn-input {
+  cursor: pointer;
+  width: 115px;
+}
+.text-btn-input:hover {
+  cursor: pointer;
+  color: red;
+}
+.text-btn span:hover {
+  cursor: pointer;
+  color: #0057ff;
+}
+.login-btn {
+  max-width: 115px;
+  width: 100%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.text-btn span {
+  margin-top: 25px;
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 157%;
+  letter-spacing: 0.1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 72px;
+}
+@media (max-width: 768px) {
+  .promo {
+    display: none;
+  }
+  .signup-page {
+    justify-content: center;
+  }
+}
+@media (max-width: 540px) {
+  .signup-form p {
+    margin-right: 0;
+  }
+}
+@media (max-width: 545px) {
+  .text-btn span {
+    margin-left: 50px;
+  }
+}
+@media (max-width: 525px) {
+  .text-btn span {
+    margin-left: 25px;
+  }
+}
+
+@media (max-width: 465px) {
+  .text-btn span {
+    text-align: center;
+  }
+}
+@media (max-width: 540px) {
+  .signup {
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (max-width: 660px) {
+  .input-box {
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+  }
+  .signup-name {
+    flex-wrap: wrap;
+  }
 }

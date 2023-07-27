@@ -1,0 +1,13 @@
+.registration-wrapper {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  padding: 20px;
+}
+.registration-btn {
+  max-width: 440px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
