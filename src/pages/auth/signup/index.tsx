@@ -63,7 +63,9 @@ const SignUp = () => {
           </div>
         </div>
         <div className="promo">
-          <SrLogo />
+          <div className="promo-logo">
+            <SrLogo />
+          </div>
         </div>
       </div>
     </>

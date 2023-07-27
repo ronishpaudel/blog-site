@@ -30,7 +30,7 @@ const index = () => {
               maxWidth="mW440"
             />
             <Button
-              onClick={() => push("/auth/forgetPw")}
+              onClick={() => push("/auth/email-confirm")}
               text={"BACK TO LOGIN"}
               preset="secondary"
               maxWidth="mW440"
@@ -40,7 +40,9 @@ const index = () => {
       </div>
 
       <div className="promo" style={{ backgroundColor: "#C9CCD3" }}>
-        <SrLogo />
+        <div className="promo-logo">
+          <SrLogo />
+        </div>
       </div>
     </div>
   );

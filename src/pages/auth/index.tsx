@@ -41,9 +41,7 @@ const index = () => {
             />
           </div>
         </div>
-        <div className="promo">
-          <SrLogo />
-        </div>
+        <div className="promo" style={{ backgroundColor: "white" }}></div>
       </div>
     </div>
   );
