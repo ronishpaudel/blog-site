@@ -10,9 +10,11 @@
 }
 .promo {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  padding: 20px;
   justify-content: center;
   width: 58%;
+  margin-left: 80px;
   background-color: #0057ff;
 }
 .auth-header-logo {

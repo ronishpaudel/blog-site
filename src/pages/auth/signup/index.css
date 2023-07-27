@@ -7,10 +7,7 @@
   /* display: flex;
   justify-content: center; */
 }
-.promotion {
-  width: 46%;
-  background-color: #0057ff;
-}
+
 .signup-form {
   display: flex;
   flex-direction: column;

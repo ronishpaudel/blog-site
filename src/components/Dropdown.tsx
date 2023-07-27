@@ -20,12 +20,7 @@ function Dropdown({
   };
 
   useEffect(() => {
-    document.addEventListener("mouseup", (e) => {
-      console.log({
-        e: e.target,
-        vallll: e.target.classList.value.includes("dd-list-item"),
-      });
-
+    document.addEventListener("mouseup", (e: any) => {
       if (!e.target.classList.value.includes("dd-list-item")) {
         setIsOpen(false);
       }
