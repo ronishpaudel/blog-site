@@ -5,6 +5,7 @@ import { SrLogo } from "../../../../public";
 import { InputName } from "@/components/InputName";
 import Button from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
+import AuthFooter from "@/components/AuthFooter";
 
 const SignUp = () => {
   const { push } = useRouter();
@@ -30,9 +31,12 @@ const SignUp = () => {
               maxWidth="mW438"
             />
             <div className="signup-name">
-              <div className="input-box-name">
+              <div
+                className="input-box-name"
+                style={{ maxWidth: "210px", width: "100%" }}
+              >
                 <Dropdown
-                  style={{ maxWidth: "205px", width: "100%" }}
+                  style={{}}
                   options={[
                     { displayName: "usa", id: 1 },
                     { displayName: "nepal", id: 2 },
@@ -44,9 +48,9 @@ const SignUp = () => {
               </div>
 
               <InputName
-                style={{ maxWidth: "205px", width: "100%" }}
                 placeholder="Phone #"
                 text={"Phone #"}
+                className="mw440"
               />
             </div>
             <Button
@@ -60,6 +64,9 @@ const SignUp = () => {
               preset="secondary"
               maxWidth="mW438"
             />
+          </div>
+          <div>
+            <AuthFooter style={{ marginTop: "90px" }} />
           </div>
         </div>
         <div className="promo">

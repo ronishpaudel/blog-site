@@ -1,3 +1,4 @@
+import AuthFooter from "@/components/AuthFooter";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
@@ -30,6 +31,9 @@ const index = () => {
             preset="secondary"
           />
         </div>
+      </div>
+      <div>
+        <AuthFooter style={{ marginTop: "-30px", marginRight: "10px" }} />
       </div>
     </div>
   );

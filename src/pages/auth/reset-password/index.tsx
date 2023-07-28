@@ -1,3 +1,4 @@
+import AuthFooter from "@/components/AuthFooter";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import Button from "@/components/Button";
 import { InputName } from "@/components/InputName";
@@ -45,6 +46,9 @@ const index = () => {
             maxWidth="mW345"
           />
         </div>
+      </div>
+      <div>
+        <AuthFooter style={{ marginTop: "-30px" }} />
       </div>
     </div>
   );

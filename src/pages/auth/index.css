@@ -239,3 +239,24 @@
     flex-wrap: wrap;
   }
 }
+.signup-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+  gap: 12px;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+  flex-wrap: wrap;
+}
+.dot {
+  width: 5px;
+  height: 5px;
+  background-color: #000;
+  border-radius: 2.5px;
+}
+@media (max-width: 768px) {
+  .dot {
+    display: none;
+  }
+}

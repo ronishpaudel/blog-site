@@ -3,6 +3,7 @@ import { SrLogo } from "../../../../public";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import { InputName } from "@/components/InputName";
+import AuthFooter from "@/components/AuthFooter";
 
 const index = () => {
   const { push } = useRouter();
@@ -36,6 +37,9 @@ const index = () => {
               maxWidth="mW440"
             />
           </div>
+        </div>
+        <div>
+          <AuthFooter style={{ marginTop: "-30px" }} />
         </div>
       </div>
 

@@ -1,10 +1,13 @@
 import React from "react";
 
-const AuthFooter = () => {
+interface footerProps {
+  style?: React.CSSProperties;
+}
+const AuthFooter = ({ style }: footerProps) => {
   return (
-    <div className="signup-footer">
+    <div style={style} className="signup-footer">
       <div>Terms and conditions</div>
-      <p></p>
+      <p className="dot"></p>
       <span>Privacy policy</span>
     </div>
   );

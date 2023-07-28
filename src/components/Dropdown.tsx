@@ -33,15 +33,7 @@ function Dropdown({
   return (
     <div>
       <div>
-        <div
-          style={{
-            width: "210px",
-            height: "55px",
-            padding: "15px 12px",
-          }}
-          className="dd-header"
-          onClick={toggleDropdown}
-        >
+        <div className="dd-header" onClick={toggleDropdown}>
           <div
             className="dd-header-title"
             style={{

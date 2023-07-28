@@ -1,6 +1,5 @@
 import Button from "@/components/Button";
 import React from "react";
-import { SrLogo } from "../../../public";
 import { InputName } from "@/components/InputName";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { useRouter } from "next/router";
@@ -40,8 +39,11 @@ const index = () => {
               maxWidth="mW345"
             />
           </div>
+          <div>
+            <AuthFooter />
+          </div>
         </div>
-        <div className="promo" style={{ backgroundColor: "white" }}></div>
+        <div className="promo"></div>
       </div>
     </div>
   );
