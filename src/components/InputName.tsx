@@ -49,7 +49,8 @@ const InputName: FC<InputProps> = forwardRef(
         style={style}
         className={`input-box-name ${typeMaxWidthMap[maxWidth]} ${className}`}
       >
-        <input placeholder={placeholder} {...register(name, validateObj)} />
+        {/* <input placeholder={placeholder} {...register(name, validateObj)} /> */}
+        <input placeholder={placeholder} />
         <span>{text}</span>
       </div>
     );

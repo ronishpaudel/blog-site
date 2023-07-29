@@ -56,14 +56,14 @@ const index = () => {
                 text="Email Address"
                 maxWidth="mW345"
                 name="email"
-                validateObj={{
-                  required: "required is email",
-                  minLength: {
-                    value: 4,
-                    message: "Min length is 4",
-                  },
-                }}
-                register={register}
+                // validateObj={{
+                //   required: "required is email",
+                //   minLength: {
+                //     value: 4,
+                //     message: "Min length is 4",
+                //   },
+                // }}
+                // register={register}
               />
               <p>{errors.email?.message}</p>
               <InputName
