@@ -33,7 +33,7 @@ const SignUp = () => {
             <div className="signup-name">
               <div
                 className="input-box-name"
-                style={{ maxWidth: "210px", width: "100%" }}
+                style={{ maxWidth: "440px", width: "100%" }}
               >
                 <Dropdown
                   style={{}}

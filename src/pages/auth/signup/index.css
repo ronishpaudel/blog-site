@@ -4,8 +4,9 @@
 }
 .signup {
   width: 64%;
-  /* display: flex;
-  justify-content: center; */
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .signup-form {
@@ -14,9 +15,9 @@
   align-items: center;
   justify-content: center;
   padding: 15px 12px;
+  gap: 22px;
 }
 .signin {
-  margin-top: 80px;
   display: flex;
   justify-content: center;
   color: rgba(0, 0, 0, 0.87);
@@ -24,7 +25,6 @@
   font-weight: 500;
   line-height: 160%;
   letter-spacing: 0.15px;
-  margin-right: 280px;
 }
 .signup-name {
   display: flex;
@@ -41,9 +41,8 @@
 }
 .input-box-name {
   position: relative;
-  display: flex;
-  align-items: center;
-  margin-top: 22px;
+  /* display: flex;
+  align-items: center; */
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.23);
 }
@@ -76,9 +75,7 @@
   height: 24px;
   width: 24px;
 }
-.promo-logo {
-  margin-left: 530px;
-}
+
 .dd-header-title {
   display: flex;
   justify-content: center;
@@ -94,16 +91,28 @@
 }
 @media (max-width: 660px) {
   .dd-header {
-    max-width: 255px;
+    max-width: 380px;
     width: 100%;
   }
   .signup-name {
     max-width: 440px;
     width: 100%;
-    display: block;
   }
   .mw440 {
     max-width: 440px;
     width: 100%;
   }
+  .dd-list {
+    width: 380px;
+  }
+}
+.dd-list {
+  width: 208px;
+  margin-top: 10px;
+  position: absolute;
+  background: white;
+  z-index: 999;
+  border-radius: 4px;
+  padding: 12px 15px;
+  box-shadow: rgb(146, 146, 157) 0px 0px 0px 1px inset;
 }

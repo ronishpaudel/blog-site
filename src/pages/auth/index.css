@@ -12,7 +12,7 @@
   display: flex;
   align-items: flex-end;
   padding: 20px;
-  justify-content: center;
+  justify-content: flex-end;
   width: 58%;
   background-color: #0057ff;
 }
@@ -88,7 +88,6 @@
   max-width: 440px;
   width: 100%;
   height: 42px;
-  margin-top: 28px;
   border: none;
   cursor: pointer;
 }
@@ -158,7 +157,7 @@
   display: flex;
   max-width: 345px;
   width: 100%;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .text-btn-input {
@@ -182,17 +181,11 @@
   align-items: center;
 }
 .text-btn span {
-  margin-top: 25px;
   color: rgba(0, 0, 0, 0.87);
-  font-size: 14px;
+  font-size: 0.75rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 157%;
   letter-spacing: 0.1px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 72px;
 }
 @media (max-width: 768px) {
   .promo {
@@ -202,12 +195,8 @@
     justify-content: center;
   }
 }
-@media (max-width: 540px) {
-  .signup-form p {
-    margin-right: 0;
-  }
-}
-@media (max-width: 545px) {
+
+/* @media (max-width: 545px) {
   .text-btn span {
     margin-left: 50px;
   }
@@ -222,13 +211,18 @@
   .text-btn span {
     text-align: center;
   }
-}
-@media (max-width: 540px) {
+} */
+/* @media (max-width: 540px) {
   .signup {
     justify-content: center;
     align-items: center;
   }
-}
+} */
+/* @media (max-width: 375px) {
+  .text-btn span {
+    margin-left: 30px;
+  }
+} */
 @media (max-width: 660px) {
   .input-box {
     flex-wrap: wrap;
@@ -242,12 +236,12 @@
 .signup-footer {
   display: flex;
   justify-content: center;
-  margin-top: 150px;
   gap: 12px;
   align-items: center;
   font-size: 14px;
   font-weight: 400;
   flex-wrap: wrap;
+  margin-bottom: 15px;
 }
 .dot {
   width: 5px;
@@ -258,5 +252,10 @@
 @media (max-width: 768px) {
   .dot {
     display: none;
+  }
+}
+@media (max-width: 768px) {
+  .signup {
+    width: 100%;
   }
 }

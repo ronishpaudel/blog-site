@@ -21,6 +21,7 @@
   flex-direction: column;
   justify-content: center;
   align-self: center;
+  gap: 18px;
 }
 .password-page-wrapper {
   height: 100vh;

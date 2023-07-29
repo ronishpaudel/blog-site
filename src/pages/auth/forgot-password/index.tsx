@@ -33,6 +33,7 @@ const index = () => {
               onClick={() => push("/auth/finalise-registration")}
               text={"BACK TO LOGIN"}
               style={{ backgroundColor: "black" }}
+              maxWidth="mW345"
             />
           </div>
         </div>

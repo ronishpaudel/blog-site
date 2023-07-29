@@ -42,24 +42,12 @@ function Dropdown({
             }}
           >
             {selectedOption || label}
-            <DropDown style={{ width: "30px", marginLeft: "36px" }} />
+            <DropDown style={{ width: "30px" }} />
           </div>
         </div>
       </div>
       {isOpen && (
-        <div
-          style={{
-            width: "210px",
-            marginTop: "10px",
-            position: "absolute",
-            background: "white",
-            zIndex: 999,
-            borderRadius: "4px",
-            padding: "12px 15px",
-            boxShadow: " inset 0 0 0 1px #92929D ",
-          }}
-          className="dd-list"
-        >
+        <div className="dd-list">
           <div style={{ height: "30px" }} className="dd-list-label">
             {label}
           </div>
