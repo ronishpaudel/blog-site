@@ -5,8 +5,8 @@ interface InputProps {
   text: string;
   placeholder: string;
   className?: string;
-  name: string;
-  register: UseFormRegister<any>;
+  name?: string | undefined;
+  register?: UseFormRegister<any>;
   maxWidth?:
     | "mW210"
     | "mW333"
@@ -15,7 +15,7 @@ interface InputProps {
     | "mW345"
     | "mW438"
     | "mW115";
-  validateObj: RegisterOptions<any>;
+  validateObj?: RegisterOptions<any>;
 }
 
 const InputName: FC<InputProps> = forwardRef(
