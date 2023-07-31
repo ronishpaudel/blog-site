@@ -4,9 +4,34 @@ import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import { InputName } from "@/components/InputName";
 import AuthFooter from "@/components/AuthFooter";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+interface IFormPw {
+  password: string;
+  cPassword: string;
+}
+
+const schema = z
+  .object({
+    password: z.string().min(4).max(20),
+    cPassword: z.string().min(4).max(20),
+  })
+  .refine((data) => data.password === data.cPassword, {
+    message: "Password donot match",
+    path: ["cPassword"],
+  });
 
 const index = () => {
   const { push } = useRouter();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IFormPw>({
+    resolver: zodResolver(schema),
+  });
   return (
     <div className="signup-page">
       <div className="signup-page-wrapper">
@@ -19,17 +44,42 @@ const index = () => {
             >
               SET YOUR PASSWORD
             </div>
-            <InputName text="password" placeholder="Enter your password" />
-            <InputName
-              text="Confirm password"
-              placeholder="Confirm your password"
-            />
-            <Button
-              onClick={() => push("/")}
-              text={"SIGN UP"}
-              preset="primary"
-              maxWidth="mW440"
-            />
+            <form
+              onSubmit={handleSubmit((data) => console.log(data))}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+                maxWidth: "440px",
+                width: "100%",
+              }}
+            >
+              <div>
+                <InputName
+                  text="password"
+                  placeholder="Enter your password"
+                  name="password"
+                  register={register}
+                />
+              </div>
+              <div>
+                <InputName
+                  text="Confirm password"
+                  placeholder="Confirm your password"
+                  name="cPassword"
+                  register={register}
+                />
+                <span style={{ color: "red" }}>
+                  {errors.cPassword?.message}
+                </span>
+              </div>
+              <Button
+                onClick={() => push("/")}
+                text={"SIGN UP"}
+                preset="primary"
+                maxWidth="mW440"
+              />
+            </form>
             <Button
               onClick={() => push("/auth/email-confirm")}
               text={"BACK TO LOGIN"}

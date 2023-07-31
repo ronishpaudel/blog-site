@@ -7,9 +7,10 @@ import AuthFooter from "@/components/AuthFooter";
 import { SrLogo } from "../../../public";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const formData = z.object({
-  emailAddress: z.string().min(4).max(18),
+const schema = z.object({
+  emailAddress: z.string().email().min(4).max(18),
   password: z.string().min(4).max(18),
 });
 
@@ -20,8 +21,9 @@ const index = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
+    resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
+      emailAddress: "",
       password: "",
     },
   });
@@ -55,35 +57,25 @@ const index = () => {
                 placeholder="Email Address*"
                 text="Email Address"
                 maxWidth="mW345"
-                name="email"
-                // validateObj={{
-                //   required: "required is email",
-                //   minLength: {
-                //     value: 4,
-                //     message: "Min length is 4",
-                //   },
-                // }}
-                // register={register}
+                name="emailAddress"
+                register={register}
               />
-              <p>{errors.email?.message}</p>
+              {errors.emailAddress && (
+                <p style={{ color: "red" }}>{errors.emailAddress.message}</p>
+              )}
               <InputName
                 placeholder="Password*"
                 text="Password"
-                validateObj={{
-                  required: "reqired is password",
-                  minLength: {
-                    value: 4,
-                    message: "Min length is 4",
-                  },
-                }}
                 maxWidth="mW345"
                 name="password"
                 register={register}
               />
-              <p>{errors.password?.message}</p>
+              {errors.password && (
+                <p style={{ color: "red" }}>{errors.password.message}</p>
+              )}
               <div className="text-btn">
                 <Button
-                  onClick={() => push("")}
+                  onClick={() => push("/")}
                   maxWidth="mW115"
                   text={"LOGIN"}
                   preset="primary"

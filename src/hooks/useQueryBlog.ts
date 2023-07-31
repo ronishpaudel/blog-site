@@ -5,7 +5,7 @@ import { QueryFunction, useQuery } from "@tanstack/react-query";
 export const getBlogdataKeys = {
   all: ["getBlogData"] as const,
 };
-type TGetQueryKey = typeof getBlogdataKeys.all;
+export type TGetQueryKey = typeof getBlogdataKeys.all;
 
 const fetchBlogData: QueryFunction<TPost[], TGetQueryKey> = async () => {
   const response = await API.get("/blogs");

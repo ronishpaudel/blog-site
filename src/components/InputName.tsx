@@ -5,8 +5,8 @@ interface InputProps {
   text: string;
   placeholder: string;
   className?: string;
-  name?: string | undefined;
-  register?: UseFormRegister<any>;
+  name: string;
+  register: UseFormRegister<any>;
   maxWidth?:
     | "mW210"
     | "mW333"
@@ -16,6 +16,7 @@ interface InputProps {
     | "mW438"
     | "mW115";
   validateObj?: RegisterOptions<any>;
+  number?: true | false;
 }
 
 const InputName: FC<InputProps> = forwardRef(
@@ -29,6 +30,7 @@ const InputName: FC<InputProps> = forwardRef(
       maxWidth = "mW440",
       register,
       validateObj,
+      number,
     },
     ref
   ) => {
@@ -49,8 +51,10 @@ const InputName: FC<InputProps> = forwardRef(
         style={style}
         className={`input-box-name ${typeMaxWidthMap[maxWidth]} ${className}`}
       >
-        {/* <input placeholder={placeholder} {...register(name, validateObj)} /> */}
-        <input placeholder={placeholder} />
+        <input
+          placeholder={placeholder}
+          {...register(name, { valueAsNumber: number })}
+        />
         <span>{text}</span>
       </div>
     );
