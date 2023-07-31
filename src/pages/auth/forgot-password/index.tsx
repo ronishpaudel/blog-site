@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  emailAddress: z.string().email(),
+  email: z.string().email(),
 });
 const index = () => {
   const { push } = useRouter();
@@ -20,7 +20,7 @@ const index = () => {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      emailAddress: "",
+      email: "",
     },
   });
   return (
@@ -48,9 +48,9 @@ const index = () => {
                 placeholder="Email Address*"
                 maxWidth="mW345"
                 register={register}
-                name="emailAddress"
+                name="email"
               />
-              <p style={{ color: "red" }}>{errors.emailAddress?.message}</p>
+              <p style={{ color: "red" }}>{errors.email?.message}</p>
               <Button
                 onClick={() => push("/auth/reset-email-password")}
                 text={"NEXT"}

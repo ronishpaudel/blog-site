@@ -1,13 +1,14 @@
 import { API } from "@/api/API";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getBlogdataKeys } from "./useQueryBlog";
+import { useRouter } from "next/router";
 
 interface IUserData {
   fname: string;
   lname: string;
   phoneNumber: number;
   password: string;
-  emailAddress: string;
+  email: string;
   companyName: string;
 }
 
@@ -17,10 +18,12 @@ const createUser = async (newUser: IUserData) => {
 };
 const useSignUpMutation = () => {
   const queryClient = useQueryClient();
+  const { push } = useRouter();
   return useMutation({
     mutationFn: createUser,
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: getBlogdataKeys.all });
+      await push("/auth/email-confirm");
     },
   });
 };

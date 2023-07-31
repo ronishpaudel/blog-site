@@ -10,7 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const schema = z.object({
-  emailAddress: z.string().email().min(4).max(18),
+  email: z.string().email().min(4).max(18),
   password: z.string().min(4).max(18),
 });
 
@@ -23,7 +23,7 @@ const index = () => {
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      emailAddress: "",
+      email: "",
       password: "",
     },
   });
@@ -57,11 +57,11 @@ const index = () => {
                 placeholder="Email Address*"
                 text="Email Address"
                 maxWidth="mW345"
-                name="emailAddress"
+                name="email"
                 register={register}
               />
-              {errors.emailAddress && (
-                <p style={{ color: "red" }}>{errors.emailAddress.message}</p>
+              {errors.email && (
+                <p style={{ color: "red" }}>{errors.email.message}</p>
               )}
               <InputName
                 placeholder="Password*"
