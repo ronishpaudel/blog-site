@@ -44,7 +44,7 @@ const SignUp = () => {
   } = useForm<IFormData>({
     resolver: zodResolver(schema),
   });
-  const { mutate: createUser } = useSignUpMutation();
+  const { mutateAsync: createUser } = useSignUpMutation();
 
   const onSubmit = async (data: IFormData) => {
     try {
