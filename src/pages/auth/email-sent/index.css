@@ -1,0 +1,35 @@
+.email-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  height: calc(100vh - 80px);
+}
+.email-btns {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+.email-txt p {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 143%; /* 20.02px */
+  letter-spacing: 0.15px;
+}
+.email-txt span {
+  color: rgba(0, 0, 0, 0.87);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%;
+  letter-spacing: 0.15px;
+}
+.signup-page-wrapper {
+  width: 64%;
+}
+.btn.mW145 {
+  max-width: 145px;
+  width: 100%;
+  margin-bottom: 110px;
+}

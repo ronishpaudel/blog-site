@@ -7,16 +7,7 @@ import { useSignUpVerifyTokenMutation } from "@/hooks/useSignUpVerifyTokenMutati
 import { useEffect } from "react";
 
 const index = () => {
-  const { push, query } = useRouter();
-  const { mutate, isLoading, isSuccess, isError } =
-    useSignUpVerifyTokenMutation();
-  console.log(query.token);
-
-  useEffect(() => {
-    if (query.token && typeof query.token === "string") {
-      mutate(query.token);
-    }
-  }, [query.token]);
+  const { push } = useRouter();
 
   return (
     <div className="signup-page">
@@ -28,31 +19,18 @@ const index = () => {
             justifyContent: "center",
           }}
         >
-          {isLoading && (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <h3>Loading.....</h3>
-              <h4>Pls wait for a while </h4>
-              <h4>We are verfying your acc</h4>
-            </div>
-          )}
           <div className="email-confirm">
             <div className="email-txt">
-              {isSuccess && <h1>Your acc has been verified successfully</h1>}
-              {isError && <h1>Invalid userInfo</h1>}
+              <span>We have sent you a mail </span>
+              <p>Please check your email for the next step for signup.</p>
             </div>
 
             <Button text={"CONTACT SUPPORT"} maxWidth="mW188" />
             <Button
               onClick={() => push("/auth/finalise-registration")}
-              text={"CONTINUE UX"}
+              text={"CONTINUE TO NEXT"}
               preset="secondary"
-              maxWidth="mW145"
-            />
-            <Button
-              onClick={() => push("/auth/signup")}
-              text={"BACK TO LOGIN"}
-              preset="secondary"
-              maxWidth="mW345"
+              maxWidth="mW440"
             />
           </div>
         </div>

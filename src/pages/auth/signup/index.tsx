@@ -56,8 +56,7 @@ const SignUp = () => {
         phoneNumber: data.phoneNumber,
         password: data.password,
       });
-
-      await push("/auth/email-confirm");
+      await push("/auth/email-sent");
     } catch (error) {
       console.error("Error signing up:", error);
     }
