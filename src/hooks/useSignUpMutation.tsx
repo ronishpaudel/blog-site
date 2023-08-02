@@ -23,7 +23,6 @@ const useSignUpMutation = () => {
     mutationFn: createUser,
     onSuccess: async () => {
       queryClient.invalidateQueries({ queryKey: getBlogdataKeys.all });
-      await push("/auth/email-confirm");
     },
   });
 };
