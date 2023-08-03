@@ -10,14 +10,14 @@ const index = () => {
   const { push, query } = useRouter();
   const { mutate, isLoading, isSuccess, isError } =
     useSignUpVerifyTokenMutation();
-  console.log(query.token);
+  console.log({ token: query.token });
 
   useEffect(() => {
     if (query.token && typeof query.token === "string") {
       mutate(query.token);
     }
   }, [query.token]);
-
+  console.log(query.token);
   return (
     <div className="signup-page">
       <div className="signup-page-wrapper">
