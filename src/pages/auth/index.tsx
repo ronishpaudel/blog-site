@@ -8,26 +8,48 @@ import { SrLogo } from "../../../public";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSignInMutation } from "@/hooks/useSigninMutation";
+
+interface ISignInData {
+  id: number;
+  email: string;
+  password: string;
+  token: string;
+}
 
 const schema = z.object({
-  email: z.string().email().min(4).max(18),
+  email: z.string().email(),
   password: z.string().min(4).max(18),
 });
 
 const index = () => {
   const { push } = useRouter();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<ISignInData>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
-  console.log(errors);
+  const { mutateAsync: logIn } = useSignInMutation();
+  const onSubmit = async (data: ISignInData) => {
+    try {
+      const response = await logIn({
+        email: data.email,
+        password: data.password,
+        id: data.id,
+      });
+
+      localStorage.setItem("jwtToken", response.token);
+
+      console.log("Token received:", response.token);
+      await push("/auth/email-sent");
+    } catch (error) {
+      console.error("Error signing in:", error);
+    }
+  };
+
   return (
     <div>
       <div className="signup-page">
@@ -38,12 +60,7 @@ const index = () => {
               <p className="signin">Sign in</p>
             </div>
             <form
-              onSubmit={handleSubmit(
-                (data) => console.log(data),
-                (err) => {
-                  console.log({ err });
-                }
-              )}
+              onSubmit={handleSubmit(onSubmit)}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -75,7 +92,7 @@ const index = () => {
               )}
               <div className="text-btn">
                 <Button
-                  onClick={() => push("/")}
+                  // onClick={() =>()}
                   maxWidth="mW115"
                   text={"LOGIN"}
                   preset="primary"
