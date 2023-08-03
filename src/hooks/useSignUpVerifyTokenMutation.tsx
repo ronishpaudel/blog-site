@@ -1,10 +1,5 @@
 import { API } from "@/api/API";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getBlogdataKeys } from "./useQueryBlog";
-
-interface IVerifyData {
-  token: string;
-}
+import { useMutation } from "@tanstack/react-query";
 
 const verifyUserToken = async (token: string) => {
   const response = await API.post(`/user/email-confirm`, null, {
