@@ -4,10 +4,10 @@ import React, { DOMAttributes } from "react";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
   image?: string;
-  category: string;
+  category?: string;
   title: string;
-  authorName: string;
-  profilePic: string;
+  authorName?: string;
+  profilePic?: string;
   createdAt: string;
   onCardClick: () => void;
   onProfileClick: () => void;
@@ -53,9 +53,9 @@ function Card({
 
   return (
     <>
-      {/* {data &&
+      {data &&
         data.map((blog) => (
-          <div className="m-post-card-grid" onClick={onCardClick}>
+          <div key={blog.id} className="m-post-card-grid" onClick={onCardClick}>
             <img src={"/rct.png"} />
             <div className="card-content">
               <div className="card-category">{category}</div>
@@ -67,8 +67,8 @@ function Card({
               </div>
             </div>
           </div>
-        ))} */}
-      <div className="m-post-card-grid" onClick={onCardClick}>
+        ))}
+      {/* <div className="m-post-card-grid" onClick={onCardClick}>
         <img src={"/rct.png"} />
         <div className="card-content">
           <div className="card-category">{category}</div>
@@ -79,7 +79,7 @@ function Card({
             <p>{formatDateToCustomFormat(createdAt)}</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
