@@ -130,6 +130,7 @@ const Main = () => {
                     pathname: "/[id]",
                     query: {
                       id: a.id,
+                      title: a.title,
                     },
                   });
                 }}

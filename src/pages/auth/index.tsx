@@ -99,7 +99,7 @@ const index = () => {
                   className="login-btn"
                 />
 
-                <span onClick={() => push("/auth/forgot-password")}>
+                <span onClick={() => push("/auth/forget-password")}>
                   Forgot your password?
                 </span>
               </div>

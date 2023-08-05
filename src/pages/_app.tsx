@@ -8,7 +8,7 @@ import "../pages/[id]/index.css";
 import "../pages/auth/index.css";
 import "./auth/signup/index.css";
 import "./auth/email-confirm/index.css";
-import "./auth/forgot-password/index.css";
+import "./auth/forget-password/index.css";
 import "./auth/reset-email-password/index.css";
 import "./auth/reset-password/index.css";
 import "./auth/finalise-registration/index.css";
