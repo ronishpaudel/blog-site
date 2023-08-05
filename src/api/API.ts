@@ -8,7 +8,7 @@ API.interceptors.request.use(
   (axiosConfig) => {
     const token = localStorage.getItem("jwtToken");
     if (token && axiosConfig.headers) {
-      axiosConfig.headers["Authorization"] = `${token}`;
+      axiosConfig.headers["authorization"] = `Bearer ${token}`;
     }
     return axiosConfig;
   },
