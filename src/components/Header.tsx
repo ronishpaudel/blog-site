@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Button from "./Button";
+import { useRouter } from "next/router";
 
 const Header = () => {
-  const [isLightMode, setIsLightMode] = useState<boolean>(true);
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isLightMode, setIsLightMode] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const jwtToken = localStorage.getItem("jwtToken");
+  const [isLoggedIn, setIsLoggedIn] = useState(!!jwtToken);
+
+  const { push } = useRouter();
 
   function handleToggleMenu() {
-    setIsMenuOpen((prevState) => !prevState);
+    setIsMenuOpen((prev) => !prev);
   }
+
+  const handleLogin = async () => {
+    await push("/auth");
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken");
+    setIsLoggedIn(false);
+  };
 
   return (
     <>
@@ -58,6 +74,13 @@ const Header = () => {
               <div className="golo">
                 <img src="/sunny.png" />
               </div>
+            </div>
+            <div>
+              {isLoggedIn ? (
+                <Button text="Logout" onClick={handleLogout} />
+              ) : (
+                <Button text="Login" onClick={handleLogin} />
+              )}
             </div>
             <button className="menu-button" onClick={handleToggleMenu}>
               Menu
