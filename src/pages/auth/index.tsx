@@ -44,7 +44,7 @@ const index = () => {
       localStorage.setItem("jwtToken", response.token);
 
       console.log("Token received:", response.token);
-      await push("/auth/email-sent");
+      await push("/");
     } catch (error) {
       console.error("Error signing in:", error);
     }
@@ -92,7 +92,7 @@ const index = () => {
               )}
               <div className="text-btn">
                 <Button
-                  // onClick={() =>()}
+                  onClick={() => "/"}
                   maxWidth="mW115"
                   text={"LOGIN"}
                   preset="primary"
