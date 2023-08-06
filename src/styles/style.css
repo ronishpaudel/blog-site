@@ -171,8 +171,23 @@ header {
 .menu-button {
   display: none;
 }
+.logout {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 1rem;
+  color: #3b3c4ac7;
+}
+
+.logout:hover {
+  background-color: bisque;
+  color: black;
+}
 @media (max-width: 768px) {
   .header-items {
+    display: none;
+  }
+  .logout {
     display: none;
   }
 
