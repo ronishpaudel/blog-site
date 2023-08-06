@@ -5,8 +5,7 @@ import { useRouter } from "next/router";
 const Header = () => {
   const [isLightMode, setIsLightMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const jwtToken = localStorage.getItem("jwtToken");
-  const [isLoggedIn, setIsLoggedIn] = useState(!!jwtToken);
+  const [isLoggedIn, setIsLoggedIn] = useState(true || false);
 
   const { push } = useRouter();
 
