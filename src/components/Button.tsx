@@ -51,7 +51,7 @@ const Button = ({
     <button
       style={style}
       onClick={onClick}
-      className={`btn ${typeClassNameMap[preset]} ${typeMaxWidthMap[maxWidth]} ${className}`}
+      className={`btn ${className} ${typeClassNameMap[preset]} ${typeMaxWidthMap[maxWidth]} `}
     >
       {text}
     </button>
