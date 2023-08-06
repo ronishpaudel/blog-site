@@ -13,15 +13,15 @@ const Header = () => {
     setIsMenuOpen((prev) => !prev);
   }
 
-  const handleLogin = async () => {
+  async function handleLogin() {
     await push("/auth");
     setIsLoggedIn(true);
-  };
+  }
 
-  const handleLogout = () => {
+  function handleLogout() {
     localStorage.removeItem("jwtToken");
     setIsLoggedIn(false);
-  };
+  }
 
   return (
     <>
