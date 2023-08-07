@@ -1,11 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import { Content } from "./Content";
 import Card from "./Card";
 import Ad from "./Ad";
 import { useRouter } from "next/router";
 import { useQueryBlog } from "@/hooks/useQueryBlog";
+import { PublicRoute } from "./hoc/PublicRoute";
 
-const Main = () => {
+const Main: FC = () => {
   const { data } = useQueryBlog();
   const { push } = useRouter();
 
@@ -49,4 +50,4 @@ const Main = () => {
   );
 };
 
-export { Main };
+export default PublicRoute(Main);

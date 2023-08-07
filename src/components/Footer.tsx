@@ -1,6 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
+import { PublicRoute } from "./hoc/PublicRoute";
 
-const Footer = () => {
+const Footer: FC = () => {
   return (
     <>
       <footer>
@@ -61,4 +62,4 @@ const Footer = () => {
   );
 };
 
-export { Footer };
+export default PublicRoute(Footer);

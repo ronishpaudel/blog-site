@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Button from "./Button";
 import { useRouter } from "next/router";
+import { useSnapshot } from "valtio";
+import { authStore } from "@/store/authStore";
+import { PublicRoute } from "./hoc/PublicRoute";
 
-const Header = () => {
+const Header: FC = () => {
   const [isLightMode, setIsLightMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const { loggedIn } = useSnapshot(authStore);
+
+  // useEffect(() => {
+  //   const jwtToken = localStorage.getItem("jwtToken");
+  //   if (jwtToken) {
+  //     authStore.setLoggedIn();
+  //   } else {
+  //     authStore.setLogOut();
+  //   }
+  // }, []);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -21,11 +34,13 @@ const Header = () => {
 
   async function handleLogin() {
     await push("/auth");
+    // authStore.setLoggedIn();
     setIsLoggedIn(true);
   }
 
   function handleLogout() {
     localStorage.removeItem("jwtToken");
+    // authStore.setLogOut();
     setIsLoggedIn(false);
   }
 
@@ -97,4 +112,4 @@ const Header = () => {
   );
 };
 
-export { Header };
+export default PublicRoute(Header);
