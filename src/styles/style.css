@@ -67,6 +67,7 @@ h6 {
 
 /*start here*/
 header {
+  background: white;
   display: flex;
   justify-content: center;
   padding-left: var(--spacing);
