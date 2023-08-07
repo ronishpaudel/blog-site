@@ -49,37 +49,20 @@ function Card({
   onProfileClick,
   ...rest
 }: CardProps) {
-  const { data } = useQueryBlog();
-
   return (
     <>
-      {data &&
-        data.map((blog) => (
-          <div key={blog.id} className="m-post-card-grid" onClick={onCardClick}>
-            <img src={"/rct.png"} />
-            <div className="card-content">
-              <div className="card-category">{category}</div>
-              <div className="card-title">{blog.title}</div>
-              <div className="card-author" onClick={onProfileClick}>
-                <img src="author.png" className="author-img" />
-                <p className="author-name">{authorName}</p>
-                <p>{formatDateToCustomFormat(createdAt)}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      {/* <div className="m-post-card-grid" onClick={onCardClick}>
+      <div className="m-post-card-grid" onClick={onCardClick}>
         <img src={"/rct.png"} />
         <div className="card-content">
-          <div className="card-category">{category}</div>
+          <div className="card-category">{"Technology"}</div>
           <div className="card-title">{title}</div>
           <div className="card-author" onClick={onProfileClick}>
             <img src="author.png" className="author-img" />
-            <p className="author-name">{authorName}</p>
-            <p>{formatDateToCustomFormat(createdAt)}</p>
+            <p className="author-name">{"Ronish Paudel"}</p>
+            <p>{"August 20,2023"}</p>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
