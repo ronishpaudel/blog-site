@@ -1,12 +1,13 @@
-import React from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import React, { FC } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
 import { Tag } from "@/components/Tag";
 import Ad from "@/components/Ad";
 import { useRouter } from "next/router";
+import { PrivateRoute } from "@/components/hoc/PrivateRoute";
 
-const index = () => {
+const index: FC = () => {
   const { push, query } = useRouter();
 
   const onHandlePush = () => {
@@ -211,4 +212,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default PrivateRoute(index);
