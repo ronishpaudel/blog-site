@@ -3,10 +3,10 @@ import { SrLogo } from "../../../../public";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import AuthFooter from "@/components/AuthFooter";
-import { useSignUpVerifyTokenMutation } from "@/hooks/useSignUpVerifyTokenMutation";
-import { useEffect } from "react";
+import { FC } from "react";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 
-const index = () => {
+const index: FC = () => {
   const { push } = useRouter();
 
   return (
@@ -48,4 +48,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default PublicRoute(index);

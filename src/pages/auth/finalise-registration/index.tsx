@@ -7,6 +7,8 @@ import AuthFooter from "@/components/AuthFooter";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FC } from "react";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 
 interface IFormPw {
   password: string;
@@ -23,7 +25,7 @@ const schema = z
     path: ["cPassword"],
   });
 
-const index = () => {
+const index: FC = () => {
   const { push } = useRouter();
   const {
     register,
@@ -102,4 +104,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default PublicRoute(index);

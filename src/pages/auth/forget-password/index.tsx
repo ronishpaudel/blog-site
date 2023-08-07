@@ -2,16 +2,17 @@ import AuthFooter from "@/components/AuthFooter";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import Button from "@/components/Button";
 import { InputName } from "@/components/InputName";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
   email: z.string().email(),
 });
-const index = () => {
+const index: FC = () => {
   const { push } = useRouter();
   const {
     handleSubmit,
@@ -74,4 +75,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default PublicRoute(index);

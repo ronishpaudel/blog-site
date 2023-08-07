@@ -4,9 +4,10 @@ import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import AuthFooter from "@/components/AuthFooter";
 import { useSignUpVerifyTokenMutation } from "@/hooks/useSignUpVerifyTokenMutation";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 
-const index = () => {
+const index: FC = () => {
   const { push, query } = useRouter();
   const { mutate, isLoading, isSuccess, isError } =
     useSignUpVerifyTokenMutation();
@@ -70,4 +71,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default PublicRoute(index);

@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useSignUpMutation } from "@/hooks/useSignUpMutation";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 
 interface IFormData {
   fname: string;
@@ -35,7 +36,7 @@ const schema = z
     path: ["cPassword"],
   });
 
-const SignUp = () => {
+const SignUp: FC = () => {
   const { push } = useRouter();
   const {
     register,
@@ -201,4 +202,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default PublicRoute(SignUp);

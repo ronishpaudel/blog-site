@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import React, { ElementRef, useRef } from "react";
+import React, { ElementRef, FC, useRef } from "react";
 import { InputName } from "@/components/InputName";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { useRouter } from "next/router";
@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignInMutation } from "@/hooks/useSigninMutation";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 
 interface ISignInData {
   id: number;
@@ -22,7 +23,7 @@ const schema = z.object({
   password: z.string().min(4).max(18),
 });
 
-const index = () => {
+const index: FC = () => {
   const { push } = useRouter();
 
   const {
@@ -125,4 +126,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default PublicRoute(index);

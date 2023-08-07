@@ -1,10 +1,11 @@
 import AuthFooter from "@/components/AuthFooter";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import Button from "@/components/Button";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { FC } from "react";
 
-const index = () => {
+const index: FC = () => {
   const { push } = useRouter();
   return (
     <div>
@@ -39,4 +40,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default PublicRoute(index);
