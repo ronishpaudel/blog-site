@@ -1,5 +1,5 @@
 import { API } from "@/api/API";
-import { useMutation } from "@tanstack/react-query";
+import { MutationOptions, useMutation } from "@tanstack/react-query";
 
 interface ISignInData {
   password: string;
@@ -15,9 +15,10 @@ const signin = async (data: ISignInData) => {
   return response.data;
 };
 
-const useSignInMutation = () => {
+const useSignInMutation = ({ onSuccess }: { onSuccess: (res: any) => {} }) => {
   return useMutation({
     mutationFn: signin,
+    onSuccess,
   });
 };
 
