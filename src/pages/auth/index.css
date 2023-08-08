@@ -125,6 +125,12 @@
   max-width: 440px;
   width: 100%;
 }
+.input-box-name.hAuto {
+  height: auto;
+}
+.input-box-name.h150 {
+  height: 150px;
+}
 .btn.mW188 {
   max-width: 188px;
   width: 100%;
