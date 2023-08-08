@@ -8,10 +8,11 @@ const PrivateRoute = (AuthComponent: ComponentType) => {
     const { loggedIn, tokenFetching } = useSnapshot(authStore);
 
     useEffect(() => {
-      if (!loggedIn && !tokenFetching) {
-        Router.push("/auth/login");
+      console.log("hello", loggedIn, tokenFetching);
+      if (!loggedIn) {
+        Router.push("/auth");
       }
-    }, [loggedIn, tokenFetching]);
+    }, [loggedIn]);
 
     return <>{loggedIn && <> {children} </>} </>;
   }
