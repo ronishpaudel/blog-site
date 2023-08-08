@@ -6,6 +6,7 @@ import { Tag } from "@/components/Tag";
 import Ad from "@/components/Ad";
 import { useRouter } from "next/router";
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
+import { AiOutlineEdit } from "react-icons/ai";
 
 const index: FC = () => {
   const { push, query } = useRouter();
@@ -20,14 +21,36 @@ const index: FC = () => {
       <div className="page-wrapper">
         <div className="blog-info">
           <Tag />
+
           <h1>
             {query.title}
             <br />
             The Impact of Technology on the Workplace: How Technology is
             Changing
           </h1>
-
-          <Author />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              cursor: "pointer",
+            }}
+          >
+            <Author />
+            <AiOutlineEdit
+              style={{ fontSize: "25px", color: " #97989f;" }}
+              onClick={() =>
+                push({
+                  pathname: "/edit-blog",
+                  query: {
+                    id: query.id,
+                    title: query.title,
+                    description: query.description,
+                  },
+                })
+              }
+            />
+          </div>
         </div>
         <img src="/img.png" className="blog-image" />
         <div style={{ color: "#3B3C4A", fontWeight: "400" }}>
@@ -212,4 +235,4 @@ const index: FC = () => {
   );
 };
 
-export default PrivateRoute(index);
+export default index;
