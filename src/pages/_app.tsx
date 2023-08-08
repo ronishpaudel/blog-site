@@ -12,6 +12,7 @@ import "./auth/forget-password/index.css";
 import "./auth/reset-email-password/index.css";
 import "./auth/reset-password/index.css";
 import "./auth/finalise-registration/index.css";
+import "./create-blog/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Work_Sans } from "@next/font/google";
 
