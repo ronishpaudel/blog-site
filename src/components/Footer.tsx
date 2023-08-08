@@ -62,4 +62,4 @@ const Footer: FC = () => {
   );
 };
 
-export default PublicRoute(Footer);
+export default Footer;
