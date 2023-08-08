@@ -50,4 +50,4 @@ const Main: FC = () => {
   );
 };
 
-export default PublicRoute(Main);
+export default Main;
