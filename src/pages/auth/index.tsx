@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignInMutation } from "@/hooks/useSigninMutation";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
+import { authStore } from "@/store/authStore";
 
 interface ISignInData {
   id: number;
@@ -33,22 +34,23 @@ const index: FC = () => {
   } = useForm<ISignInData>({
     resolver: zodResolver(schema),
   });
-  const { mutateAsync: logIn } = useSignInMutation();
-  const onSubmit = async (data: ISignInData) => {
-    try {
-      const response = await logIn({
-        email: data.email,
-        password: data.password,
-        id: data.id,
-      });
 
-      localStorage.setItem("jwtToken", response.token);
+  const { mutate: logIn } = useSignInMutation({
+    onSuccess: async (res: { token: string }) => {
+      localStorage.setItem("jwtToken", res.token);
+      authStore.setLoggedIn();
 
-      console.log("Token received:", response.token);
+      console.log("Token received:", res.token);
       await push("/");
-    } catch (error) {
-      console.error("Error signing in:", error);
-    }
+    },
+  });
+
+  const onSubmit = async (data: ISignInData) => {
+    logIn({
+      email: data.email,
+      password: data.password,
+      id: data.id,
+    });
   };
 
   return (
