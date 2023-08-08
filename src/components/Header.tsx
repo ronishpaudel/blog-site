@@ -8,7 +8,7 @@ import { PublicRoute } from "./hoc/PublicRoute";
 const Header: FC = () => {
   const [isLightMode, setIsLightMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const { loggedIn } = useSnapshot(authStore);
+  const { loggedIn } = useSnapshot(authStore);
 
   // useEffect(() => {
   //   const jwtToken = localStorage.getItem("jwtToken");
@@ -19,12 +19,12 @@ const Header: FC = () => {
   //   }
   // }, []);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const jwtToken = localStorage.getItem("jwtToken");
-    setIsLoggedIn(!!jwtToken);
-  }, []);
+  // useEffect(() => {
+  //   const jwtToken = localStorage.getItem("jwtToken");
+  //   setIsLoggedIn(!!jwtToken);
+  // }, []);
 
   const { push } = useRouter();
 
@@ -34,14 +34,13 @@ const Header: FC = () => {
 
   async function handleLogin() {
     await push("/auth");
-    // authStore.setLoggedIn();
-    setIsLoggedIn(true);
+
+    // setIsLoggedIn(true);
   }
 
   function handleLogout() {
-    localStorage.removeItem("jwtToken");
-    // authStore.setLogOut();
-    setIsLoggedIn(false);
+    authStore.setLogOut();
+    // setIsLoggedIn(false);
   }
 
   return (
@@ -57,7 +56,7 @@ const Header: FC = () => {
           >
             <p>Home</p>
             <p>Blog</p>
-            <p>Single Post</p>
+            <p onClick={() => push("/create-blog")}>Post blogs</p>
             <p>Pages</p>
             <p>Contacts</p>
           </div>
@@ -96,7 +95,7 @@ const Header: FC = () => {
               </div>
             </div>
             <div>
-              {isLoggedIn ? (
+              {loggedIn ? (
                 <Button text="Logout" onClick={handleLogout} />
               ) : (
                 <Button text="Login" onClick={handleLogin} />
@@ -112,4 +111,4 @@ const Header: FC = () => {
   );
 };
 
-export default PublicRoute(Header);
+export default Header;
