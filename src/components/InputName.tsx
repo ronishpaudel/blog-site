@@ -1,5 +1,6 @@
-import React, { FC, forwardRef } from "react";
+import React, { FC, forwardRef, useState } from "react";
 import { RegisterOptions, UseFormRegister } from "react-hook-form";
+
 interface InputProps {
   style?: React.CSSProperties;
   text: string;
@@ -17,7 +18,12 @@ interface InputProps {
     | "mW115";
   validateObj?: RegisterOptions<any>;
   number?: true | false;
+  value?: string;
+  onChange?: (e: any) => void;
+  height?: HeightType;
 }
+
+type HeightType = "hAuto" | "h150";
 
 const InputName: FC<InputProps> = forwardRef(
   (
@@ -31,6 +37,9 @@ const InputName: FC<InputProps> = forwardRef(
       register,
       validateObj,
       number,
+      value,
+      onChange,
+      height = "hAuto",
     },
     ref
   ) => {
@@ -46,14 +55,20 @@ const InputName: FC<InputProps> = forwardRef(
       mW440: "input-box-name mW440",
       mW115: "input-box-name mW115",
     };
+    const typeHeightMap: Record<HeightType, string> = {
+      hAuto: "input-box-name hAuto",
+      h150: "input-box-name h150",
+    };
     return (
       <div
         style={style}
-        className={`input-box-name ${typeMaxWidthMap[maxWidth]} ${className}`}
+        className={`input-box-name ${typeMaxWidthMap[maxWidth]} ${className} ${typeHeightMap[height]} `}
       >
         <input
           placeholder={placeholder}
           {...register(name, { valueAsNumber: number })}
+          value={value}
+          onChange={onChange}
         />
         <span>{text}</span>
       </div>
