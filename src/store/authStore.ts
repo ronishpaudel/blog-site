@@ -20,6 +20,7 @@ export const authStore = proxy<IAuthStore>({
   },
   setLogOut() {
     this.loggedIn = false;
+    localStorage.removeItem("jwtToken");
   },
   setDbUser(user) {
     this.dbUser = user;
