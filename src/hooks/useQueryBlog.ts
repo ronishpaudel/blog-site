@@ -9,6 +9,7 @@ export type TGetQueryKey = typeof getBlogdataKeys.all;
 
 const fetchBlogData: QueryFunction<TPost[], TGetQueryKey> = async () => {
   const response = await API.get("/blogs");
+  console.log({ response });
   return response.data;
 };
 
