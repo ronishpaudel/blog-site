@@ -4,7 +4,6 @@ import Card from "./Card";
 import Ad from "./Ad";
 import { useRouter } from "next/router";
 import { useQueryBlog } from "@/hooks/useQueryBlog";
-import { PublicRoute } from "./hoc/PublicRoute";
 
 const Main: FC = () => {
   const { data } = useQueryBlog();
