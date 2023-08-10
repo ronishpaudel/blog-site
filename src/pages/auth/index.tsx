@@ -37,8 +37,11 @@ const index: FC = () => {
 
   const { mutate: logIn } = useSignInMutation({
     onSuccess: async (res: { token: string }) => {
-      localStorage.setItem("jwtToken", res.token);
-      authStore.setLoggedIn();
+      localStorage.setItem("auth", res.token);
+
+      console.log({ res });
+
+      authStore.setLoggedIn(true);
 
       console.log("Token received:", res.token);
       await push("/");
