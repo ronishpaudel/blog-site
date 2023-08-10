@@ -7,6 +7,9 @@ import { useCreateBlog } from "./useCreateBlog";
 import { useRouter } from "next/router";
 import Button from "@/components/Button";
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
+import Editor from "@/components/lexical/Editor";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 interface ICreateBlog {
   id: Number;
@@ -54,6 +57,7 @@ const index: FC = () => {
 
   return (
     <>
+      <Header />
       <div className="form-container">
         <form onSubmit={handleSubmit(onSubmit)} className="form">
           <InputName
@@ -67,7 +71,7 @@ const index: FC = () => {
           {errors.title && (
             <p style={{ color: "red" }}>{errors.title.message}</p>
           )}
-          <InputName
+          {/* <InputName
             text="description"
             placeholder="description"
             name="description"
@@ -77,12 +81,15 @@ const index: FC = () => {
           />
           {errors.description && (
             <p style={{ color: "red" }}>{errors.description.message}</p>
-          )}
+          )} */}
+          <Editor onChange={handleDescChange} />
           <Button text="Submit" />
         </form>
       </div>
+      <Footer />
     </>
   );
 };
 
-export default PrivateRoute(index);
+// export default PrivateRoute(index);
+export default index;
