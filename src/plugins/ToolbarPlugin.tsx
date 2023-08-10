@@ -39,6 +39,22 @@ import {
   getDefaultCodeLanguage,
   getCodeLanguages,
 } from "@lexical/code";
+import {
+  Arrowclockwise,
+  Arrowcounterclockwise,
+  Chevrondown,
+  Code,
+  TextCenter,
+  TextJustify,
+  TextLeft,
+  TextRight,
+  Textparagraph,
+  TypeLink,
+  Typebold,
+  Typeitalic,
+  Typestrikethrough,
+  Typeunderline,
+} from "../../public/images/icons";
 
 const LowPriority = 1;
 
@@ -69,7 +85,7 @@ function Divider() {
   return <div className="divider" />;
 }
 
-function positionEditorElement(editor, rect) {
+function positionEditorElement(editor: any, rect: any) {
   if (rect === null) {
     editor.style.opacity = "0";
     editor.style.top = "-1000px";
@@ -83,7 +99,7 @@ function positionEditorElement(editor, rect) {
   }
 }
 
-function FloatingLinkEditor({ editor }) {
+function FloatingLinkEditor({ editor }: any) {
   const editorRef = useRef(null);
   const inputRef = useRef(null);
   const mouseDownRef = useRef(false);
@@ -147,7 +163,7 @@ function FloatingLinkEditor({ editor }) {
 
   useEffect(() => {
     return mergeRegister(
-      editor.registerUpdateListener(({ editorState }) => {
+      editor.registerUpdateListener(({ editorState }: any) => {
         editorState.read(() => {
           updateLinkEditor();
         });
@@ -223,11 +239,11 @@ function FloatingLinkEditor({ editor }) {
   );
 }
 
-function Select({ onChange, className, options, value }) {
+function Select({ onChange, className, options, value }: any) {
   return (
     <select className={className} onChange={onChange} value={value}>
       <option hidden={true} value="" />
-      {options.map((option) => (
+      {options.map((option: any) => (
         <option key={option} value={option}>
           {option}
         </option>
@@ -236,7 +252,7 @@ function Select({ onChange, className, options, value }) {
   );
 }
 
-function getSelectedNode(selection) {
+function getSelectedNode(selection: any) {
   const anchor = selection.anchor;
   const focus = selection.focus;
   const anchorNode = selection.anchor.getNode();
@@ -257,7 +273,7 @@ function BlockOptionsDropdownList({
   blockType,
   toolbarRef,
   setShowBlockOptionsDropDown,
-}) {
+}: any) {
   const dropDownRef = useRef(null);
 
   useEffect(() => {
@@ -545,7 +561,9 @@ export default function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Undo"
       >
-        <i className="format undo" />
+        <i className="format undo">
+          <Arrowcounterclockwise style={{ color: "black" }} />
+        </i>
       </button>
       <button
         disabled={!canRedo}
@@ -555,7 +573,9 @@ export default function ToolbarPlugin() {
         className="toolbar-item"
         aria-label="Redo"
       >
-        <i className="format redo" />
+        <i className="format redo">
+          <Arrowclockwise style={{ color: "black" }} />
+        </i>
       </button>
       <Divider />
       {supportedBlockTypes.has(blockType) && (
@@ -567,9 +587,13 @@ export default function ToolbarPlugin() {
             }
             aria-label="Formatting Options"
           >
-            <span className={"icon block-type " + blockType} />
+            <span className={"icon block-type " + blockType}>
+              <Textparagraph style={{ color: "black" }} />
+            </span>
             <span className="text">{blockTypeToBlockName[blockType]}</span>
-            <i className="chevron-down" />
+            <i className="chevron-down">
+              <Chevrondown style={{ color: "black" }} />
+            </i>
           </button>
           {showBlockOptionsDropDown &&
             createPortal(
@@ -592,7 +616,7 @@ export default function ToolbarPlugin() {
             options={codeLanguges}
             value={codeLanguage}
           />
-          <i className="chevron-down inside" />
+          <i className="chevron-down inside"></i>
         </>
       ) : (
         <>
@@ -603,7 +627,9 @@ export default function ToolbarPlugin() {
             className={"toolbar-item spaced " + (isBold ? "active" : "")}
             aria-label="Format Bold"
           >
-            <i className="format bold" />
+            <i className="format bold">
+              <Typebold style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={() => {
@@ -612,7 +638,9 @@ export default function ToolbarPlugin() {
             className={"toolbar-item spaced " + (isItalic ? "active" : "")}
             aria-label="Format Italics"
           >
-            <i className="format italic" />
+            <i className="format italic">
+              <Typeitalic style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={() => {
@@ -621,7 +649,9 @@ export default function ToolbarPlugin() {
             className={"toolbar-item spaced " + (isUnderline ? "active" : "")}
             aria-label="Format Underline"
           >
-            <i className="format underline" />
+            <i className="format underline">
+              <Typeunderline style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={() => {
@@ -632,7 +662,9 @@ export default function ToolbarPlugin() {
             }
             aria-label="Format Strikethrough"
           >
-            <i className="format strikethrough" />
+            <i className="format strikethrough">
+              <Typestrikethrough style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={() => {
@@ -641,14 +673,18 @@ export default function ToolbarPlugin() {
             className={"toolbar-item spaced " + (isCode ? "active" : "")}
             aria-label="Insert Code"
           >
-            <i className="format code" />
+            <i className="format code">
+              <Code style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={insertLink}
             className={"toolbar-item spaced " + (isLink ? "active" : "")}
             aria-label="Insert Link"
           >
-            <i className="format link" />
+            <i className="format link">
+              <TypeLink style={{ color: "black" }} />
+            </i>
           </button>
           {isLink &&
             createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
@@ -660,7 +696,9 @@ export default function ToolbarPlugin() {
             className="toolbar-item spaced"
             aria-label="Left Align"
           >
-            <i className="format left-align" />
+            <i className="format left-align">
+              <TextLeft style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={() => {
@@ -669,7 +707,9 @@ export default function ToolbarPlugin() {
             className="toolbar-item spaced"
             aria-label="Center Align"
           >
-            <i className="format center-align" />
+            <i className="format center-align">
+              <TextCenter style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={() => {
@@ -678,7 +718,9 @@ export default function ToolbarPlugin() {
             className="toolbar-item spaced"
             aria-label="Right Align"
           >
-            <i className="format right-align" />
+            <i className="format right-align">
+              <TextRight style={{ color: "black" }} />
+            </i>
           </button>
           <button
             onClick={() => {
@@ -687,8 +729,10 @@ export default function ToolbarPlugin() {
             className="toolbar-item"
             aria-label="Justify Align"
           >
-            <i className="format justify-align" />
-          </button>{" "}
+            <i className="format justify-align">
+              <TextJustify style={{ color: "black" }} />
+            </i>
+          </button>
         </>
       )}
     </div>
