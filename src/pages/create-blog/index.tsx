@@ -31,7 +31,7 @@ const index: FC = () => {
     resolver: zodResolver(schema),
   });
   const [title, setTitle] = useState();
-  const [desc, setDesc] = useState();
+  const [description, setDescription] = useState();
   const { push } = useRouter();
   const { mutateAsync: createBlog } = useCreateBlog();
 
@@ -52,7 +52,7 @@ const index: FC = () => {
     setTitle(e.target.value);
   }
   function handleDescChange(e: any) {
-    setDesc(e.target.value);
+    setDescription(e.target.value);
   }
 
   return (
@@ -60,33 +60,39 @@ const index: FC = () => {
       <Header />
       <div className="form-container">
         <form onSubmit={handleSubmit(onSubmit)} className="form">
-          <InputName
-            text="title"
-            placeholder="Enter your desired title"
-            name="title"
-            register={register}
-            value={title}
-            onChange={handleTitleChange}
-          />
-          {errors.title && (
-            <p style={{ color: "red" }}>{errors.title.message}</p>
-          )}
-          {/* <InputName
-            text="description"
-            placeholder="description"
-            name="description"
-            register={register}
-            value={desc}
-            onChange={handleDescChange}
-          />
-          {errors.description && (
-            <p style={{ color: "red" }}>{errors.description.message}</p>
-          )} */}
-          <Editor onChange={handleDescChange} />
-          <Button text="Submit" />
+          <div className="title-input">
+            <h3 style={{ paddingBottom: "20px" }}>Title</h3>
+            <InputName
+              style={{
+                boxShadow: " 1px 1px 3px black",
+              }}
+              text="title"
+              placeholder="Enter your desired title"
+              name="title"
+              register={register}
+              value={title}
+              onChange={handleTitleChange}
+              maxWidth="mW700"
+            />
+            {errors.title && (
+              <p style={{ color: "red" }}>{errors.title.message}</p>
+            )}
+          </div>
+          <div>
+            <h3>Description</h3>
+            <Editor onChange={handleDescChange} value={description} />
+          </div>
+          <div
+            style={{
+              paddingBottom: "20px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button text="publish" />
+          </div>
         </form>
       </div>
-      <Footer />
     </>
   );
 };

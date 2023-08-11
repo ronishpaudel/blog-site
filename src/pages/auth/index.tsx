@@ -39,7 +39,7 @@ const index: FC = () => {
     onSuccess: async (res: { token: string }) => {
       localStorage.setItem("auth", res.token);
 
-      console.log({ res });
+      // console.log({ res });
 
       authStore.setLoggedIn(true);
 
