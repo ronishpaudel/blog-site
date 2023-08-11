@@ -69,7 +69,9 @@ const SignUp: FC = () => {
         <div className="signup">
           <AuthHeaderlogo />
           <div className="signup-form">
-            <p>Sign up to socialRepeat</p>
+            <div>
+              <p>Sign up to socialRepeat</p>
+            </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
               style={{
@@ -187,9 +189,6 @@ const SignUp: FC = () => {
               preset="secondary"
               maxWidth="mW438"
             />
-          </div>
-          <div>
-            <AuthFooter style={{ marginTop: "90px" }} />
           </div>
         </div>
         <div className="promo">
