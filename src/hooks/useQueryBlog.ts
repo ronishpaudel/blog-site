@@ -1,23 +1,23 @@
 import { API } from "@/api/API";
-import { TPost } from "@/types/TPost";
-import { QueryFunction, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-export const getBlogdataKeys = {
-  all: ["getBlogData"] as const,
+export interface Iblog {
+  id: string;
+  title: string;
+  description: string;
+}
+
+const fetchUsers = async ({ pageParam = 1 }) => {
+  const res = await API.get(`/blogs?page=${pageParam}&pageSize=6`);
+  return res.data;
 };
-export type TGetQueryKey = typeof getBlogdataKeys.all;
 
-const fetchBlogData: QueryFunction<TPost[], TGetQueryKey> = async () => {
-  const response = await API.get("/blogs");
-  console.log({ response });
-  return response.data;
-};
-
-const useQueryBlog = () => {
-  return useQuery({
-    queryKey: getBlogdataKeys.all,
-    queryFn: fetchBlogData,
+function useQueryBlog() {
+  return useInfiniteQuery(["blogs"], fetchUsers, {
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length + 1;
+    },
   });
-};
+}
 
 export { useQueryBlog };
