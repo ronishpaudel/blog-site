@@ -72,6 +72,7 @@ header {
   justify-content: center;
   padding-left: var(--spacing);
   padding-right: var(--spacing);
+  box-shadow: 10px 1px 7px black;
 }
 
 .header-logo {
@@ -286,6 +287,7 @@ main {
   border-radius: 12px;
   height: auto;
   width: 100%;
+  padding-top: 20px;
   /* padding-left: var(--spacing);
   padding-right: var(--spacing);
   object-fit: cover; */
