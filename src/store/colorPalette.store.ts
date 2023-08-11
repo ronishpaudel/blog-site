@@ -2,7 +2,7 @@ import { proxy } from "valtio";
 
 export const COLOR_PALETTE = {
   black: "#000000",
-  white: "#FFFFFF",
+  white: "#181A2A",
 };
 
 export type ColorName = keyof typeof COLOR_PALETTE;
