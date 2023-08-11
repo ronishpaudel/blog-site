@@ -125,6 +125,10 @@
   max-width: 440px;
   width: 100%;
 }
+.input-box-name.mW700 {
+  max-width: 700px;
+  width: 100%;
+}
 .input-box-name.hAuto {
   height: auto;
 }
@@ -247,7 +251,6 @@
   font-size: 14px;
   font-weight: 400;
   flex-wrap: wrap;
-  margin-bottom: 15px;
 }
 .dot {
   width: 5px;
