@@ -1,16 +1,40 @@
-import axios from "axios";
+import { authStore } from "@/store/authStore";
+import {
+  getItemFromLocalStorage,
+  removeItemFromLocalStorage,
+} from "@/store/storage";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const API = axios.create({
   baseURL: "http://localhost:3001",
 });
 
+// Request interceptor
 API.interceptors.request.use(
-  (axiosConfig) => {
-    const token = localStorage.getItem("jwtToken");
+  async (axiosConfig) => {
+    const token = await getItemFromLocalStorage("auth");
     if (token && axiosConfig.headers) {
-      axiosConfig.headers["authorization"] = `Bearer ${token}`;
+      axiosConfig.headers.Authorization = `Bearer ${token}`;
     }
     return axiosConfig;
   },
-  (error) => Promise.reject(error)
+  (error: AxiosError) => Promise.reject(error)
+);
+
+//response interceptor
+API.interceptors.response.use(
+  (response: AxiosResponse) => {
+    return response;
+  },
+  async (error) => {
+    if (error?.response?.data?.error?.status?.code === 401) {
+      typeof window !== "undefined" && removeItemFromLocalStorage("auth");
+      authStore.setDbUser(null);
+      authStore.setLogOut();
+    }
+    return Promise.reject({
+      message: "Error occured",
+      ...error?.response?.data?.error,
+    });
+  }
 );
