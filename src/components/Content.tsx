@@ -5,7 +5,7 @@ const Content = () => {
   const { push } = useRouter();
   return (
     <>
-      <div className="content" onClick={() => push("/signup")}>
+      <div className="content" id="content" onClick={() => push("/signup")}>
         <div className="heading">
           <p className="category">Technology</p>
           <h1 className="content-title">

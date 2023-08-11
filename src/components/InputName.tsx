@@ -9,6 +9,7 @@ interface InputProps {
   name: string;
   register: UseFormRegister<any>;
   maxWidth?:
+    | "mW700"
     | "mW210"
     | "mW333"
     | "mW188"
@@ -16,6 +17,7 @@ interface InputProps {
     | "mW345"
     | "mW438"
     | "mW115";
+
   validateObj?: RegisterOptions<any>;
   number?: true | false;
   value?: string;
@@ -44,7 +46,14 @@ const InputName: FC<InputProps> = forwardRef(
     ref
   ) => {
     const typeMaxWidthMap: Record<
-      "mW210" | "mW333" | "mW188" | "mW440" | "mW345" | "mW438" | "mW115",
+      | "mW210"
+      | "mW333"
+      | "mW188"
+      | "mW440"
+      | "mW345"
+      | "mW438"
+      | "mW115"
+      | "mW700",
       string
     > = {
       mW188: "input-box-name mW188",
@@ -54,6 +63,7 @@ const InputName: FC<InputProps> = forwardRef(
       mW438: "input-box-name mW438",
       mW440: "input-box-name mW440",
       mW115: "input-box-name mW115",
+      mW700: "input-box-name mW700",
     };
     const typeHeightMap: Record<HeightType, string> = {
       hAuto: "input-box-name hAuto",
