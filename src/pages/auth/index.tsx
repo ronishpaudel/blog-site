@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import React, { ElementRef, FC, useRef } from "react";
-import { InputName } from "@/components/InputName";
+import { TextInput } from "@/components/TextInput";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { useRouter } from "next/router";
 import AuthFooter from "@/components/AuthFooter";
@@ -77,7 +77,7 @@ const index: FC = () => {
                 justifyContent: "center",
               }}
             >
-              <InputName
+              <TextInput
                 placeholder="Email Address*"
                 text="Email Address"
                 maxWidth="mW345"
@@ -87,7 +87,7 @@ const index: FC = () => {
               {errors.email && (
                 <p style={{ color: "red" }}>{errors.email.message}</p>
               )}
-              <InputName
+              <TextInput
                 placeholder="Password*"
                 text="Password"
                 maxWidth="mW345"
