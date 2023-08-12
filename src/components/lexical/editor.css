@@ -45,6 +45,7 @@ h1 {
 }
 
 .editor-container {
+  border: 1px solid;
   margin: 20px auto 20px auto;
   border-radius: 2px;
   max-width: 600px;
@@ -57,7 +58,6 @@ h1 {
   border-top-right-radius: 10px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  box-shadow: 1px 1px 3px black;
 }
 
 .editor-inner {
