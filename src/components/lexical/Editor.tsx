@@ -16,15 +16,8 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import ExampleTheme from "@/themes/ExampleTheme";
 import AutoLinkPlugin from "@/plugins/AutoLinkPlugin";
 import ToolbarPlugin from "@/plugins/ToolbarPlugin";
-import TreeViewPlugin from "@/plugins/TreeViewPlugin";
 import CodeHighlightPlugin from "@/plugins/CodeHighlightPlugin";
 import ListMaxIndentLevelPlugin from "@/plugins/ListMaxIndentLevelPlugin";
-import { $generateHtmlFromNodes } from "@lexical/html";
-
-interface IOnchange {
-  onChange: (e: any) => void;
-  value?: string;
-}
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -54,19 +47,13 @@ export const editorConfig = {
   ],
 };
 
-export default function Editor({ onChange, value }: IOnchange) {
+export default function Editor() {
   return (
     <div className="editor-container">
       <ToolbarPlugin />
       <div className="editor-inner">
         <RichTextPlugin
-          contentEditable={
-            <ContentEditable
-              className="editor-input"
-              onChange={onChange}
-              value={value}
-            />
-          }
+          contentEditable={<ContentEditable className="editor-input" />}
           placeholder={<Placeholder />}
           ErrorBoundary={LexicalErrorBoundary}
         />
