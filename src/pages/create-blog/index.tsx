@@ -1,4 +1,4 @@
-import { InputName } from "@/components/InputName";
+import { TextInput } from "@/components/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,78 +9,55 @@ import Button from "@/components/Button";
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
 import Editor from "@/components/lexical/Editor";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { $generateHtmlFromNodes } from "@lexical/html";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import parse from "html-react-parser";
+import { proxy } from "valtio";
 
-interface ICreateBlog {
-  id: Number;
+export const blogCreationStore = proxy<{
   title: string;
   description: string;
-}
-
-const schema = z.object({
-  title: z.string().min(4).max(20),
-  description: z.string().min(4).max(300),
+  setDetail: (title: string, description: string) => void;
+}>({
+  title: "",
+  description: "",
+  setDetail(title, description) {
+    this.title = title;
+    this.description = description;
+  },
 });
 
 const index: FC = () => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm<ICreateBlog>({
-    resolver: zodResolver(schema),
-  });
-  const [title, setTitle] = useState();
-  const [description, setDescription] = useState();
+  const [title, setTitle] = useState("");
   const { push } = useRouter();
-  const { mutateAsync: createBlog } = useCreateBlog();
+  const [htmlToParse, setHtmlToParse] = useState("");
+  const [editor] = useLexicalComposerContext();
 
-  const onSubmit = async (data: ICreateBlog) => {
-    try {
-      await createBlog({
-        id: Number(data.id),
-        title: data.title,
-        description: data.description,
-      });
-
-      await push("/");
-    } catch (error) {
-      console.error("Error signing in:", error);
-    }
-  };
-  function handleTitleChange(e: any) {
+  function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
-  }
-  function handleDescChange(e: any) {
-    setDescription(e.target.value);
   }
 
   return (
     <>
       <Header />
+      {htmlToParse && parse(htmlToParse)}
+      {/* {console.log(htmlToParse && parse(htmlToParse))} */}
       <div className="form-container">
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <div>
           <div className="title-input">
             <h3 style={{ paddingBottom: "20px" }}>Title</h3>
-            <InputName
-              style={{
-                boxShadow: " 1px 1px 3px black",
-              }}
+            <TextInput
               text="title"
               placeholder="Enter your desired title"
               name="title"
-              register={register}
               value={title}
               onChange={handleTitleChange}
               maxWidth="mW700"
             />
-            {errors.title && (
-              <p style={{ color: "red" }}>{errors.title.message}</p>
-            )}
           </div>
           <div>
             <h3>Description</h3>
-            <Editor onChange={handleDescChange} value={description} />
+            <Editor />
           </div>
           <div
             style={{
@@ -89,13 +66,23 @@ const index: FC = () => {
               justifyContent: "center",
             }}
           >
-            <Button text="publish" />
+            <Button
+              type="submit"
+              text={"Publish"}
+              onClick={() => {
+                editor.update(async () => {
+                  const htmlString = $generateHtmlFromNodes(editor, null);
+                  blogCreationStore.setDetail(title, htmlString);
+                });
+                push("/recheck-blog");
+              }}
+            />
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
 };
 
-// export default PrivateRoute(index);
-export default index;
+export default PrivateRoute(index);
+// export default index;
