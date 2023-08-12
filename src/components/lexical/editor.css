@@ -66,7 +66,7 @@ h1 {
 }
 
 .editor-input {
-  height: 400px;
+  min-height: 400px;
   resize: none;
   font-size: 15px;
   caret-color: rgb(5, 5, 5);
@@ -231,7 +231,6 @@ h1 {
 
 .editor-heading-h2 {
   font-size: 15px;
-  color: rgb(101, 103, 107);
   font-weight: 700;
   margin: 0;
   margin-top: 10px;
