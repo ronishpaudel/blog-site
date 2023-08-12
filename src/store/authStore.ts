@@ -1,4 +1,5 @@
 import { TPost } from "@/types/TPost";
+
 import { proxy } from "valtio";
 
 interface IAuthStore {
@@ -11,6 +12,21 @@ interface IAuthStore {
   setTokenFetching: (fetching: boolean) => void;
 }
 
+// const val =
+//   typeof window === "undefined"
+//     ? JSON.stringify({ token: "" })
+//     : localStorage.getItem("auth") || "{}";
+
+// export const tokenStore = proxy<{ token: string }>(
+//   JSON.parse(val) || {
+//     token: "",
+//   }
+// );
+
+// subscribe(tokenStore, () => {
+//   localStorage.setItem("auth", JSON.stringify(tokenStore));
+// });
+
 export const authStore = proxy<IAuthStore>({
   loggedIn: false,
   dbUser: null,
@@ -20,7 +36,6 @@ export const authStore = proxy<IAuthStore>({
   },
   setLogOut() {
     this.loggedIn = false;
-    localStorage.removeItem("jwtToken");
   },
   setDbUser(user) {
     this.dbUser = user;
