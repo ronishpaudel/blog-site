@@ -1,7 +1,9 @@
 import React from "react";
 interface buttonProps {
   onClick?: () => void;
+  onSubmit?: () => void;
   text: string;
+  type?: "button" | "submit" | "reset";
   className?: string;
   style?: React.CSSProperties;
   preset?: "primary" | "secondary";
@@ -18,7 +20,9 @@ interface buttonProps {
 const Button = ({
   className,
   onClick,
+  onSubmit,
   text,
+  type,
   style,
   maxWidth = "mW210",
   preset = "primary",
@@ -49,8 +53,10 @@ const Button = ({
   };
   return (
     <button
+      type={type}
       style={style}
       onClick={onClick}
+      onSubmit={onSubmit}
       className={`btn ${className} ${typeClassNameMap[preset]} ${typeMaxWidthMap[maxWidth]} `}
     >
       {text}
