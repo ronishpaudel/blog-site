@@ -19,6 +19,7 @@ import ToolbarPlugin from "@/plugins/ToolbarPlugin";
 import TreeViewPlugin from "@/plugins/TreeViewPlugin";
 import CodeHighlightPlugin from "@/plugins/CodeHighlightPlugin";
 import ListMaxIndentLevelPlugin from "@/plugins/ListMaxIndentLevelPlugin";
+import { $generateHtmlFromNodes } from "@lexical/html";
 
 interface IOnchange {
   onChange: (e: any) => void;
@@ -29,7 +30,7 @@ function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
-const editorConfig = {
+export const editorConfig = {
   namespace: "editor",
   // The editor theme
   theme: ExampleTheme,
@@ -55,32 +56,30 @@ const editorConfig = {
 
 export default function Editor({ onChange, value }: IOnchange) {
   return (
-    <LexicalComposer initialConfig={editorConfig}>
-      <div className="editor-container">
-        <ToolbarPlugin />
-        <div className="editor-inner">
-          <RichTextPlugin
-            contentEditable={
-              <ContentEditable
-                className="editor-input"
-                onChange={onChange}
-                value={value}
-              />
-            }
-            placeholder={<Placeholder />}
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <HistoryPlugin />
+    <div className="editor-container">
+      <ToolbarPlugin />
+      <div className="editor-inner">
+        <RichTextPlugin
+          contentEditable={
+            <ContentEditable
+              className="editor-input"
+              onChange={onChange}
+              value={value}
+            />
+          }
+          placeholder={<Placeholder />}
+          ErrorBoundary={LexicalErrorBoundary}
+        />
+        <HistoryPlugin />
 
-          <AutoFocusPlugin />
-          <CodeHighlightPlugin />
-          <ListPlugin />
-          <LinkPlugin />
-          <AutoLinkPlugin />
-          <ListMaxIndentLevelPlugin maxDepth={7} />
-          <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-        </div>
+        <AutoFocusPlugin />
+        <CodeHighlightPlugin />
+        <ListPlugin />
+        <LinkPlugin />
+        <AutoLinkPlugin />
+        <ListMaxIndentLevelPlugin maxDepth={7} />
+        <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
       </div>
-    </LexicalComposer>
+    </div>
   );
 }
