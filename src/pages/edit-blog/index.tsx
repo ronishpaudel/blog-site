@@ -1,4 +1,4 @@
-import { InputName } from "@/components/InputName";
+import { TextInput } from "@/components/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,9 @@ import { useRouter } from "next/router";
 import Button from "@/components/Button";
 
 import { useEditBlog } from "./useEditblog";
+import Editor from "@/components/lexical/Editor";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 interface ICreateBlog {
   id: Number;
@@ -29,14 +32,14 @@ const index: FC = () => {
   });
   const { push, query } = useRouter();
   const [title, setTitle] = useState(query.title);
-  const [desc, setDesc] = useState(query.description);
+
   const { mutateAsync: editBlog } = useEditBlog();
 
   const onSubmit = async (data: ICreateBlog) => {
     try {
       await editBlog({
-        title: String(title),
-        description: String(desc),
+        title: String(data.title),
+        description: String(data.description),
       });
 
       await push("/");
@@ -47,15 +50,14 @@ const index: FC = () => {
   function handleTitleChange(e: any) {
     setTitle(e.target.value);
   }
-  function handleDescChange(e: any) {
-    setDesc(e.target.value);
-  }
 
   return (
     <>
+      <Header />
       <div className="form-container">
         <form onSubmit={handleSubmit(onSubmit)} className="form">
-          <InputName
+          <TextInput
+            style={{ border: "2px solid black" }}
             text="title"
             placeholder="Enter your desired title"
             name="title"
@@ -66,7 +68,7 @@ const index: FC = () => {
           {errors.title && (
             <p style={{ color: "red" }}>{errors.title.message}</p>
           )}
-          <InputName
+          {/* <TextInput
             text="description"
             placeholder="description"
             name="description"
@@ -76,10 +78,12 @@ const index: FC = () => {
           />
           {errors.description && (
             <p style={{ color: "red" }}>{errors.description.message}</p>
-          )}
+          )} */}
+          <Editor />
           <Button text="Update" />
         </form>
       </div>
+      <Footer />
     </>
   );
 };
