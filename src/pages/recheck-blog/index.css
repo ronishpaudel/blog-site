@@ -1,0 +1,11 @@
+.form-container {
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 30px;
+}
