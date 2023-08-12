@@ -1,5 +1,5 @@
 import { API } from "@/api/API";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export interface Iblog {
   id: string;
@@ -12,6 +12,11 @@ const fetchUsers = async ({ pageParam = 1 }) => {
   return res.data;
 };
 
+const fetchOneBlog = async (id: string) => {
+  const res = await API.get(`/blogs/${id}`);
+  return res.data;
+};
+
 function useQueryBlog() {
   return useInfiniteQuery(["blogs"], fetchUsers, {
     getNextPageParam: (lastPage, pages) => {
@@ -20,4 +25,12 @@ function useQueryBlog() {
   });
 }
 
-export { useQueryBlog };
+function useOneBlog(id: string) {
+  return useQuery({
+    queryKey: ["blog"],
+    queryFn: () => fetchOneBlog(id),
+    enabled: !!id,
+  });
+}
+
+export { useQueryBlog, useOneBlog };
