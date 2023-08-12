@@ -35,8 +35,6 @@ const Main: FC = () => {
                       pathname: "/[id]",
                       query: {
                         id: blog.id,
-                        title: blog.title,
-                        description: blog.description,
                       },
                     });
                   }}
