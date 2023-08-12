@@ -3,7 +3,7 @@ import Button from "./Button";
 import { useRouter } from "next/router";
 import { useSnapshot } from "valtio";
 import { authStore } from "@/store/authStore";
-import { getItemFromLocalStorage } from "@/store/storage";
+import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
 
 const Header: FC = () => {
@@ -22,7 +22,7 @@ const Header: FC = () => {
   }
 
   function handleLogout() {
-    authStore.setLogOut(false);
+    authStore.setLogOut();
     localStorage.removeItem("auth");
     // setIsLoggedIn(false);
   }
@@ -38,42 +38,31 @@ const Header: FC = () => {
               <img src="/logo.png" alt="asd" />
             </Link>
           </div>
-          <div
-            className={`header-items ${isMenuOpen ? "menu-open" : ""}`}
-            onClick={() => setIsMenuOpen(false)}
+          {/* <div
+          // className={`header-items ${isMenuOpen ? "menu-open" : ""}`}
+          // onClick={() => setIsMenuOpen(false)}
           >
             <p>
-              <Link href="/" style={{ textDecoration: "none" }}>
-                Home
+              <Link href="/create-blog" className="blogsCreate">
+                Craft, Share, Empower
+                <AiOutlinePlus style={{ fontSize: "20px" }} />
               </Link>
             </p>
-            <p>
-              <Link href="#main" style={{ textDecoration: "none" }}>
-                Blogs
-              </Link>
-            </p>
-            <p>
-              <Link href="/create-blog" style={{ textDecoration: "none" }}>
-                Create Blogs
-              </Link>
-            </p>
-            <p>
-              <Link href="#content" style={{ textDecoration: "none" }}>
-                pages
-              </Link>
-            </p>
-            <p>
-              <Link href="#footer" style={{ textDecoration: "none" }}>
-                Contacts
-              </Link>
-            </p>
-          </div>
+          </div> */}
           <div className="lastchildheaderparent">
+            <div>
+              <p>
+                <Link href="/create-blog" className="blogsCreate">
+                  Craft, Blogs
+                  <AiOutlinePlus style={{ fontSize: "15px" }} />
+                </Link>
+              </p>
+            </div>
             <div className="header-search">
               <input type="text" placeholder="Search" />
               <img src="/search-outline.png" className="search-png" />
             </div>
-            <div
+            {/* <div
               className={`header-toggle ${
                 isLightMode ? "left-to-right" : "right-to-left"
               }`}
@@ -101,7 +90,7 @@ const Header: FC = () => {
               <div className="golo">
                 <img src="/sunny.png" />
               </div>
-            </div>
+            </div> */}
             <div>
               {loggedIn ? (
                 <Button text="Logout" onClick={handleLogout} />
