@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignInMutation } from "@/hooks/useSigninMutation";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
 import { authStore } from "@/store/authStore";
+import { saveItemToLocalStorage } from "@/store/storage";
 
 interface ISignInData {
   id: number;
@@ -37,11 +38,11 @@ const index: FC = () => {
 
   const { mutate: logIn } = useSignInMutation({
     onSuccess: async (res: { token: string }) => {
-      localStorage.setItem("auth", res.token);
+      saveItemToLocalStorage("auth", res.token);
 
       // console.log({ res });
 
-      authStore.setLoggedIn(true);
+      authStore.setLoggedIn();
 
       console.log("Token received:", res.token);
       await push("/");
