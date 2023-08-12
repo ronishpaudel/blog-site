@@ -1,5 +1,3 @@
-import { useQueryBlog } from "@/hooks/useQueryBlog";
-import { useRouter } from "next/router";
 import React, { DOMAttributes } from "react";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
