@@ -1,7 +1,7 @@
 import AuthFooter from "@/components/AuthFooter";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import Button from "@/components/Button";
-import { InputName } from "@/components/InputName";
+import { TextInput } from "@/components/TextInput";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
@@ -44,7 +44,7 @@ const index: FC = () => {
                 width: "100%",
               }}
             >
-              <InputName
+              <TextInput
                 text="Email Address"
                 placeholder="Email Address*"
                 maxWidth="mW345"

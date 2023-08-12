@@ -2,7 +2,7 @@ import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { SrLogo } from "../../../../public";
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
-import { InputName } from "@/components/InputName";
+import { TextInput } from "@/components/TextInput";
 import AuthFooter from "@/components/AuthFooter";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -57,7 +57,7 @@ const index: FC = () => {
               }}
             >
               <div>
-                <InputName
+                <TextInput
                   text="password"
                   placeholder="Enter your password"
                   name="password"
@@ -65,7 +65,7 @@ const index: FC = () => {
                 />
               </div>
               <div>
-                <InputName
+                <TextInput
                   text="Confirm password"
                   placeholder="Confirm your password"
                   name="cPassword"

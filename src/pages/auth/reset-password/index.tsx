@@ -1,7 +1,7 @@
 import AuthFooter from "@/components/AuthFooter";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import Button from "@/components/Button";
-import { InputName } from "@/components/InputName";
+import { TextInput } from "@/components/TextInput";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
@@ -57,7 +57,7 @@ const index: FC = () => {
             }}
           >
             <div>
-              <InputName
+              <TextInput
                 text={"New Password"}
                 placeholder={"New Password*"}
                 style={{ maxWidth: "345px", width: "100%", marginTop: "41px" }}
@@ -67,7 +67,7 @@ const index: FC = () => {
               />
             </div>
             <div>
-              <InputName
+              <TextInput
                 text={"Retype New Password"}
                 placeholder={"Retype New Password*"}
                 maxWidth="mW345"
