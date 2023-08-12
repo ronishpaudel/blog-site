@@ -2,7 +2,7 @@ import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
 import { SrLogo } from "../../../../public";
-import { InputName } from "@/components/InputName";
+import { TextInput } from "@/components/TextInput";
 import Button from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
 import AuthFooter from "@/components/AuthFooter";
@@ -85,7 +85,7 @@ const SignUp: FC = () => {
             >
               <div className="input-box">
                 <div style={{ maxWidth: "440px", width: "100%" }}>
-                  <InputName
+                  <TextInput
                     placeholder="First Name"
                     text="First Name"
                     name="fname"
@@ -96,7 +96,7 @@ const SignUp: FC = () => {
                   )}
                 </div>
                 <div style={{ maxWidth: "440px", width: "100%" }}>
-                  <InputName
+                  <TextInput
                     placeholder="Last Name"
                     text="Last Name"
                     name="lname"
@@ -107,7 +107,7 @@ const SignUp: FC = () => {
                   )}
                 </div>
               </div>
-              <InputName
+              <TextInput
                 placeholder="Email Address"
                 text="Email Address"
                 maxWidth="mW438"
@@ -117,7 +117,7 @@ const SignUp: FC = () => {
               {errors.email && (
                 <p style={{ color: "red" }}>{errors.email.message}</p>
               )}
-              <InputName
+              <TextInput
                 placeholder="Company Name"
                 text="Company Name"
                 maxWidth="mW438"
@@ -144,7 +144,7 @@ const SignUp: FC = () => {
                   />
                 </div>
                 <div style={{ maxWidth: "440px", width: "100%" }}>
-                  <InputName
+                  <TextInput
                     placeholder="Phone #"
                     text={"Phone #"}
                     name="phoneNumber"
@@ -158,7 +158,7 @@ const SignUp: FC = () => {
                 </div>
               </div>
               <div>
-                <InputName
+                <TextInput
                   text="password"
                   placeholder="Enter your password"
                   name="password"
@@ -166,7 +166,7 @@ const SignUp: FC = () => {
                 />
               </div>
               <div>
-                <InputName
+                <TextInput
                   text="Confirm password"
                   placeholder="Confirm your password"
                   name="cPassword"
