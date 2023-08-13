@@ -5,7 +5,7 @@ interface IUpdateBlog {
   id?: number;
   title: string;
   description: string;
-  categoryId?: number;
+  categoryId?: string;
   imageUrl?: string;
 }
 export const editBlog = async (updateBlog: IUpdateBlog) => {
