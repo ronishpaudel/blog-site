@@ -5,6 +5,7 @@ export interface Iblog {
   id: string;
   title: string;
   description: string;
+  category: number;
 }
 
 const fetchUsers = async ({ pageParam = 1 }) => {
