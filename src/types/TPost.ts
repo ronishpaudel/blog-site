@@ -1,6 +1,6 @@
 export interface TPost {
   completed: number;
-  id?: number;
+  id?: string;
   title: string;
   description: string;
   category: { id: number; name: string };
