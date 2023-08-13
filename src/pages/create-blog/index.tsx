@@ -1,5 +1,5 @@
 import { TextInput } from "@/components/TextInput";
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "@/components/Button";
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
@@ -16,29 +16,35 @@ export const blogCreationStore = proxy<{
   description: string;
   category: string;
   imageUrl: string;
-  setDetail: (title: string, description: string, category: string) => void;
+  setDescription: (description: string) => void;
+  setTitle: (title: string) => void;
   setImage: (imageUrl: string) => void;
+  setCategory: (val: { id: number; displayName: string }) => void;
 }>({
   title: "",
   description: "",
   category: "",
   imageUrl: "",
-  setDetail(title, description, category) {
+  setTitle(title) {
     this.title = title;
+  },
+  setDescription(description) {
     this.description = description;
-    this.category = category;
   },
   setImage(imageUrl) {
     this.imageUrl = imageUrl;
   },
+  setCategory(val) {
+    this.category = val.displayName;
+  },
 });
 
 const index: FC = () => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(blogCreationStore.title);
   const { push } = useRouter();
-  const [file, setFile] = useState<any>(null);
+  const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [fileType, setFileType] = useState("");
-  const [category, setCategory] = useState("");
+
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
 
@@ -118,8 +124,13 @@ const index: FC = () => {
             <Dropdown
               style={{}}
               options={categoryOptions || []}
-              onChange={(val) => console.log(val)}
-              label="Select Category"
+              onChange={(val) =>
+                blogCreationStore.setCategory({
+                  id: Number(val.id),
+                  displayName: val.displayName,
+                })
+              }
+              label="Select Cegory"
             />
           </div>
           <div>
@@ -139,7 +150,8 @@ const index: FC = () => {
               onClick={() => {
                 editor.update(async () => {
                   const htmlString = $generateHtmlFromNodes(editor, null);
-                  blogCreationStore.setDetail(title, htmlString, category);
+                  blogCreationStore.setDescription(htmlString);
+                  blogCreationStore.setTitle(title);
                   blogCreationStore.setImage(file);
                 });
                 console.log({ file: blogCreationStore.setImage(file) });
