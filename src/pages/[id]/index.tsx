@@ -23,7 +23,6 @@ const index: FC = () => {
       <div className="page-wrapper">
         <div className="blog-info">
           <Tag />
-
           <h1>{data?.title}</h1>
           <div
             style={{
