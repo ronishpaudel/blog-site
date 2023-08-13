@@ -29,6 +29,7 @@ const Main: FC = () => {
               page.map((blog: Iblog) => (
                 <Card
                   key={blog.id}
+                  // category={blog.category}
                   title={blog.title}
                   onCardClick={() => {
                     push({
@@ -41,7 +42,7 @@ const Main: FC = () => {
                   onProfileClick={() =>
                     console.log("navigate to profile with id")
                   }
-                  createdAt={""} // You can replace this with the actual createdAt value
+                  createdAt={""}
                 />
               ))
             )}
