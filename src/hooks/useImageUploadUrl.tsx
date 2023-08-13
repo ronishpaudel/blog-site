@@ -11,7 +11,7 @@ export const getUploadUrlKeys = {
 
 const fetchUploadUrlData: MutationFunction<S3Upload> = async () => {
   const response = await API.post("/s3_upload_url");
-  console.log({ data: response.data });
+
   return response.data;
 };
 
