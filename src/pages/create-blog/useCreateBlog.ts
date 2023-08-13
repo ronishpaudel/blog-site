@@ -14,10 +14,9 @@ export const createBlog = async (newBlog: INewBlog) => {
   return response.data;
 };
 
-const useCreateBlog = ({ onSuccess }: { onSuccess: (res: any) => {} }) => {
+const useCreateBlog = () => {
   return useMutation({
     mutationFn: createBlog,
-    onSuccess,
   });
 };
 export { useCreateBlog };
