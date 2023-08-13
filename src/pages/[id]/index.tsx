@@ -47,8 +47,8 @@ const index: FC = () => {
             />
           </div>
         </div>
-        <img src="/img.png" className="blog-image" />
-        <div style={{ fontWeight: "400" }}>
+        <img src={data?.imageUrl} className="blog-image" />
+        <div style={{ fontWeight: "400", width: "100%" }}>
           {data?.description && parse(data?.description)}
         </div>
       </div>
@@ -58,4 +58,4 @@ const index: FC = () => {
   );
 };
 
-export default index;
+export default PrivateRoute(index);
