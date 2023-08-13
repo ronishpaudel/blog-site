@@ -9,23 +9,24 @@ import { $generateHtmlFromNodes } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { proxy } from "valtio";
 import { useCategoryQuery } from "@/hooks/useGetCategory";
+import Dropdown from "@/components/Dropdown";
 
 export const blogCreationStore = proxy<{
   title: string;
   description: string;
-  categoryId: string;
+  category: string;
   imageUrl: string;
   setDetail: (title: string, description: string, category: string) => void;
   setImage: (imageUrl: string) => void;
 }>({
   title: "",
   description: "",
-  categoryId: "",
+  category: "",
   imageUrl: "",
-  setDetail(title, description, categoryId) {
+  setDetail(title, description, category) {
     this.title = title;
     this.description = description;
-    this.categoryId = categoryId;
+    this.category = category;
   },
   setImage(imageUrl) {
     this.imageUrl = imageUrl;
@@ -37,7 +38,7 @@ const index: FC = () => {
   const { push } = useRouter();
   const [file, setFile] = useState<any>(null);
   const [fileType, setFileType] = useState("");
-  const [categoryId, setCategoryId] = useState("");
+  const [category, setCategory] = useState("");
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
 
@@ -62,6 +63,11 @@ const index: FC = () => {
     setFile(null);
     setFileType("");
   };
+
+  const categoryOptions = data?.map((category) => ({
+    displayName: category.name,
+    id: category.id,
+  }));
 
   return (
     <>
@@ -109,23 +115,12 @@ const index: FC = () => {
                 </div>
               )}
             </div>
-            <div>
-              <select
-                className="categoryy"
-                value={categoryId}
-                onChange={(e) => {
-                  console.log(e.target.value);
-                  setCategoryId(e.target.value);
-                }}
-              >
-                {data &&
-                  data.map((category) => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-              </select>
-            </div>
+            <Dropdown
+              style={{}}
+              options={categoryOptions || []}
+              onChange={(val) => console.log(val)}
+              label="Select Category"
+            />
           </div>
           <div>
             <h3>Description</h3>
@@ -144,7 +139,7 @@ const index: FC = () => {
               onClick={() => {
                 editor.update(async () => {
                   const htmlString = $generateHtmlFromNodes(editor, null);
-                  blogCreationStore.setDetail(title, htmlString, categoryId);
+                  blogCreationStore.setDetail(title, htmlString, category);
                   blogCreationStore.setImage(file);
                 });
                 console.log({ file: blogCreationStore.setImage(file) });
