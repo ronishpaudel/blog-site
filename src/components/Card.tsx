@@ -1,4 +1,5 @@
 import React, { DOMAttributes } from "react";
+import { Author } from "./Author";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
   image?: string;
@@ -52,12 +53,10 @@ function Card({
       <div className="m-post-card-grid" onClick={onCardClick}>
         <img src={"/rct.png"} />
         <div className="card-content">
-          <div className="card-category">{"Technology"}</div>
+          <div className="card-category">technology</div>
           <div className="card-title">{title}</div>
           <div className="card-author" onClick={onProfileClick}>
-            <img src="author.png" className="author-img" />
-            <p className="author-name">{"Ronish Paudel"}</p>
-            <p>{"August 20,2023"}</p>
+            <Author />
           </div>
         </div>
       </div>
