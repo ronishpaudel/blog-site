@@ -1,9 +1,9 @@
 import { API } from "@/api/API";
 import { QueryFunction, useQuery } from "@tanstack/react-query";
 
-interface Tcategory {
-  id?: string;
-  name: String;
+export interface Tcategory {
+  id: number;
+  name: string;
 }
 
 export const getCategoryKeys = {
@@ -19,10 +19,11 @@ const fetchCategoryData: QueryFunction<
   return response.data;
 };
 
-const useCategoryQuery = () => {
+const useCategoryQuery = ({ ...rest } = {}) => {
   return useQuery({
     queryKey: getCategoryKeys.all,
     queryFn: fetchCategoryData,
+    ...rest,
   });
 };
 
