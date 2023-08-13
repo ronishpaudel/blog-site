@@ -5,12 +5,11 @@ function Dropdown({
   onChange,
   options,
   label,
-  style,
 }: {
-  onChange: (val: number) => void;
+  onChange: (val: { id?: string; displayName: string }) => void;
   options: Array<{ displayName: string; id: number }>;
-  label: string;
-  style: React.CSSProperties;
+  label?: string;
+  style?: React.CSSProperties;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
@@ -58,7 +57,10 @@ function Dropdown({
               key={item.id}
               onClick={(e) => {
                 e.stopPropagation();
-                onChange(item.id);
+                onChange({
+                  id: String(item.id),
+                  displayName: item.displayName,
+                });
                 setIsOpen(false);
                 setSelectedOption(item.displayName);
               }}
