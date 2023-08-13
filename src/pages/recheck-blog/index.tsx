@@ -9,7 +9,7 @@ import { Author } from "@/components/Author";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useUploadUrl } from "@/hooks/useImageUploadUrl";
@@ -22,20 +22,16 @@ type UploadResponse = {
   data: { uploadUrl: string; url: string };
 };
 function index() {
-  const { title, description, imageUrl, categoryId } =
+  const { title, description, imageUrl, category } =
     useSnapshot(blogCreationStore);
 
   const { push } = useRouter();
-  const [file, setFile] = useState<any>(null);
+
   const [fileType, setFileType] = useState("");
   const [editor] = useLexicalComposerContext();
   const { data: categoryName } = useCategoryQuery();
 
-  const selectedCategory = categoryName?.find(
-    (category) => category.id === categoryId
-  );
-
-  console.log("Category ID:", categoryId);
+  console.log("Category ID:", category);
   console.log("Category Name Array:", categoryName);
   console.log({ imageUrl });
   const { mutateAsync: createBlog } = useCreateBlog();
@@ -69,8 +65,10 @@ function index() {
             title,
             description: htmlString,
             imageUrl: res.data.url,
-            categoryId: Number(categoryId),
+            categoryId: Number(category),
           });
+          blogCreationStore.setTitle("");
+          blogCreationStore.setImage("");
         });
 
         push("/");
@@ -81,8 +79,10 @@ function index() {
           await createBlog({
             title,
             description: htmlString,
-            categoryId: Number(categoryId),
+            categoryId: Number(category),
           });
+          blogCreationStore.setTitle("");
+          blogCreationStore.setImage("");
         });
         push("/");
       }
@@ -102,9 +102,7 @@ function index() {
       <div className="page-wrapper">
         <div className="blog-info">
           <div>preview of your blog</div>
-          <p className="category" key={categoryId}>
-            {selectedCategory ? selectedCategory.name : "Unknown Category"}
-          </p>
+          <p className="category">{category}</p>
           <h1>{title}</h1>
           <div
             style={{
