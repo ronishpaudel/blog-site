@@ -10,6 +10,7 @@ interface CardProps extends DOMAttributes<HTMLDivElement> {
   createdAt: string;
   onCardClick: () => void;
   onProfileClick: () => void;
+  userId?: string;
 }
 
 function formatDateToCustomFormat(dateString: string) {
@@ -38,6 +39,7 @@ function formatDateToCustomFormat(dateString: string) {
 }
 
 function Card({
+  userId,
   category,
   authorName,
   createdAt,
@@ -51,7 +53,7 @@ function Card({
   return (
     <>
       <div className="m-post-card-grid" onClick={onCardClick}>
-        <img src={"/rct.png"} />
+        <img src={image} />
         <div className="card-content">
           <div className="card-category">technology</div>
           <div className="card-title">{title}</div>
