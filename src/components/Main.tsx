@@ -29,8 +29,10 @@ const Main: FC = () => {
               page.map((blog: Iblog) => (
                 <Card
                   key={blog.id}
-                  // category={blog.category}
+                  category={blog.category}
                   title={blog.title}
+                  image={blog.imageUrl}
+                  userId={String(blog.userId)}
                   onCardClick={() => {
                     push({
                       pathname: "/[id]",
