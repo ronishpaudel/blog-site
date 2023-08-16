@@ -5,11 +5,13 @@ export interface Iblog {
   id: string;
   title: string;
   description: string;
-  category: number;
+  category: string;
+  userId: number;
+  imageUrl?: string;
 }
 
 const fetchUsers = async ({ pageParam = 1 }) => {
-  const res = await API.get(`/blogs?page=${pageParam}&pageSize=6`);
+  const res = await API.get(`/blogs?page=${pageParam}&pageSize=10`);
   return res.data;
 };
 
