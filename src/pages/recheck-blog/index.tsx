@@ -71,7 +71,7 @@ function index() {
           blogCreationStore.setImage("");
         });
 
-        push("/");
+        await push("/");
       } else {
         console.log("else ma janu vo sir");
         editor.update(async () => {
@@ -84,7 +84,7 @@ function index() {
           blogCreationStore.setTitle("");
           blogCreationStore.setImage("");
         });
-        push("/");
+        await push("/");
       }
     },
     onError: (error: any) => {
