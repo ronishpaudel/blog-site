@@ -1,21 +1,28 @@
 import { API } from "@/api/API";
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunction, useQuery } from "@tanstack/react-query";
 
-export interface IAuthor {
-  id?: string;
+export interface TUser {
+  id: number;
   fname: string;
   lname: string;
-  imageUrl?: string;
-}
-async function fetchAuthorInfo() {
-  const res = await API.get("/user/me");
-  return res.data;
 }
 
-function useAuthorInfo() {
+export const getUserKeys = {
+  all: ["getUser"] as const,
+};
+
+type TGetUserKey = typeof getUserKeys.all;
+const fetchUserData: QueryFunction<TUser[], TGetUserKey> = async () => {
+  const response = await API.get("/users");
+  return response.data;
+};
+
+const useAuthorInfo = ({ ...rest } = {}) => {
   return useQuery({
-    queryKey: ["authorInfo"],
-    queryFn: fetchAuthorInfo,
+    queryKey: getUserKeys.all,
+    queryFn: fetchUserData,
+    ...rest,
   });
-}
+};
+
 export { useAuthorInfo };
