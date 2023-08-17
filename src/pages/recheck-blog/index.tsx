@@ -9,7 +9,7 @@ import { Author } from "@/components/Author";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import Header from "@/components/Header";
 import Button from "@/components/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { useUploadUrl } from "@/hooks/useImageUploadUrl";
@@ -29,10 +29,9 @@ function index() {
 
   const [fileType, setFileType] = useState("");
   const [editor] = useLexicalComposerContext();
-  const { data: categoryName } = useCategoryQuery();
 
-  console.log("Category ID:", category);
-  console.log("Category Name Array:", categoryName);
+  console.log({ category });
+
   console.log({ imageUrl });
   const { mutateAsync: createBlog } = useCreateBlog();
 
@@ -53,7 +52,7 @@ function index() {
   const { mutate: createBlogWithImage } = useUploadUrl({
     onSuccess: async (res: UploadResponse) => {
       const file = imageUrl;
-      console.log({ file });
+
       if (file) {
         console.log({ file });
         editor.update(async () => {
@@ -61,26 +60,30 @@ function index() {
           const blobData = await fileToBlob(file, fileType);
           console.log({ dd: res.data.uploadUrl });
           await s3Mutate({ uploadUrl: res.data.uploadUrl, blobData: blobData });
+          console.log({ category });
           await createBlog({
             title,
             description: htmlString,
             imageUrl: res.data.url,
-            categoryId: Number(category),
+            categoryId: category.id,
           });
+          console.log({ id: category.id });
           blogCreationStore.setTitle("");
           blogCreationStore.setImage("");
         });
 
         await push("/");
       } else {
+        console.log({ category });
         console.log("else ma janu vo sir");
         editor.update(async () => {
           const htmlString = $generateHtmlFromNodes(editor, null);
           await createBlog({
             title,
             description: htmlString,
-            categoryId: Number(category),
+            categoryId: category.id,
           });
+          console.log({ id: category.id });
           blogCreationStore.setTitle("");
           blogCreationStore.setImage("");
         });
@@ -102,7 +105,7 @@ function index() {
       <div className="page-wrapper">
         <div className="blog-info">
           <div>preview of your blog</div>
-          <p className="category">{category}</p>
+          <p className="category">{category.displayName}</p>
           <h1>{title}</h1>
           <div
             style={{
