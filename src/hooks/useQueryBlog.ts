@@ -5,8 +5,8 @@ export interface Iblog {
   id: string;
   title: string;
   description: string;
-  category: string;
-  userId: number;
+  category: { id: number; name: string };
+  user: { id: number; fname: string; lname: string };
   imageUrl?: string;
 }
 
