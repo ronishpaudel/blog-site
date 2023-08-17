@@ -17,7 +17,7 @@ const Tag = ({ style }: TagProps) => {
     const category = categoryData?.find(
       (category) => category.id === Number(categoryId)
     );
-    return category ? category.name : "Unknown Category";
+    return category ? category.name : "";
   };
 
   return (
