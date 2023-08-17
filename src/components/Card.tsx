@@ -1,5 +1,6 @@
 import React, { DOMAttributes } from "react";
 import { Author } from "./Author";
+import { Tag } from "./Tag";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
   image?: string;
@@ -10,7 +11,7 @@ interface CardProps extends DOMAttributes<HTMLDivElement> {
   createdAt: string;
   onCardClick: () => void;
   onProfileClick: () => void;
-  userId?: string;
+  user?: string;
 }
 
 function formatDateToCustomFormat(dateString: string) {
@@ -39,7 +40,7 @@ function formatDateToCustomFormat(dateString: string) {
 }
 
 function Card({
-  userId,
+  user,
   category,
   authorName,
   createdAt,
@@ -55,10 +56,10 @@ function Card({
       <div className="m-post-card-grid" onClick={onCardClick}>
         <img src={image} />
         <div className="card-content">
-          <div className="card-category">technology</div>
+          <div className="card-category">{category}</div>
           <div className="card-title">{title}</div>
           <div className="card-author" onClick={onProfileClick}>
-            <Author />
+            {user}
           </div>
         </div>
       </div>
