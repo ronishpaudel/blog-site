@@ -14,7 +14,7 @@ import Dropdown from "@/components/Dropdown";
 export const blogCreationStore = proxy<{
   title: string;
   description: string;
-  category: string;
+  category: { id: number; displayName: string };
   imageUrl: string;
   setDescription: (description: string) => void;
   setTitle: (title: string) => void;
@@ -23,7 +23,7 @@ export const blogCreationStore = proxy<{
 }>({
   title: "",
   description: "",
-  category: "",
+  category: { id: 0, displayName: "" },
   imageUrl: "",
   setTitle(title) {
     this.title = title;
@@ -35,7 +35,7 @@ export const blogCreationStore = proxy<{
     this.imageUrl = imageUrl;
   },
   setCategory(val) {
-    this.category = val.displayName;
+    this.category = val;
   },
 });
 
@@ -122,7 +122,6 @@ const index: FC = () => {
               )}
             </div>
             <Dropdown
-              style={{}}
               options={categoryOptions || []}
               onChange={(val) =>
                 blogCreationStore.setCategory({
@@ -130,7 +129,7 @@ const index: FC = () => {
                   displayName: val.displayName,
                 })
               }
-              label="Select Cegory"
+              label="Select Category"
             />
           </div>
           <div>
