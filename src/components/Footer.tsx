@@ -54,6 +54,7 @@ const Footer: FC = () => {
               <input placeholder="Your Email" />
               <img src="/mail.png" alt="photo" />
             </div>
+
             <button className="news-btn">Subscribe</button>
           </div>
         </div>
