@@ -12,6 +12,7 @@ export const API = axios.create({
 // Request interceptor
 API.interceptors.request.use(
   async (axiosConfig) => {
+    console.log("Api Call", axiosConfig.url);
     const token = await getItemFromLocalStorage("auth");
     if (token && axiosConfig.headers) {
       axiosConfig.headers.Authorization = `${token}`;
