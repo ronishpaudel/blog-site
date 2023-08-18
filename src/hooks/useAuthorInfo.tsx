@@ -2,7 +2,7 @@ import { API } from "@/api/API";
 import { QueryFunction, useQuery } from "@tanstack/react-query";
 
 export interface TUser {
-  id: number;
+  id?: number;
   fname: string;
   lname: string;
 }
@@ -13,7 +13,7 @@ export const getUserKeys = {
 
 type TGetUserKey = typeof getUserKeys.all;
 const fetchUserData: QueryFunction<TUser[], TGetUserKey> = async () => {
-  const response = await API.get("/users");
+  const response = await API.get("/user/me");
   return response.data;
 };
 

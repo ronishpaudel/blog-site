@@ -8,23 +8,26 @@ export interface Iblog {
   category: { id: number; name: string };
   user: { id: number; fname: string; lname: string };
   imageUrl?: string;
+  createdAt: string;
 }
 
-const fetchUsers = async ({ pageParam = 1 }) => {
+const fetchBlogs = async ({ pageParam = 1 }) => {
   const res = await API.get(`/blogs?page=${pageParam}&pageSize=10`);
   return res.data;
 };
 
 const fetchOneBlog = async (id: string) => {
   const res = await API.get(`/blogs/${id}`);
-  return res.data;
+  return res.data as Iblog;
 };
 
 function useQueryBlog() {
-  return useInfiniteQuery(["blogs"], fetchUsers, {
+  return useInfiniteQuery(["blogs"], fetchBlogs, {
     getNextPageParam: (lastPage, pages) => {
       return lastPage.length + 1;
     },
+    cacheTime: 5 * 60 * 1000,
+    staleTime: 4 * 60 * 1000,
   });
 }
 
@@ -36,4 +39,4 @@ function useOneBlog(id: string) {
   });
 }
 
-export { useQueryBlog, useOneBlog };
+export { useQueryBlog, useOneBlog, fetchBlogs, fetchOneBlog };
