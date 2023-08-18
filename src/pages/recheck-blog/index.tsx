@@ -1,6 +1,5 @@
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
 import { useSnapshot } from "valtio";
-import { blogCreationStore } from "../create-blog";
 import parse from "html-react-parser";
 import { useCreateBlog } from "../create-blog/useCreateBlog";
 import { useRouter } from "next/router";
@@ -15,7 +14,10 @@ import { useMutation } from "@tanstack/react-query";
 import { useUploadUrl } from "@/hooks/useImageUploadUrl";
 import { fileToBlob } from "@/utils/filetoBlob";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { useCategoryQuery } from "@/hooks/useGetCategory";
+import { useAuthorInfo } from "@/hooks/useAuthorInfo";
+import { authStore } from "@/store/authStore";
+import { blogCreationStore } from "@/store/blogCreationStore";
+import { dateFormat } from "@/utils/dateFormat";
 
 type UploadResponse = {
   message: string;
@@ -33,6 +35,8 @@ function index() {
   console.log({ category });
 
   console.log({ imageUrl });
+
+  const { dbUser } = useSnapshot(authStore);
   const { mutateAsync: createBlog } = useCreateBlog();
 
   const uploadToS3 = async (val: { uploadUrl: string; blobData: Blob }) => {
@@ -98,7 +102,7 @@ function index() {
   const handleOnSubmit = () => {
     createBlogWithImage({});
   };
-
+  const { data } = useAuthorInfo();
   return (
     <div>
       <Header />
@@ -115,7 +119,10 @@ function index() {
               cursor: "pointer",
             }}
           >
-            <Author />
+            <Author
+              name={`${dbUser?.fname} ${dbUser?.lname}`}
+              createdAt={dateFormat(new Date().toLocaleDateString())}
+            />
           </div>
         </div>
         <img src={imageUrl} className="blog-image" />
