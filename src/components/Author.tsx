@@ -2,20 +2,18 @@ import React from "react";
 
 interface IUserInfo {
   style?: React.CSSProperties;
-  user?: {
-    fname: string;
-    lname: string;
-  };
-  createdAt?: string;
+
+  name: string;
+
+  createdAt: string;
 }
 
-const Author = ({ style, user, createdAt }: IUserInfo) => {
+const Author = ({ style, name, createdAt }: IUserInfo) => {
   return (
     <div className="author">
       <img src="/rbg.jpg" className="author-img" alt="Author" />
       <p className="ronish" style={style}>
-        {user?.fname}
-        {user?.lname}
+        {name}
       </p>
       <p>{createdAt}</p>
     </div>
