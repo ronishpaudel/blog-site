@@ -2,11 +2,11 @@ import React from "react";
 
 interface IUserInfo {
   style?: React.CSSProperties;
-  user: {
+  user?: {
     fname: string;
     lname: string;
   };
-  createdAt: string;
+  createdAt?: string;
 }
 
 const Author = ({ style, user, createdAt }: IUserInfo) => {
@@ -15,7 +15,6 @@ const Author = ({ style, user, createdAt }: IUserInfo) => {
       <img src="/rbg.jpg" className="author-img" alt="Author" />
       <p className="ronish" style={style}>
         {user?.fname}
-
         {user?.lname}
       </p>
       <p>{createdAt}</p>
