@@ -10,34 +10,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { proxy } from "valtio";
 import { useCategoryQuery } from "@/hooks/useGetCategory";
 import Dropdown from "@/components/Dropdown";
-
-export const blogCreationStore = proxy<{
-  title: string;
-  description: string;
-  category: { id: number; displayName: string };
-  imageUrl: string;
-  setDescription: (description: string) => void;
-  setTitle: (title: string) => void;
-  setImage: (imageUrl: string) => void;
-  setCategory: (val: { id: number; displayName: string }) => void;
-}>({
-  title: "",
-  description: "",
-  category: { id: 0, displayName: "" },
-  imageUrl: "",
-  setTitle(title) {
-    this.title = title;
-  },
-  setDescription(description) {
-    this.description = description;
-  },
-  setImage(imageUrl) {
-    this.imageUrl = imageUrl;
-  },
-  setCategory(val) {
-    this.category = val;
-  },
-});
+import { blogCreationStore } from "@/store/blogCreationStore";
 
 const index: FC = () => {
   const [title, setTitle] = useState(blogCreationStore.title);
