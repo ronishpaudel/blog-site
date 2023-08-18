@@ -59,7 +59,8 @@ function Card({
           <div className="card-category">{category}</div>
           <div className="card-title">{title}</div>
           <div className="card-author" onClick={onProfileClick}>
-            {user}
+            {/* <img src="/rbg.jpg"/> */}
+            {user} {createdAt}
           </div>
         </div>
       </div>
