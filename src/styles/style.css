@@ -239,6 +239,7 @@ header {
     border-radius: 10px;
   }
 } */
+
 @media (max-width: 415px) {
   .header-items.menu-open {
     display: flex;
@@ -344,6 +345,12 @@ main {
 
 @media (max-width: 899px) {
   .header-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 450px) {
+  .lgnin-lgnout-btn {
     display: none;
   }
 }

@@ -60,6 +60,7 @@
   background: #4b6bfb;
   border: none;
   color: #fff;
+  cursor: pointer;
 }
 .news-search img {
   width: 20px;
