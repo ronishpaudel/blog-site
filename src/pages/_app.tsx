@@ -14,7 +14,11 @@ import "./auth/reset-password/index.css";
 import "./auth/finalise-registration/index.css";
 import "./create-blog/index.css";
 import "../components/lexical/editor.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { Work_Sans } from "@next/font/google";
 import { useEffect } from "react";
 import { authStore } from "@/store/authStore";
@@ -26,12 +30,13 @@ import { useSnapshot } from "valtio";
 import { API } from "@/api/API";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { editorConfig } from "@/components/lexical/Editor";
+import React from "react";
 
 const workSans = Work_Sans({
   subsets: ["latin"],
 });
 export default function App({ Component, pageProps }: AppProps) {
-  const queryClient = new QueryClient();
+  const [queryClient] = React.useState(() => new QueryClient());
   const { dbUser } = useSnapshot(authStore);
 
   const token =
@@ -45,6 +50,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const fetchUser = async () => {
     const data = await fetchDBUser();
+    console.log({ data });
     if (data) {
       authStore.setDbUser(data);
     }
@@ -71,9 +77,11 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <div className={workSans.className}>
       <QueryClientProvider client={queryClient}>
-        <LexicalComposer initialConfig={editorConfig}>
-          <Component {...pageProps} />
-        </LexicalComposer>
+        <Hydrate state={pageProps.dehydratedState}>
+          <LexicalComposer initialConfig={editorConfig}>
+            <Component {...pageProps} />
+          </LexicalComposer>
+        </Hydrate>
       </QueryClientProvider>
     </div>
   );
