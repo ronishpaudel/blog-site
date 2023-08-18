@@ -91,7 +91,7 @@ const Header: FC = () => {
                 <img src="/sunny.png" />
               </div>
             </div> */}
-            <div>
+            <div className="lgnin-lgnout-btn">
               {loggedIn ? (
                 <Button text="Logout" onClick={handleLogout} />
               ) : (
