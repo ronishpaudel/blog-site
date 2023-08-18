@@ -1,31 +1,16 @@
-import { TPost } from "@/types/TPost";
+import { IUser } from "@/types/user";
 
 import { proxy } from "valtio";
 
 interface IAuthStore {
   loggedIn: boolean;
-  dbUser: TPost | null;
+  dbUser: IUser | null;
   tokenFetching: boolean;
   setLoggedIn: () => void;
   setLogOut: () => void;
-  setDbUser: (user: TPost | null) => void;
+  setDbUser: (user: IUser | null) => void;
   setTokenFetching: (fetching: boolean) => void;
 }
-
-// const val =
-//   typeof window === "undefined"
-//     ? JSON.stringify({ token: "" })
-//     : localStorage.getItem("auth") || "{}";
-
-// export const tokenStore = proxy<{ token: string }>(
-//   JSON.parse(val) || {
-//     token: "",
-//   }
-// );
-
-// subscribe(tokenStore, () => {
-//   localStorage.setItem("auth", JSON.stringify(tokenStore));
-// });
 
 export const authStore = proxy<IAuthStore>({
   loggedIn: false,
