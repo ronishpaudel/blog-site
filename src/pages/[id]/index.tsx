@@ -8,6 +8,7 @@ import { PrivateRoute } from "@/components/hoc/PrivateRoute";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useOneBlog } from "@/hooks/useQueryBlog";
 import parse from "html-react-parser";
+import { dateFormat } from "@/utils/dateFormat";
 
 const index: FC = () => {
   const { push, query } = useRouter();
@@ -30,7 +31,10 @@ const index: FC = () => {
                 cursor: "pointer",
               }}
             >
-              <Author user={data?.user} createdAt={data?.createdAt} />
+              <Author
+                name={`${data?.user.fname} ${data?.user.lname}`}
+                createdAt={dateFormat(data?.createdAt)}
+              />
               <AiOutlineEdit
                 style={{ fontSize: "25px", color: " #97989f" }}
                 onClick={() =>
