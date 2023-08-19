@@ -7,6 +7,7 @@ export interface INewBlog {
   imageUrl?: string;
   categoryId?: number;
   id?: number;
+  thumbImageUrl?: string;
 }
 
 export const createBlog = async (newBlog: INewBlog) => {
