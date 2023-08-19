@@ -3,8 +3,9 @@ import { Content } from "./Content";
 import Card from "./Card";
 import Ad from "./Ad";
 import { useRouter } from "next/router";
-import { Iblog, useQueryBlog } from "@/hooks/useQueryBlog";
+import { Iblog, fetchBlogs, useQueryBlog } from "@/hooks/useQueryBlog";
 import { dateFormat } from "@/utils/dateFormat";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 const GG = () => {
   const { push } = useRouter();
@@ -37,7 +38,7 @@ const GG = () => {
     </div>
   );
 };
-const Main: FC = () => {
+const Main = () => {
   const handleViewNextPost = async () => {
     // if (hasNextPage) {
     //   await fetchNextPage();
@@ -63,5 +64,23 @@ const Main: FC = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchInfiniteQuery(["blogs"], fetchBlogs, {
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.length + 1;
+    },
+    cacheTime: 5 * 60 * 1000,
+    staleTime: 4 * 60 * 1000,
+  });
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
+}
 
 export default Main;
