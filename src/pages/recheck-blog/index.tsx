@@ -18,6 +18,7 @@ import { useAuthorInfo } from "@/hooks/useAuthorInfo";
 import { authStore } from "@/store/authStore";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
+import { resizeImage } from "@/utils/resizeImage";
 
 type UploadResponse = {
   message: string;
@@ -32,11 +33,27 @@ function index() {
   const [fileType, setFileType] = useState("");
   const [editor] = useLexicalComposerContext();
 
-  console.log({ category });
-
   console.log({ imageUrl });
 
   const { dbUser } = useSnapshot(authStore);
+
+  const inputImageURL = imageUrl;
+  const newWidth = 300;
+  const newHeight = 200;
+
+  const resizedImageURL = resizeImage(
+    inputImageURL,
+    newWidth,
+    newHeight,
+    function (resizedDataURL: string) {
+      const resizedImageElement = document.createElement("img");
+      resizedImageElement.src = resizedDataURL;
+      document.body.appendChild(resizedImageElement);
+    }
+  );
+
+  console.log({ resizedImageURL });
+
   const { mutateAsync: createBlog } = useCreateBlog();
 
   const uploadToS3 = async (val: { uploadUrl: string; blobData: Blob }) => {
@@ -55,25 +72,28 @@ function index() {
 
   const { mutate: createBlogWithImage } = useUploadUrl({
     onSuccess: async (res: UploadResponse) => {
-      const file = imageUrl;
-
-      if (file) {
-        console.log({ file });
+      if (imageUrl) {
+        console.log({ imageUrl });
         editor.update(async () => {
           const htmlString = $generateHtmlFromNodes(editor, null);
-          const blobData = await fileToBlob(file, fileType);
-          console.log({ dd: res.data.uploadUrl });
+          const blobData = await fileToBlob(imageUrl, fileType);
+          const thumbBlobData = await fileToBlob(resizedImageURL, fileType);
+          console.log({ blobData });
           await s3Mutate({ uploadUrl: res.data.uploadUrl, blobData: blobData });
+          await s3Mutate({
+            uploadUrl: res.data.uploadUrl,
+            blobData: thumbBlobData,
+          });
           console.log({ category });
           await createBlog({
             title,
             description: htmlString,
             imageUrl: res.data.url,
+            thumbImageUrl: res.data.url,
             categoryId: category.id,
           });
           console.log({ id: category.id });
-          blogCreationStore.setTitle("");
-          blogCreationStore.setImage("");
+          blogCreationStore.clearStore();
         });
 
         await push("/");
@@ -102,7 +122,7 @@ function index() {
   const handleOnSubmit = () => {
     createBlogWithImage({});
   };
-  const { data } = useAuthorInfo();
+
   return (
     <div>
       <Header />
