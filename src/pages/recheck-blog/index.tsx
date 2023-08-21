@@ -10,7 +10,11 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import { useState } from "react";
 import axios from "axios";
-import { useMutation } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { useUploadUrl } from "@/hooks/useImageUploadUrl";
 import { fileToBlob } from "@/utils/filetoBlob";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -18,14 +22,17 @@ import { useAuthorInfo } from "@/hooks/useAuthorInfo";
 import { authStore } from "@/store/authStore";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
-import { resizeImage } from "@/utils/resizeImage";
+import { ColorRing } from "react-loader-spinner";
 
 type UploadResponse = {
   message: string;
-  data: { uploadUrl: string; url: string };
+  data: {
+    normalUpload: { uploadUrl: string; url: string };
+    thumbnailUpload: { uploadUrl: string; url: string };
+  };
 };
 function index() {
-  const { title, description, imageUrl, category } =
+  const { title, description, imageUrl, category, thumbImageUrl } =
     useSnapshot(blogCreationStore);
 
   const { push } = useRouter();
@@ -33,28 +40,15 @@ function index() {
   const [fileType, setFileType] = useState("");
   const [editor] = useLexicalComposerContext();
 
-  console.log({ imageUrl });
-
   const { dbUser } = useSnapshot(authStore);
 
-  const inputImageURL = imageUrl;
-  const newWidth = 300;
-  const newHeight = 200;
-
-  const resizedImageURL = resizeImage(
-    inputImageURL,
-    newWidth,
-    newHeight,
-    function (resizedDataURL: string) {
-      const resizedImageElement = document.createElement("img");
-      resizedImageElement.src = resizedDataURL;
-      document.body.appendChild(resizedImageElement);
-    }
-  );
-
-  console.log({ resizedImageURL });
-
-  const { mutateAsync: createBlog } = useCreateBlog();
+  const queryClient = useQueryClient();
+  const { mutateAsync: createBlog, isLoading: isCreating } = useCreateBlog({
+    onSuccess: () => {
+      queryClient.invalidateQueries(["blogs"]);
+      push("/");
+    },
+  });
 
   const uploadToS3 = async (val: { uploadUrl: string; blobData: Blob }) => {
     return await axios({
@@ -66,60 +60,66 @@ function index() {
       data: val.blobData,
     });
   };
-  const { mutateAsync: s3Mutate } = useMutation({
+  const { mutateAsync: s3Mutate, isLoading: isUploading } = useMutation({
     mutationFn: uploadToS3,
   });
+  console.log({ thumbImageUrl });
+  console.log({ imageUrl });
+  const { mutate: createBlogWithImage, isLoading: isCreatingUpload } =
+    useUploadUrl({
+      onSuccess: async (res: UploadResponse) => {
+        if (imageUrl && thumbImageUrl) {
+          console.log(imageUrl);
+          console.log(thumbImageUrl);
+          editor.update(async () => {
+            const htmlString = $generateHtmlFromNodes(editor, null);
+            const blobData = await fileToBlob(imageUrl, fileType);
+            const thumbBlobData = await fileToBlob(thumbImageUrl, fileType);
 
-  const { mutate: createBlogWithImage } = useUploadUrl({
-    onSuccess: async (res: UploadResponse) => {
-      if (imageUrl) {
-        console.log({ imageUrl });
-        editor.update(async () => {
-          const htmlString = $generateHtmlFromNodes(editor, null);
-          const blobData = await fileToBlob(imageUrl, fileType);
-          const thumbBlobData = await fileToBlob(resizedImageURL, fileType);
-          console.log({ blobData });
-          await s3Mutate({ uploadUrl: res.data.uploadUrl, blobData: blobData });
-          await s3Mutate({
-            uploadUrl: res.data.uploadUrl,
-            blobData: thumbBlobData,
+            await s3Mutate({
+              uploadUrl: res.data.normalUpload.uploadUrl,
+              blobData: blobData,
+            });
+            await s3Mutate({
+              uploadUrl: res.data.thumbnailUpload.uploadUrl,
+              blobData: thumbBlobData,
+            });
+
+            await createBlog({
+              title,
+              description: htmlString,
+              imageUrl: res.data.normalUpload.url,
+              thumbImageUrl: res.data.thumbnailUpload.url,
+              categoryId: category.id,
+            });
+
+            blogCreationStore.clearStore();
           });
+        } else {
           console.log({ category });
-          await createBlog({
-            title,
-            description: htmlString,
-            imageUrl: res.data.url,
-            thumbImageUrl: res.data.url,
-            categoryId: category.id,
+          console.log("else ma janu vo sir");
+          editor.update(async () => {
+            const htmlString = $generateHtmlFromNodes(editor, null);
+            await createBlog({
+              title,
+              description: htmlString,
+              categoryId: category.id,
+            });
+            console.log({ id: category.id });
+            blogCreationStore.setTitle("");
+            blogCreationStore.setImage("");
           });
-          console.log({ id: category.id });
-          blogCreationStore.clearStore();
-        });
-
-        await push("/");
-      } else {
-        console.log({ category });
-        console.log("else ma janu vo sir");
-        editor.update(async () => {
-          const htmlString = $generateHtmlFromNodes(editor, null);
-          await createBlog({
-            title,
-            description: htmlString,
-            categoryId: category.id,
-          });
-          console.log({ id: category.id });
-          blogCreationStore.setTitle("");
-          blogCreationStore.setImage("");
-        });
-        await push("/");
-      }
-    },
-    onError: (error: any) => {
-      console.log(error);
-    },
-  });
+        }
+      },
+      onError: (error: any) => {
+        console.log(error);
+      },
+    });
 
   const handleOnSubmit = () => {
+    if (isCreating || isUploading || isCreatingUpload) {
+      return;
+    }
     createBlogWithImage({});
   };
 
@@ -147,7 +147,20 @@ function index() {
         </div>
         <img src={imageUrl} className="blog-image" />
         <div style={{ width: "100%" }}>{description && parse(description)}</div>
-        <Button text={"publish now"} onClick={() => handleOnSubmit()} />
+
+        {isCreating || isUploading || isCreatingUpload ? (
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
+          />
+        ) : (
+          <Button text={"publish now"} onClick={() => handleOnSubmit()} />
+        )}
       </div>
       <Footer />
     </div>
