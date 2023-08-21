@@ -20,7 +20,7 @@ const GG = () => {
             key={blog.id}
             category={blog?.category?.name}
             title={blog.title}
-            image={blog.imageUrl}
+            thumbnailImage={blog.thumbImageUrl}
             user={`${blog?.user?.fname} ${blog?.user?.lname}`}
             createdAt={dateFormat(blog.createdAt)}
             onCardClick={() => {
@@ -39,10 +39,11 @@ const GG = () => {
   );
 };
 const Main = () => {
+  const { hasNextPage, fetchNextPage } = useQueryBlog();
   const handleViewNextPost = async () => {
-    // if (hasNextPage) {
-    //   await fetchNextPage();
-    // }
+    if (hasNextPage) {
+      await fetchNextPage();
+    }
   };
 
   return (
