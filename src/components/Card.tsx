@@ -3,7 +3,7 @@ import { Author } from "./Author";
 import { Tag } from "./Tag";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
-  image?: string;
+  thumbnailImage?: string;
   category?: string;
   title: string;
   authorName?: string;
@@ -46,7 +46,7 @@ function Card({
   createdAt,
   profilePic,
   title,
-  image,
+  thumbnailImage,
   onCardClick,
   onProfileClick,
   ...rest
@@ -54,7 +54,7 @@ function Card({
   return (
     <>
       <div className="m-post-card-grid" onClick={onCardClick}>
-        <img src={image} />
+        <img src={thumbnailImage} />
         <div className="card-content">
           <div className="card-category">{category}</div>
           <div className="card-title">{title}</div>
