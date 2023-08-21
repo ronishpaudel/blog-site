@@ -8,6 +8,7 @@ export interface Iblog {
   category: { id: number; name: string };
   user: { id: number; fname: string; lname: string };
   imageUrl?: string;
+  thumbImageUrl?: string;
   createdAt: string;
 }
 
