@@ -11,11 +11,23 @@ import { proxy } from "valtio";
 import { useCategoryQuery } from "@/hooks/useGetCategory";
 import Dropdown from "@/components/Dropdown";
 import { blogCreationStore } from "@/store/blogCreationStore";
+import { resizeImage2 } from "@/utils/resizeImage";
+
+function getBase64ImageSize(base64String: string): number {
+  const paddingIndex = base64String.indexOf("=");
+  const contentWithoutPadding =
+    paddingIndex === -1
+      ? base64String
+      : base64String.substring(0, paddingIndex);
+  const sizeInBytes = (contentWithoutPadding.length * 3) / 4;
+  return sizeInBytes;
+}
 
 const index: FC = () => {
   const [title, setTitle] = useState(blogCreationStore.title);
   const { push } = useRouter();
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
+  const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
 
   const { data } = useCategoryQuery();
@@ -30,10 +42,26 @@ const index: FC = () => {
 
     if (file) {
       const reader = new FileReader();
+
       reader.onload = async (e) => {
         setFile(e?.target?.result as any);
+
+        const base64ImageSize = getBase64ImageSize(e?.target?.result as string);
+        if (base64ImageSize > 2 * 1024 * 1024) {
+          setImageSizeError("Image size exceeds 2 MB.");
+          setFile(null);
+          setFileType("");
+        } else {
+          setImageSizeError("");
+          const resizedImageURL = await resizeImage2(
+            e?.target?.result as string,
+            500
+          );
+          blogCreationStore.setThumbImageUrl(String(resizedImageURL));
+        }
       };
       reader.readAsDataURL(file);
+
       setFileType(file.type);
     }
   };
@@ -51,7 +79,7 @@ const index: FC = () => {
   return (
     <>
       <Header />
-      {/* {htmlToParse && parse(htmlToParse)} */}
+
       <div className="form-container">
         <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <div className="title-input">
@@ -91,7 +119,11 @@ const index: FC = () => {
                   >
                     x
                   </p>
+                  <canvas id="canvas" style={{ display: "none" }} />
                 </div>
+              )}
+              {imageSizeError && (
+                <div className="error-message">{imageSizeError}</div>
               )}
             </div>
             <Dropdown
@@ -126,7 +158,7 @@ const index: FC = () => {
                   blogCreationStore.setTitle(title);
                   blogCreationStore.setImage(file);
                 });
-                console.log({ file: blogCreationStore.setImage(file) });
+
                 push("/recheck-blog");
               }}
             />
