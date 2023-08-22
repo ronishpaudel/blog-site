@@ -4,9 +4,10 @@ import { RegisterOptions, UseFormRegister } from "react-hook-form";
 interface InputProps {
   style?: React.CSSProperties;
   text: string;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   name: string;
+  type?: string;
   register?: UseFormRegister<any>;
   maxWidth?:
     | "mW700"
@@ -40,6 +41,7 @@ const TextInput: FC<InputProps> = forwardRef(
       validateObj,
       number,
       value,
+      type,
       onChange,
       height = "hAuto",
     },
@@ -80,6 +82,7 @@ const TextInput: FC<InputProps> = forwardRef(
             {...register(name, { valueAsNumber: number })}
             value={value}
             onChange={onChange}
+            type={type}
           />
         ) : (
           <input
@@ -89,7 +92,7 @@ const TextInput: FC<InputProps> = forwardRef(
             onChange={onChange}
           />
         )}
-        <span>{text}</span>
+        <span className="textInput-text">{text}</span>
       </div>
     );
   }
