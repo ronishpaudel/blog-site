@@ -96,8 +96,6 @@ function index() {
             blogCreationStore.clearStore();
           });
         } else {
-          console.log({ category });
-          console.log("else ma janu vo sir");
           editor.update(async () => {
             const htmlString = $generateHtmlFromNodes(editor, null);
             await createBlog({
