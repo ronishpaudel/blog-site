@@ -61,7 +61,7 @@ const index: FC = () => {
     <div>
       <div className="signup-page">
         <div className="signup">
-          <AuthHeaderlogo />
+          <AuthHeaderlogo onClick={() => push("/")} />
           <div className="signup-form">
             <div>
               <p className="signin">Sign in</p>
@@ -78,8 +78,7 @@ const index: FC = () => {
               }}
             >
               <TextInput
-                placeholder="Email Address*"
-                text="Email Address"
+                text="Email Address*"
                 maxWidth="mW345"
                 name="email"
                 register={register}
@@ -88,10 +87,10 @@ const index: FC = () => {
                 <p style={{ color: "red" }}>{errors.email.message}</p>
               )}
               <TextInput
-                placeholder="Password*"
-                text="Password"
+                text="Password*"
                 maxWidth="mW345"
                 name="password"
+                type="password"
                 register={register}
               />
               {errors.password && (
