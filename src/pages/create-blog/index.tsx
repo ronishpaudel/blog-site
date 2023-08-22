@@ -81,11 +81,10 @@ const index: FC = () => {
       <Header />
 
       <div className="form-container">
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
           <div className="title-input">
-            <h3 style={{ paddingBottom: "20px" }}>Title</h3>
             <TextInput
-              text="title"
+              text="Title"
               placeholder="Enter your desired title"
               name="title"
               value={title}
@@ -138,7 +137,6 @@ const index: FC = () => {
             />
           </div>
           <div>
-            <h3>Description</h3>
             <Editor />
           </div>
           <div
