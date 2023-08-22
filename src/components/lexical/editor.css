@@ -1,6 +1,6 @@
 .form-container {
   margin: 0;
-
+  padding-top: var(--header-spacing);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",
     sans-serif;
   font-weight: 500;
