@@ -16,7 +16,6 @@ interface IFormData {
   fname: string;
   lname: string;
   email: string;
-  companyName: string;
   phoneNumber: number;
   password: string;
   cPassword: string;
@@ -26,7 +25,7 @@ const schema = z
     fname: z.string().min(4).max(20),
     lname: z.string().min(4).max(20),
     email: z.string().email(),
-    companyName: z.string().min(4).max(20),
+
     phoneNumber: z.number(),
     password: z.string().min(4).max(20),
     cPassword: z.string().min(4).max(20),
@@ -50,7 +49,6 @@ const SignUp: FC = () => {
   const onSubmit = async (data: IFormData) => {
     try {
       await createUser({
-        companyName: data.companyName,
         email: data.email,
         fname: data.fname,
         lname: data.lname,
@@ -67,13 +65,12 @@ const SignUp: FC = () => {
     <>
       <div className="signup-page">
         <div className="signup">
-          <AuthHeaderlogo />
+          <AuthHeaderlogo onClick={() => push("/auth")} />
           <div className="signup-form">
             <div>
               <p>Sign up to socialRepeat</p>
             </div>
             <form
-              onSubmit={handleSubmit(onSubmit)}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -86,8 +83,7 @@ const SignUp: FC = () => {
               <div className="input-box">
                 <div style={{ maxWidth: "440px", width: "100%" }}>
                   <TextInput
-                    placeholder="First Name"
-                    text="First Name"
+                    text="First Name*"
                     name="fname"
                     register={register}
                   />
@@ -97,8 +93,7 @@ const SignUp: FC = () => {
                 </div>
                 <div style={{ maxWidth: "440px", width: "100%" }}>
                   <TextInput
-                    placeholder="Last Name"
-                    text="Last Name"
+                    text="Last Name*"
                     name="lname"
                     register={register}
                   />
@@ -108,8 +103,7 @@ const SignUp: FC = () => {
                 </div>
               </div>
               <TextInput
-                placeholder="Email Address"
-                text="Email Address"
+                text="Email Address*"
                 maxWidth="mW438"
                 name="email"
                 register={register}
@@ -117,16 +111,7 @@ const SignUp: FC = () => {
               {errors.email && (
                 <p style={{ color: "red" }}>{errors.email.message}</p>
               )}
-              <TextInput
-                placeholder="Company Name"
-                text="Company Name"
-                maxWidth="mW438"
-                register={register}
-                name="companyName"
-              />
-              {errors.companyName && (
-                <p style={{ color: "red" }}>{errors.companyName.message}</p>
-              )}
+
               <div className="signup-name">
                 <div
                   className="input-box-name"
@@ -145,7 +130,6 @@ const SignUp: FC = () => {
                 </div>
                 <div style={{ maxWidth: "440px", width: "100%" }}>
                   <TextInput
-                    placeholder="Phone #"
                     text={"Phone #"}
                     name="phoneNumber"
                     register={register}
@@ -159,17 +143,17 @@ const SignUp: FC = () => {
               </div>
               <div>
                 <TextInput
-                  text="password"
-                  placeholder="Enter your password"
+                  text="Password*"
                   name="password"
+                  type="password"
                   register={register}
                 />
               </div>
               <div>
                 <TextInput
-                  text="Confirm password"
-                  placeholder="Confirm your password"
+                  text="Confirm password*"
                   name="cPassword"
+                  type="password"
                   register={register}
                 />
                 <span style={{ color: "red" }}>
@@ -177,8 +161,7 @@ const SignUp: FC = () => {
                 </span>
               </div>
               <Button
-                // onClick={() => {}}
-
+                onClick={() => onSubmit}
                 text={"SIGN UP"}
                 maxWidth="mW438"
               />
