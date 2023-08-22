@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: center;
   gap: 22px;
-  padding-bottom: 10px;
+  padding-bottom: 40px;
 }
 .signin {
   display: flex;
@@ -54,15 +54,13 @@
 }
 .input-box-name span {
   position: absolute;
-  top: 10px;
-  left: 8px;
-  pointer-events: none;
-  color: rgba(255, 255, 255, 0.25);
-  font-size: 0.65em;
-  text-transform: uppercase;
-  transition: 0.5s;
+  top: -13px;
+  left: 15px;
+  background-color: rgba(255, 255, 255);
+  color: black;
+  font-size: 1rem;
 }
-.input-box-name input span,
+/* .input-box-name input span,
 .input-box-name input:focus ~ span {
   color: black;
   top: -16px;
@@ -70,7 +68,7 @@
   font-size: 0.7rem;
   padding: 5px;
   background-color: white;
-}
+} */
 .input-box-name img {
   height: 24px;
   width: 24px;
@@ -107,7 +105,8 @@
   }
 }
 .dd-list {
-  width: 208px;
+  max-width: 208px;
+  width: 100%;
   margin-top: 10px;
   position: absolute;
   background: white;
