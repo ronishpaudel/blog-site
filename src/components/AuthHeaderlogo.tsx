@@ -1,9 +1,14 @@
 import React from "react";
 import { Logo } from "../../public";
 
-const AuthHeaderlogo = ({ style }: any) => {
+interface ILogo {
+  style?: React.CSSProperties;
+  onClick?: () => void;
+}
+
+const AuthHeaderlogo = ({ style, onClick }: ILogo) => {
   return (
-    <div style={style} className="auth-header-logo">
+    <div style={style} onClick={onClick} className="auth-header-logo">
       <Logo />
     </div>
   );
