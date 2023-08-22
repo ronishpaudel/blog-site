@@ -1,15 +1,12 @@
 import { API } from "@/api/API";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useRouter } from "next/router";
-
 interface IUserData {
   fname: string;
   lname: string;
   phoneNumber: number;
   password: string;
   email: string;
-  companyName: string;
 }
 
 const createUser = async (newUser: IUserData) => {
@@ -17,8 +14,6 @@ const createUser = async (newUser: IUserData) => {
   return response.data;
 };
 const useSignUpMutation = () => {
-  const queryClient = useQueryClient();
-  const { push } = useRouter();
   return useMutation({
     mutationFn: createUser,
   });
