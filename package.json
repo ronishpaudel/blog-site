@@ -29,6 +29,7 @@
     "react-hook-form": "^7.45.2",
     "react-icons": "^4.10.1",
     "react-loader-spinner": "^5.3.4",
+    "react-phone-number-input": "^3.3.4",
     "styled-components": "^6.0.4",
     "typescript": "5.1.6",
     "valtio": "^1.11.1",
