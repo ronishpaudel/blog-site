@@ -127,7 +127,7 @@ header {
   padding: 8px 8px 8px 16px;
   align-items: center;
   border-radius: 5px;
-  max-width: 250px;
+  max-width: 200px;
 }
 @media (max-width: 485px) {
   .header-search {
