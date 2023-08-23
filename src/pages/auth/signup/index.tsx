@@ -20,20 +20,6 @@ interface IFormData {
   password: string;
   cPassword: string;
 }
-const schema = z
-  .object({
-    fname: z.string().min(4).max(20),
-    lname: z.string().min(4).max(20),
-    email: z.string().email(),
-
-    phoneNumber: z.number(),
-    password: z.string().min(4).max(20),
-    cPassword: z.string().min(4).max(20),
-  })
-  .refine((data) => data.password === data.cPassword, {
-    message: "Password donot match",
-    path: ["cPassword"],
-  });
 
 const SignUp: FC = () => {
   const { push } = useRouter();
@@ -41,12 +27,15 @@ const SignUp: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormData>({
-    resolver: zodResolver(schema),
+  } = useForm<IFormData>();
+  const { mutateAsync: createUser } = useSignUpMutation({
+    onSuccess: () => {
+      push("/auth/email-sent");
+    },
   });
-  const { mutateAsync: createUser } = useSignUpMutation();
 
   const onSubmit = async (data: IFormData) => {
+    console.log("Input userData:", data);
     try {
       await createUser({
         email: data.email,
@@ -55,7 +44,6 @@ const SignUp: FC = () => {
         phoneNumber: data.phoneNumber,
         password: data.password,
       });
-      await push("/auth/email-sent");
     } catch (error) {
       console.error("Error signing up:", error);
     }
@@ -65,12 +53,16 @@ const SignUp: FC = () => {
     <>
       <div className="signup-page">
         <div className="signup">
-          <AuthHeaderlogo onClick={() => push("/auth")} />
+          <AuthHeaderlogo
+            onClick={() => push("/auth")}
+            style={{ cursor: "pointer" }}
+          />
           <div className="signup-form">
             <div>
               <p>Sign up to socialRepeat</p>
             </div>
             <form
+              onSubmit={handleSubmit(onSubmit)}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -161,7 +153,8 @@ const SignUp: FC = () => {
                 </span>
               </div>
               <Button
-                onClick={() => onSubmit}
+                // onClick={() => {}}
+
                 text={"SIGN UP"}
                 maxWidth="mW438"
               />
