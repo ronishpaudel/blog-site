@@ -61,7 +61,10 @@ const index: FC = () => {
     <div>
       <div className="signup-page">
         <div className="signup">
-          <AuthHeaderlogo onClick={() => push("/")} />
+          <AuthHeaderlogo
+            onClick={() => push("/")}
+            style={{ cursor: "pointer" }}
+          />
           <div className="signup-form">
             <div>
               <p className="signin">Sign in</p>
