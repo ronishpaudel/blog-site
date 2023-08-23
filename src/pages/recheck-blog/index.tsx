@@ -115,7 +115,7 @@ function index() {
     });
 
   const handleOnSubmit = () => {
-    if (isCreating || isUploading || isCreatingUpload) {
+    if (isCreating || isUploading || isCreatingUpload || !title) {
       return;
     }
     createBlogWithImage({});
@@ -127,7 +127,7 @@ function index() {
       <div className="page-wrapper">
         <div className="blog-info">
           <div>preview of your blog</div>
-          <p className="category">{category.displayName}</p>
+          <div className="category">{category.displayName}</div>
           <h1>{title}</h1>
           <div
             style={{
