@@ -60,7 +60,7 @@ function Card({
           <div className="card-title">{title}</div>
           <div className="card-author" onClick={onProfileClick}>
             <img src="/rbg.jpg" />
-            <div style={{ display: "flex", gap: "80px" }}>
+            <div style={{ display: "flex", gap: "30px" }}>
               <p> {user}</p>
               <p> {createdAt}</p>
             </div>
