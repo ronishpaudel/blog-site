@@ -354,3 +354,55 @@ main {
     display: none;
   }
 }
+.logout-container {
+  border-radius: 15px;
+  position: absolute;
+  display: flex;
+  max-width: 315px;
+  width: 100%;
+  flex-direction: column;
+  gap: 20px;
+  top: 50%;
+  background: white;
+  left: 40%;
+  height: 120px;
+  border: solid #0000001a;
+  padding: 12px;
+  text-align: center;
+}
+.logout-btn {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+.agree-btn {
+  background-color: rgb(202, 20, 20);
+  max-width: 80px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #f4f4f5;
+}
+.cancel-btn {
+  background-color: #3150d9;
+  max-width: 80px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  color: #f4f4f5;
+  cursor: pointer;
+}
+.agree-btn:hover {
+  background-color: red;
+}
+.cancel-btn:hover {
+  background-color: #4b6bfb;
+}
+.logout-container p {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.5rem;
+}
+.create-dropdown {
+  border: rgb(146, 146, 157);
+}
