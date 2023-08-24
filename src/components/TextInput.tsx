@@ -3,7 +3,7 @@ import { RegisterOptions, UseFormRegister } from "react-hook-form";
 
 interface InputProps {
   style?: React.CSSProperties;
-  text: string;
+  text?: string;
   placeholder?: string;
   className?: string;
   name: string;
