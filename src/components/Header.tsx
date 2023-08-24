@@ -5,12 +5,31 @@ import { useSnapshot } from "valtio";
 import { authStore } from "@/store/authStore";
 import { AiOutlinePlus } from "react-icons/ai";
 import Link from "next/link";
+import { useDebounce } from "@/hooks/useDebounce";
+import { blogCreationStore } from "@/store/blogCreationStore";
+import Logout from "./Logout";
+import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
+import { footerPageStore } from "@/store/footerPageStore";
+import { Meta } from "../../public";
+import {
+  SEARCH_COLOR_PALETTE,
+  searchInputStore,
+} from "@/store/searchInputStore";
+import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
 
 const Header: FC = () => {
-  const [isLightMode, setIsLightMode] = useState(true);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { loggedIn } = useSnapshot(authStore);
   const { push } = useRouter();
+  const { loggedIn } = useSnapshot(authStore);
+  const [isLightMode, setIsLightMode] = useState(true);
+  const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  blogCreationStore.setQuery(debouncedSearchQuery);
+  const colorPaletteSnap = useSnapshot(colorPaletteStore);
+  const colorFooterPaletteSnap = useSnapshot(footerPageStore);
+  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
+  const colorTextPaletteSnap = useSnapshot(textStore);
 
   function handleToggleMenu() {
     setIsMenuOpen((prev) => !prev);
@@ -24,45 +43,75 @@ const Header: FC = () => {
   function handleLogout() {
     authStore.setLogOut();
     localStorage.removeItem("auth");
-    // setIsLoggedIn(false);
+    setShowLogoutConfirmation(false);
   }
+  const handleLogoutConfirmation = () => {
+    setShowLogoutConfirmation(true);
+  };
 
-  // const token =
-  //   typeof window !== "undefined" ? getItemFromLocalStorage("auth") : "";
+  const handleCancelLogout = () => {
+    setShowLogoutConfirmation(false);
+  };
+
+  function handlePush() {
+    const token = localStorage.getItem("auth");
+    if (token) {
+      push("/create-blog");
+    } else {
+      push("/auth");
+    }
+  }
   return (
     <>
-      <header>
+      <header
+        style={{
+          backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+        }}
+      >
         <div className="header">
           <div className="header-logo">
             <Link href="/">
-              <img src="/logo.png" alt="asd" />
+              {isLightMode ? <img src="/logo.png" alt="asd" /> : <Meta />}
             </Link>
           </div>
-          {/* <div
-          // className={`header-items ${isMenuOpen ? "menu-open" : ""}`}
-          // onClick={() => setIsMenuOpen(false)}
-          >
-            <p>
-              <Link href="/create-blog" className="blogsCreate">
-                Craft, Share, Empower
-                <AiOutlinePlus style={{ fontSize: "20px" }} />
-              </Link>
-            </p>
-          </div> */}
           <div className="lastchildheaderparent">
             <div>
-              <p>
-                <Link href="/create-blog" className="blogsCreate">
+              <div>
+                <div
+                  className="blogsCreate"
+                  onClick={handlePush}
+                  style={{
+                    backgroundColor:
+                      SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+                    color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                    border: "none",
+                  }}
+                >
                   Craft, Blogs
                   <AiOutlinePlus style={{ fontSize: "15px" }} />
-                </Link>
-              </p>
+                </div>
+              </div>
             </div>
-            <div className="header-search">
-              <input type="text" placeholder="Search" />
+            <div
+              className="header-search"
+              style={{
+                backgroundColor:
+                  SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                style={{
+                  backgroundColor:
+                    SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+                }}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
               <img src="/search-outline.png" className="search-png" />
             </div>
-            {/* <div
+            <div
               className={`header-toggle ${
                 isLightMode ? "left-to-right" : "right-to-left"
               }`}
@@ -85,15 +134,28 @@ const Header: FC = () => {
                     );
                   setIsLightMode((prevMode) => !prevMode);
                 }
+
+                colorPaletteStore.setColor("black");
+                colorFooterPaletteSnap.setFooterColor("black");
+                colorSearchPaletteSnap.setSearchColor("black");
+                colorTextPaletteSnap.setTextColor("white");
               }}
             >
               <div className="golo">
                 <img src="/sunny.png" />
               </div>
-            </div> */}
+            </div>
             <div className="lgnin-lgnout-btn">
               {loggedIn ? (
-                <Button text="Logout" onClick={handleLogout} />
+                <>
+                  <Button text="Logout" onClick={handleLogoutConfirmation} />
+                  {showLogoutConfirmation && (
+                    <Logout
+                      onLogout={handleLogout}
+                      onCancel={handleCancelLogout}
+                    />
+                  )}
+                </>
               ) : (
                 <Button text="Login" onClick={handleLogin} />
               )}
