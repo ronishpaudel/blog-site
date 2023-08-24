@@ -5,11 +5,11 @@ import Main from "@/components/Main";
 
 const index = () => {
   return (
-    <div>
+    <>
       <Header />
       <Main />
       <Footer />
-    </div>
+    </>
   );
 };
 
