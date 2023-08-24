@@ -1,7 +1,7 @@
 import { proxy } from "valtio";
 
 export const SEARCH_COLOR_PALETTE = {
-  black: "#52525B",
+  black: "#242535",
   white: "#fffffff",
 };
 
