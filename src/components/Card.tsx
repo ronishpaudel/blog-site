@@ -1,6 +1,8 @@
 import React, { DOMAttributes } from "react";
 import { Author } from "./Author";
 import { Tag } from "./Tag";
+import { useSnapshot } from "valtio";
+import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
   thumbnailImage?: string;
@@ -51,9 +53,16 @@ function Card({
   onProfileClick,
   ...rest
 }: CardProps) {
+  const colorPaletteSnap = useSnapshot(colorPaletteStore);
   return (
     <>
-      <div className="m-post-card-grid" onClick={onCardClick}>
+      <div
+        className="m-post-card-grid"
+        onClick={onCardClick}
+        style={{
+          backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+        }}
+      >
         <img src={thumbnailImage} />
         <div className="card-content">
           <div className="card-category">{category}</div>
