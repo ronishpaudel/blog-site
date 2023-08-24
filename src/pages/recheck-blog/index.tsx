@@ -23,6 +23,8 @@ import { authStore } from "@/store/authStore";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { ColorRing } from "react-loader-spinner";
+import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
+import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
 
 type UploadResponse = {
   message: string;
@@ -34,7 +36,8 @@ type UploadResponse = {
 function index() {
   const { title, description, imageUrl, category, thumbImageUrl } =
     useSnapshot(blogCreationStore);
-
+  const colorPaletteSnap = useSnapshot(colorPaletteStore);
+  const colorTextPaletteSnap = useSnapshot(textStore);
   const { push } = useRouter();
 
   const [fileType, setFileType] = useState("");
@@ -124,41 +127,67 @@ function index() {
   return (
     <div>
       <Header />
-      <div className="page-wrapper">
-        <div className="blog-info">
-          <div>preview of your blog</div>
-          <div className="category">{category.displayName}</div>
-          <h1>{title}</h1>
+      <div
+        className="page-wrapper"
+        style={{
+          backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+        }}
+      >
+        <div className="blog-wrapper">
+          <div className="blog-info">
+            <div
+              style={{
+                color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              }}
+            >
+              preview of your blog
+            </div>
+            <div className="category">{category.displayName}</div>
+            <h1
+              style={{
+                color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              }}
+            >
+              {title}
+            </h1>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+            >
+              <Author
+                name={`${dbUser?.fname} ${dbUser?.lname}`}
+                createdAt={dateFormat(new Date().toLocaleDateString())}
+              />
+            </div>
+          </div>
+          <img src={imageUrl} className="blog-image" />
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              cursor: "pointer",
+              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              width: "100%",
             }}
           >
-            <Author
-              name={`${dbUser?.fname} ${dbUser?.lname}`}
-              createdAt={dateFormat(new Date().toLocaleDateString())}
-            />
+            {description && parse(description)}
           </div>
-        </div>
-        <img src={imageUrl} className="blog-image" />
-        <div style={{ width: "100%" }}>{description && parse(description)}</div>
 
-        {isCreating || isUploading || isCreatingUpload ? (
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
-          />
-        ) : (
-          <Button text={"publish now"} onClick={() => handleOnSubmit()} />
-        )}
+          {isCreating || isUploading || isCreatingUpload ? (
+            <ColorRing
+              visible={true}
+              height="80"
+              width="80"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
+            />
+          ) : (
+            <Button text={"publish now"} onClick={() => handleOnSubmit()} />
+          )}
+        </div>
       </div>
       <Footer />
     </div>
