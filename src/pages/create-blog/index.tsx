@@ -7,11 +7,15 @@ import Editor from "@/components/lexical/Editor";
 import Header from "@/components/Header";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { proxy } from "valtio";
+import { proxy, useSnapshot } from "valtio";
 import { useCategoryQuery } from "@/hooks/useGetCategory";
 import Dropdown from "@/components/Dropdown";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { resizeImage2 } from "@/utils/resizeImage";
+import { colorPaletteStore } from "@/store/colorPalette.store";
+import { textStore } from "@/store/textColor";
+import { footerPageStore } from "@/store/footerPageStore";
+import { searchInputStore } from "@/store/searchInputStore";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -29,6 +33,10 @@ const index: FC = () => {
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
+  const colorPaletteSnap = useSnapshot(colorPaletteStore);
+  const colorTextPaletteSnap = useSnapshot(textStore);
+  const colorFooterPaletteSnap = useSnapshot(footerPageStore);
+  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
 
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
