@@ -3,6 +3,7 @@ import { proxy } from "valtio";
 export const blogCreationStore = proxy<{
   title: string;
   description: string;
+  query: string;
   category: { id: number; displayName: string };
   imageUrl: string;
   thumbImageUrl: string;
@@ -11,6 +12,7 @@ export const blogCreationStore = proxy<{
   setImage: (imageUrl: string) => void;
   setCategory: (val: { id: number; displayName: string }) => void;
   setThumbImageUrl: (thumbImageUrl: string) => void;
+  setQuery: (query: string) => void;
   clearStore: () => void;
 }>({
   title: "",
@@ -18,11 +20,15 @@ export const blogCreationStore = proxy<{
   category: { id: 0, displayName: "" },
   imageUrl: "",
   thumbImageUrl: "",
+  query: "",
   setTitle(title) {
     this.title = title;
   },
   setDescription(description) {
     this.description = description;
+  },
+  setQuery(query) {
+    this.query = query;
   },
   setImage(imageUrl) {
     this.imageUrl = imageUrl;
