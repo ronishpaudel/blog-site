@@ -1,43 +1,77 @@
-import React, { FC } from "react";
+import React from "react";
+import { useRouter } from "next/router";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { Iblog, fetchBlogs, useQueryBlog } from "@/hooks/useQueryBlog";
+import { useBlogSearch } from "@/hooks/useBlogSearch";
+import { dateFormat } from "@/utils/dateFormat";
 import { Content } from "./Content";
 import Card from "./Card";
 import Ad from "./Ad";
-import { useRouter } from "next/router";
-import { Iblog, fetchBlogs, useQueryBlog } from "@/hooks/useQueryBlog";
-import { dateFormat } from "@/utils/dateFormat";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { blogCreationStore } from "@/store/blogCreationStore";
+import { useSnapshot } from "valtio";
+import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
+import { FOOTER_COLOR_PALETTE, footerPageStore } from "@/store/footerPageStore";
+import {
+  SEARCH_COLOR_PALETTE,
+  searchInputStore,
+} from "@/store/searchInputStore";
 
 const GG = () => {
   const { push } = useRouter();
+  const { query } = blogCreationStore;
 
-  const { data, hasNextPage, fetchNextPage } = useQueryBlog();
+  const { data: blogSearch } = useBlogSearch(query);
+  const { data } = useQueryBlog();
 
   return (
     <div className="card-parent" id="main">
-      {data?.pages.map((page: any) =>
-        page.map((blog: Iblog) => (
-          <Card
-            key={blog.id}
-            category={blog?.category?.name}
-            title={blog.title}
-            thumbnailImage={blog.thumbImageUrl}
-            user={`${blog?.user?.fname} ${blog?.user?.lname}`}
-            createdAt={dateFormat(blog.createdAt)}
-            onCardClick={() => {
-              push({
-                pathname: "/[id]",
-                query: {
-                  id: blog.id,
-                },
-              });
-            }}
-            onProfileClick={() => console.log("navigate to profile with id")}
-          />
-        ))
-      )}
+      {blogSearch
+        ? blogSearch.map((blog) => (
+            <Card
+              key={blog.id}
+              category={blog?.category?.name}
+              title={blog.title}
+              thumbnailImage={blog.thumbImageUrl}
+              user={`${blog?.user?.fname} ${blog?.user?.lname}`}
+              createdAt={dateFormat(blog.createdAt)}
+              onCardClick={() => {
+                push({
+                  pathname: "/[id]",
+                  query: {
+                    id: blog.id,
+                  },
+                });
+              }}
+              onProfileClick={() => console.log("navigate to profile with id")}
+            />
+          ))
+        : data?.pages.map((page: any) =>
+            page.map((blog: Iblog) => (
+              <Card
+                key={blog.id}
+                category={blog?.category?.name}
+                title={blog.title}
+                thumbnailImage={blog.thumbImageUrl}
+                user={`${blog?.user?.fname} ${blog?.user?.lname}`}
+                createdAt={dateFormat(blog.createdAt)}
+                onCardClick={() => {
+                  push({
+                    pathname: "/[id]",
+                    query: {
+                      id: blog.id,
+                    },
+                  });
+                }}
+                onProfileClick={() =>
+                  console.log("navigate to profile with id")
+                }
+              />
+            ))
+          )}
     </div>
   );
 };
+
 const Main = () => {
   const { hasNextPage, fetchNextPage } = useQueryBlog();
   const handleViewNextPost = async () => {
@@ -45,24 +79,37 @@ const Main = () => {
       await fetchNextPage();
     }
   };
-
+  const colorPaletteSnap = useSnapshot(colorPaletteStore);
+  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
   return (
-    <>
-      <main>
-        <div className="main">
-          <div className="image-wrappper">
-            <img src="/Image.png" className="Image" />
-          </div>
-          <Content />
-          <Ad />
-          <GG />
-          <div className="viewPost" onClick={handleViewNextPost}>
-            View All Post
-          </div>
-          <Ad />
+    <main
+      style={{
+        backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+      }}
+    >
+      <div className="main">
+        <div className="image-wrappper">
+          <img src="/Image.png" className="Image" alt="Blog Image" />
         </div>
-      </main>
-    </>
+        <Content />
+        <Ad
+          style={{
+            backgroundColor:
+              SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+          }}
+        />
+        <GG />
+        <div className="viewPost" onClick={handleViewNextPost}>
+          View All Post
+        </div>
+        <Ad
+          style={{
+            backgroundColor:
+              SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+          }}
+        />
+      </div>
+    </main>
   );
 };
 
