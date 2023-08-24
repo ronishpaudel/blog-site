@@ -3,6 +3,11 @@ import { Author } from "./Author";
 import { Tag } from "./Tag";
 import { useSnapshot } from "valtio";
 import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
+import {
+  SEARCH_COLOR_PALETTE,
+  searchInputStore,
+} from "@/store/searchInputStore";
+import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
   thumbnailImage?: string;
@@ -54,6 +59,9 @@ function Card({
   ...rest
 }: CardProps) {
   const colorPaletteSnap = useSnapshot(colorPaletteStore);
+  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
+  const colorTextPaletteSnap = useSnapshot(textStore);
+
   return (
     <>
       <div
@@ -61,12 +69,22 @@ function Card({
         onClick={onCardClick}
         style={{
           backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+          border: `1px solid ${
+            SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor]
+          }`,
         }}
       >
         <img src={thumbnailImage} />
         <div className="card-content">
           <div className="card-category">{category}</div>
-          <div className="card-title">{title}</div>
+          <div
+            className="card-title"
+            style={{
+              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+            }}
+          >
+            {title}
+          </div>
           <div className="card-author" onClick={onProfileClick}>
             <img src="/rbg.jpg" />
             <div style={{ display: "flex", gap: "30px" }}>
