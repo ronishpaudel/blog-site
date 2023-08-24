@@ -125,16 +125,31 @@ const index: FC = () => {
                 <div className="error-message">{imageSizeError}</div>
               )}
             </div>
-            <Dropdown
-              options={categoryOptions || []}
-              onChange={(val) =>
-                blogCreationStore.setCategory({
-                  id: Number(val.id),
-                  displayName: val.displayName,
-                })
-              }
-              label="Select Category"
-            />
+            <div
+              className="create-dropdown"
+              style={{
+                border: "none",
+                borderRadius: "8px",
+                backgroundColor: "#0057ff",
+              }}
+            >
+              <Dropdown
+                options={categoryOptions || []}
+                onChange={(val) =>
+                  blogCreationStore.setCategory({
+                    id: Number(val.id),
+                    displayName: val.displayName,
+                  })
+                }
+                style={{
+                  maxWidth: "170px",
+                  width: "100%",
+                  position: "absolute",
+                  right: "20%",
+                }}
+                label="Select Category"
+              />
+            </div>
           </div>
           <div>
             <Editor />
