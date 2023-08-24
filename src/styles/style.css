@@ -317,7 +317,7 @@ header {
 main {
   display: flex;
   justify-content: center;
-  margin: 0 var(--spacing);
+  padding: 0 var(--spacing);
 }
 .main {
   display: flex;
