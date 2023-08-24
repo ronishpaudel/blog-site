@@ -167,6 +167,7 @@ header {
   font-weight: 600;
   font-size: 0.9rem;
   gap: 7px;
+  cursor: pointer;
 }
 .blogsCreate:hover {
   color: #0057ff;
