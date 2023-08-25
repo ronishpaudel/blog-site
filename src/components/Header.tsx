@@ -25,7 +25,6 @@ const Header: FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
-  blogCreationStore.setQuery(debouncedSearchQuery);
   const colorPaletteSnap = useSnapshot(colorPaletteStore);
   const colorFooterPaletteSnap = useSnapshot(footerPageStore);
   const colorSearchPaletteSnap = useSnapshot(searchInputStore);
@@ -61,6 +60,18 @@ const Header: FC = () => {
       push("/auth");
     }
   }
+
+  function handleOnClick() {
+    if (isLightMode) {
+      colorPaletteStore.setColor("black");
+      colorFooterPaletteSnap.setFooterColor("black");
+      colorSearchPaletteSnap.setSearchColor("black");
+      colorTextPaletteSnap.setTextColor("white");
+    } else {
+      console.log("prevMode");
+    }
+  }
+
   return (
     <>
       <header
@@ -109,7 +120,11 @@ const Header: FC = () => {
                 }}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
-              <img src="/search-outline.png" className="search-png" />
+              <img
+                src="/search-outline.png"
+                className="search-png"
+                style={{ cursor: "pointer" }}
+              />
             </div>
             <div
               className={`header-toggle ${
@@ -133,12 +148,8 @@ const Header: FC = () => {
                         : "animate-move-toggle-to-left"
                     );
                   setIsLightMode((prevMode) => !prevMode);
+                  handleOnClick();
                 }
-
-                colorPaletteStore.setColor("black");
-                colorFooterPaletteSnap.setFooterColor("black");
-                colorSearchPaletteSnap.setSearchColor("black");
-                colorTextPaletteSnap.setTextColor("white");
               }}
             >
               <div className="golo">
