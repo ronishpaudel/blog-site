@@ -1,5 +1,11 @@
+import {
+  SEARCH_COLOR_PALETTE,
+  searchInputStore,
+} from "@/store/searchInputStore";
+import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
 import React, { FC, forwardRef, useState } from "react";
 import { RegisterOptions, UseFormRegister } from "react-hook-form";
+import { useSnapshot } from "valtio";
 
 interface InputProps {
   style?: React.CSSProperties;
@@ -71,6 +77,8 @@ const TextInput: FC<InputProps> = forwardRef(
       hAuto: "input-box-name hAuto",
       h150: "input-box-name h150",
     };
+    const colorSearchPaletteSnap = useSnapshot(searchInputStore);
+    const colorTextPaletteSnap = useSnapshot(textStore);
     return (
       <div
         style={style}
@@ -83,6 +91,11 @@ const TextInput: FC<InputProps> = forwardRef(
             value={value}
             onChange={onChange}
             type={type}
+            style={{
+              backgroundColor:
+                SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+            }}
           />
         ) : (
           <input
@@ -90,9 +103,23 @@ const TextInput: FC<InputProps> = forwardRef(
             value={value}
             name={name}
             onChange={onChange}
+            style={{
+              backgroundColor:
+                SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+            }}
           />
         )}
-        <span className="textInput-text">{text}</span>
+        <span
+          className="textInput-text"
+          style={{
+            backgroundColor:
+              SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+            color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+          }}
+        >
+          {text}
+        </span>
       </div>
     );
   }

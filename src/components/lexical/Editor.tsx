@@ -18,6 +18,12 @@ import AutoLinkPlugin from "@/plugins/AutoLinkPlugin";
 import ToolbarPlugin from "@/plugins/ToolbarPlugin";
 import CodeHighlightPlugin from "@/plugins/CodeHighlightPlugin";
 import ListMaxIndentLevelPlugin from "@/plugins/ListMaxIndentLevelPlugin";
+import {
+  SEARCH_COLOR_PALETTE,
+  searchInputStore,
+} from "@/store/searchInputStore";
+import { useSnapshot } from "valtio";
+import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -48,12 +54,23 @@ export const editorConfig = {
 };
 
 export default function Editor() {
+  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
+  const colorTextPaletteSnap = useSnapshot(textStore);
   return (
     <div className="editor-container">
       <ToolbarPlugin />
       <div className="editor-inner">
         <RichTextPlugin
-          contentEditable={<ContentEditable className="editor-input" />}
+          contentEditable={
+            <ContentEditable
+              className="editor-input"
+              style={{
+                backgroundColor:
+                  SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+                color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              }}
+            />
+          }
           placeholder={<Placeholder />}
           ErrorBoundary={LexicalErrorBoundary}
         />

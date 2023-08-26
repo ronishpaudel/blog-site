@@ -55,6 +55,12 @@ import {
   Typestrikethrough,
   Typeunderline,
 } from "../../public/images/icons";
+import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { useSnapshot } from "valtio";
+import {
+  SEARCH_COLOR_PALETTE,
+  searchInputStore,
+} from "@/store/searchInputStore";
 
 const LowPriority = 1;
 
@@ -550,9 +556,18 @@ export default function ToolbarPlugin() {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
     }
   }, [editor, isLink]);
-
+  const colorTextPaletteSnap = useSnapshot(textStore);
+  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
   return (
-    <div className="toolbar" ref={toolbarRef}>
+    <div
+      className="toolbar"
+      ref={toolbarRef}
+      style={{
+        backgroundColor:
+          SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+        color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+      }}
+    >
       <button
         disabled={!canUndo}
         onClick={() => {
@@ -562,7 +577,11 @@ export default function ToolbarPlugin() {
         aria-label="Undo"
       >
         <i className="format undo">
-          <Arrowcounterclockwise style={{ color: "black" }} />
+          <Arrowcounterclockwise
+            style={{
+              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+            }}
+          />
         </i>
       </button>
       <button
@@ -574,7 +593,11 @@ export default function ToolbarPlugin() {
         aria-label="Redo"
       >
         <i className="format redo">
-          <Arrowclockwise style={{ color: "black" }} />
+          <Arrowclockwise
+            style={{
+              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+            }}
+          />
         </i>
       </button>
       <Divider />
@@ -588,11 +611,19 @@ export default function ToolbarPlugin() {
             aria-label="Formatting Options"
           >
             <span className={"icon block-type " + blockType}>
-              <Textparagraph style={{ color: "black" }} />
+              <Textparagraph
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </span>
             <span className="text">{blockTypeToBlockName[blockType]}</span>
             <i className="chevron-down">
-              <Chevrondown style={{ color: "black" }} />
+              <Chevrondown
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           {showBlockOptionsDropDown &&
@@ -628,7 +659,11 @@ export default function ToolbarPlugin() {
             aria-label="Format Bold"
           >
             <i className="format bold">
-              <Typebold style={{ color: "black" }} />
+              <Typebold
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -639,7 +674,11 @@ export default function ToolbarPlugin() {
             aria-label="Format Italics"
           >
             <i className="format italic">
-              <Typeitalic style={{ color: "black" }} />
+              <Typeitalic
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -650,7 +689,11 @@ export default function ToolbarPlugin() {
             aria-label="Format Underline"
           >
             <i className="format underline">
-              <Typeunderline style={{ color: "black" }} />
+              <Typeunderline
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -663,7 +706,11 @@ export default function ToolbarPlugin() {
             aria-label="Format Strikethrough"
           >
             <i className="format strikethrough">
-              <Typestrikethrough style={{ color: "black" }} />
+              <Typestrikethrough
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -674,7 +721,11 @@ export default function ToolbarPlugin() {
             aria-label="Insert Code"
           >
             <i className="format code">
-              <Code style={{ color: "black" }} />
+              <Code
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -683,7 +734,11 @@ export default function ToolbarPlugin() {
             aria-label="Insert Link"
           >
             <i className="format link">
-              <TypeLink style={{ color: "black" }} />
+              <TypeLink
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           {isLink &&
@@ -697,7 +752,11 @@ export default function ToolbarPlugin() {
             aria-label="Left Align"
           >
             <i className="format left-align">
-              <TextLeft style={{ color: "black" }} />
+              <TextLeft
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -708,7 +767,11 @@ export default function ToolbarPlugin() {
             aria-label="Center Align"
           >
             <i className="format center-align">
-              <TextCenter style={{ color: "black" }} />
+              <TextCenter
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -719,7 +782,11 @@ export default function ToolbarPlugin() {
             aria-label="Right Align"
           >
             <i className="format right-align">
-              <TextRight style={{ color: "black" }} />
+              <TextRight
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
           <button
@@ -730,7 +797,11 @@ export default function ToolbarPlugin() {
             aria-label="Justify Align"
           >
             <i className="format justify-align">
-              <TextJustify style={{ color: "black" }} />
+              <TextJustify
+                style={{
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                }}
+              />
             </i>
           </button>
         </>
