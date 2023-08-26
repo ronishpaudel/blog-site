@@ -68,16 +68,18 @@ const Header: FC = () => {
       colorSearchPaletteSnap.setSearchColor("black");
       colorTextPaletteSnap.setTextColor("white");
     } else {
-      console.log("prevMode");
+      colorPaletteStore.setColor("white");
     }
   }
 
   return (
     <>
       <header
-        style={{
-          backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
-        }}
+        style={
+          isLightMode
+            ? { backgroundColor: COLOR_PALETTE[colorPaletteSnap.color] }
+            : { backgroundColor: COLOR_PALETTE[colorPaletteSnap.color] }
+        }
       >
         <div className="header">
           <div className="header-logo">
@@ -117,6 +119,7 @@ const Header: FC = () => {
                 style={{
                   backgroundColor:
                     SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
                 }}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
