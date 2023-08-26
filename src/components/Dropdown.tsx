@@ -1,5 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DropDown } from "../../public";
+import {
+  SEARCH_COLOR_PALETTE,
+  searchInputStore,
+} from "@/store/searchInputStore";
+import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { useSnapshot } from "valtio";
 
 function Dropdown({
   onChange,
@@ -28,7 +34,8 @@ function Dropdown({
       document.removeEventListener("mouseup", () => {});
     };
   }, []);
-
+  const colorTextPaletteSnap = useSnapshot(textStore);
+  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
   return (
     <div>
       <div>
@@ -38,6 +45,7 @@ function Dropdown({
             style={{
               display: "flex",
               justifyContent: "space-between",
+              color: "white",
             }}
           >
             {selectedOption || label}
@@ -46,7 +54,14 @@ function Dropdown({
         </div>
       </div>
       {isOpen && (
-        <div className="dd-list">
+        <div
+          className="dd-list"
+          style={{
+            backgroundColor:
+              SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+            color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+          }}
+        >
           <div style={{ height: "30px" }} className="dd-list-label">
             {label}
           </div>
