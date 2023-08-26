@@ -32,20 +32,21 @@ function getBase64ImageSize(base64String: string): number {
 
 const index: FC = () => {
   const [title, setTitle] = useState(blogCreationStore.title);
+  const [description, setDescription] = useState(blogCreationStore.description);
   const { push } = useRouter();
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
   const colorPaletteSnap = useSnapshot(colorPaletteStore);
-  const colorTextPaletteSnap = useSnapshot(textStore);
-  const colorFooterPaletteSnap = useSnapshot(footerPageStore);
-  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
 
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
+  }
+  function handleDescriptionChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setDescription(e.target.value);
   }
 
   const handleImageSelect = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -166,7 +167,7 @@ const index: FC = () => {
             </div>
           </div>
           <div>
-            <Editor />
+            <Editor value={description} onChange={handleDescriptionChange} />
           </div>
           <div
             style={{

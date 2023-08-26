@@ -107,8 +107,7 @@ function index() {
               categoryId: category.id,
             });
             console.log({ id: category.id });
-            blogCreationStore.setTitle("");
-            blogCreationStore.setImage("");
+            blogCreationStore.clearStore();
           });
         }
       },

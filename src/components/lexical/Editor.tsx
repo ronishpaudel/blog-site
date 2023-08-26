@@ -53,7 +53,13 @@ export const editorConfig = {
   ],
 };
 
-export default function Editor() {
+export default function Editor({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (e: any) => void;
+}) {
   const colorSearchPaletteSnap = useSnapshot(searchInputStore);
   const colorTextPaletteSnap = useSnapshot(textStore);
   return (
@@ -69,6 +75,8 @@ export default function Editor() {
                   SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
                 color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
               }}
+              value={value}
+              onChange={onChange}
             />
           }
           placeholder={<Placeholder />}
