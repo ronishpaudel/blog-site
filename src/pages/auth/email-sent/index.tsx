@@ -12,7 +12,7 @@ const index: FC = () => {
   return (
     <div className="signup-page">
       <div className="signup-page-wrapper">
-        <AuthHeaderlogo />
+        <AuthHeaderlogo onClick={() => push("/auth/signup")} />
         <div
           style={{
             display: "flex",
@@ -26,12 +26,12 @@ const index: FC = () => {
             </div>
 
             <Button text={"CONTACT SUPPORT"} maxWidth="mW188" />
-            <Button
+            {/* <Button
               onClick={() => push("/auth/finalise-registration")}
               text={"CONTINUE TO NEXT"}
               preset="secondary"
               maxWidth="mW440"
-            />
+            /> */}
           </div>
         </div>
         <div>
