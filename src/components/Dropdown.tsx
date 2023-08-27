@@ -45,7 +45,7 @@ function Dropdown({
             style={{
               display: "flex",
               justifyContent: "space-between",
-              color: "white",
+              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
             }}
           >
             {selectedOption || label}
