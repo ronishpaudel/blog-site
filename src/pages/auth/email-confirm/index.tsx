@@ -19,6 +19,16 @@ const index: FC = () => {
     }
   }, [query.token]);
   console.log(query.token);
+
+  function handleOnClick() {
+    const token = query.token;
+    if (token) {
+      localStorage.setItem("auth", token as string);
+      push("/");
+    } else {
+      return;
+    }
+  }
   return (
     <div className="signup-page">
       <div className="signup-page-wrapper">
@@ -44,10 +54,10 @@ const index: FC = () => {
 
             <Button text={"CONTACT SUPPORT"} maxWidth="mW188" />
             <Button
-              onClick={() => push("/auth/finalise-registration")}
-              text={"CONTINUE UX"}
+              onClick={handleOnClick}
+              text={"CONTINUE TO HOMEPAGE"}
               preset="secondary"
-              maxWidth="mW145"
+              maxWidth="mW230"
             />
             <Button
               onClick={() => push("/auth/signup")}
