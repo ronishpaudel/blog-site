@@ -15,7 +15,8 @@ interface buttonProps {
     | "mW345"
     | "mW438"
     | "mW115"
-    | "mW145";
+    | "mW145"
+    | "mW230";
 }
 const Button = ({
   className,
@@ -39,7 +40,8 @@ const Button = ({
     | "mW345"
     | "mW438"
     | "mW115"
-    | "mW145",
+    | "mW145"
+    | "mW230",
     string
   > = {
     mW188: "btn mW188",
@@ -50,6 +52,7 @@ const Button = ({
     mW440: "btn mW440",
     mW115: "btn mW115",
     mW145: "btn mW145",
+    mW230: "btn mW230",
   };
   return (
     <button
