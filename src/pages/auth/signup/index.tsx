@@ -110,7 +110,7 @@ const SignUp: FC = () => {
                   style={{ maxWidth: "440px", width: "100%" }}
                 >
                   <Dropdown
-                    style={{}}
+                    style={{ color: "black" }}
                     options={[
                       { displayName: "usa", id: 1 },
                       { displayName: "nepal", id: 2 },
