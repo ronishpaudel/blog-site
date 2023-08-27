@@ -19,6 +19,7 @@ import {
   SEARCH_COLOR_PALETTE,
   searchInputStore,
 } from "@/store/searchInputStore";
+import { ColorRing } from "react-loader-spinner";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -88,6 +89,32 @@ const index: FC = () => {
     id: category.id,
   }));
 
+  function handleOnClick() {
+    if (title || file || description) {
+      editor.update(async () => {
+        const htmlString = $generateHtmlFromNodes(editor, null);
+        blogCreationStore.setDescription(htmlString);
+        blogCreationStore.setTitle(title);
+        blogCreationStore.setImage(file);
+      });
+
+      push("/recheck-blog");
+    } else {
+      return (
+        <>
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="blocks-loading"
+            wrapperStyle={{}}
+            wrapperClass="blocks-wrapper"
+            colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
+          />
+        </>
+      );
+    }
+  }
   return (
     <>
       <Header />
@@ -187,7 +214,9 @@ const index: FC = () => {
                   blogCreationStore.setImage(file);
                 });
 
-                push("/recheck-blog");
+                {
+                  title ? push("/recheck-blog") : "";
+                }
               }}
             />
           </div>
