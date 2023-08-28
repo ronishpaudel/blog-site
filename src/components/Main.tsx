@@ -15,6 +15,7 @@ import {
   SEARCH_COLOR_PALETTE,
   searchInputStore,
 } from "@/store/searchInputStore";
+import { Dialog } from "@radix-ui/react-dialog";
 
 const GG = () => {
   const { push } = useRouter();
