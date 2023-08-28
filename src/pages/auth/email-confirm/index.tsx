@@ -23,7 +23,7 @@ const index: FC = () => {
   function handleOnClick() {
     const token = query.token;
     if (token) {
-      localStorage.setItem("auth", token as string);
+      localStorage.setItem("auth", JSON.stringify(token));
       push("/");
     } else {
       return;
