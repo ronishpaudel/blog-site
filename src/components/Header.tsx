@@ -87,6 +87,7 @@ const Header: FC = () => {
               {isLightMode ? <img src="/logo.png" alt="asd" /> : <Meta />}
             </Link>
           </div>
+
           <div className="lastchildheaderparent">
             <div>
               <div>
