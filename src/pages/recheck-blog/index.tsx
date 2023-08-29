@@ -23,8 +23,7 @@ import { authStore } from "@/store/authStore";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { ColorRing } from "react-loader-spinner";
-import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 type UploadResponse = {
   message: string;
@@ -36,8 +35,8 @@ type UploadResponse = {
 function index() {
   const { title, description, imageUrl, category, thumbImageUrl } =
     useSnapshot(blogCreationStore);
-  const colorPaletteSnap = useSnapshot(colorPaletteStore);
-  const colorTextPaletteSnap = useSnapshot(textStore);
+  const themeSnap = useSnapshot(themeStore);
+
   const { push } = useRouter();
 
   const [fileType, setFileType] = useState("");
@@ -129,14 +128,14 @@ function index() {
       <div
         className="page-wrapper"
         style={{
-          backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+          backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
         }}
       >
         <div className="blog-wrapper">
           <div className="blog-info">
             <div
               style={{
-                color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                color: THEME_PALETTE[themeSnap.theme].textColor,
               }}
             >
               preview of your blog
@@ -144,7 +143,7 @@ function index() {
             <div className="category">{category.displayName}</div>
             <h1
               style={{
-                color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                color: THEME_PALETTE[themeSnap.theme].textColor,
               }}
             >
               {title}
@@ -158,7 +157,7 @@ function index() {
               }}
             >
               <Author
-                name={`${dbUser?.fname} ${dbUser?.lname}`}
+                name={` ${dbUser?.username}`}
                 createdAt={dateFormat(new Date().toLocaleDateString())}
               />
             </div>
@@ -166,7 +165,7 @@ function index() {
           <img src={imageUrl} className="blog-image" />
           <div
             style={{
-              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              color: THEME_PALETTE[themeSnap.theme].textColor,
               width: "100%",
             }}
           >

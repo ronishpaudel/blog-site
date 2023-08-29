@@ -5,19 +5,16 @@ import { Author } from "@/components/Author";
 import { Tag } from "@/components/Tag";
 import { useRouter } from "next/router";
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
-import { AiOutlineEdit } from "react-icons/ai";
 import { useOneBlog } from "@/hooks/useQueryBlog";
 import parse from "html-react-parser";
 import { dateFormat } from "@/utils/dateFormat";
 import { useSnapshot } from "valtio";
-import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 const index: FC = () => {
   const { push, query } = useRouter();
   const { data } = useOneBlog(query?.id as string);
-  const colorPaletteSnap = useSnapshot(colorPaletteStore);
-  const colorTextPaletteSnap = useSnapshot(textStore);
+  const themeSnap = useSnapshot(themeStore);
 
   return (
     <div>
@@ -26,7 +23,7 @@ const index: FC = () => {
         <div
           className="page-wrapper"
           style={{
-            backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+            backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
           }}
         >
           <div className="blog-wrapper">
@@ -34,7 +31,7 @@ const index: FC = () => {
               <Tag category={data?.category} />
               <h1
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               >
                 {data?.title}
@@ -49,7 +46,7 @@ const index: FC = () => {
                 }}
               >
                 <Author
-                  name={`${data?.user.fname} ${data?.user.lname}`}
+                  name={`${data?.user.username} `}
                   createdAt={dateFormat(data?.createdAt)}
                 />
                 {/* <AiOutlineEdit
@@ -70,7 +67,7 @@ const index: FC = () => {
               style={{
                 fontWeight: "400",
                 width: "100%",
-                color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                color: THEME_PALETTE[themeStore.theme].textColor,
               }}
             >
               {data?.description && parse(data?.description)}
@@ -83,4 +80,4 @@ const index: FC = () => {
   );
 };
 
-export default PrivateRoute(index);
+export default index;

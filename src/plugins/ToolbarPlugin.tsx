@@ -55,12 +55,9 @@ import {
   Typestrikethrough,
   Typeunderline,
 } from "../../public/images/icons";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
 import { useSnapshot } from "valtio";
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
+
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 const LowPriority = 1;
 
@@ -556,16 +553,15 @@ export default function ToolbarPlugin() {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
     }
   }, [editor, isLink]);
-  const colorTextPaletteSnap = useSnapshot(textStore);
-  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
+  const themeSnap = useSnapshot(themeStore);
+
   return (
     <div
       className="toolbar"
       ref={toolbarRef}
       style={{
-        backgroundColor:
-          SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
-        color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+        backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+        color: THEME_PALETTE[themeSnap.theme].textColor,
       }}
     >
       <button
@@ -579,7 +575,7 @@ export default function ToolbarPlugin() {
         <i className="format undo">
           <Arrowcounterclockwise
             style={{
-              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           />
         </i>
@@ -595,7 +591,7 @@ export default function ToolbarPlugin() {
         <i className="format redo">
           <Arrowclockwise
             style={{
-              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           />
         </i>
@@ -613,7 +609,7 @@ export default function ToolbarPlugin() {
             <span className={"icon block-type " + blockType}>
               <Textparagraph
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </span>
@@ -621,7 +617,7 @@ export default function ToolbarPlugin() {
             <i className="chevron-down">
               <Chevrondown
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -661,7 +657,7 @@ export default function ToolbarPlugin() {
             <i className="format bold">
               <Typebold
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -676,7 +672,7 @@ export default function ToolbarPlugin() {
             <i className="format italic">
               <Typeitalic
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -691,7 +687,7 @@ export default function ToolbarPlugin() {
             <i className="format underline">
               <Typeunderline
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -708,7 +704,7 @@ export default function ToolbarPlugin() {
             <i className="format strikethrough">
               <Typestrikethrough
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -723,7 +719,7 @@ export default function ToolbarPlugin() {
             <i className="format code">
               <Code
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -736,7 +732,7 @@ export default function ToolbarPlugin() {
             <i className="format link">
               <TypeLink
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -754,7 +750,7 @@ export default function ToolbarPlugin() {
             <i className="format left-align">
               <TextLeft
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -769,7 +765,7 @@ export default function ToolbarPlugin() {
             <i className="format center-align">
               <TextCenter
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -784,7 +780,7 @@ export default function ToolbarPlugin() {
             <i className="format right-align">
               <TextRight
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -799,7 +795,7 @@ export default function ToolbarPlugin() {
             <i className="format justify-align">
               <TextJustify
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>

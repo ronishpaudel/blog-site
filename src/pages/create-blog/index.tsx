@@ -12,13 +12,7 @@ import { useCategoryQuery } from "@/hooks/useGetCategory";
 import Dropdown from "@/components/Dropdown";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { resizeImage2 } from "@/utils/resizeImage";
-import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
-import { footerPageStore } from "@/store/footerPageStore";
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { ColorRing } from "react-loader-spinner";
 
 function getBase64ImageSize(base64String: string): number {
@@ -38,7 +32,7 @@ const index: FC = () => {
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
-  const colorPaletteSnap = useSnapshot(colorPaletteStore);
+  const colorPaletteSnap = useSnapshot(themeStore);
 
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
@@ -121,7 +115,7 @@ const index: FC = () => {
 
       <div
         className="form-container"
-        style={{ backgroundColor: COLOR_PALETTE[colorPaletteSnap.color] }}
+        style={{ backgroundColor: THEME_PALETTE[themeStore.theme].cardBg }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
           <div className="title-input">
