@@ -2,9 +2,7 @@ import { API } from "@/api/API";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface IUserData {
-  fname: string;
-  lname: string;
-  phoneNumber: number;
+  username: string;
   password: string;
   email: string;
 }
