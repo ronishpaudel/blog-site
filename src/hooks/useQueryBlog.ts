@@ -6,7 +6,7 @@ export interface Iblog {
   title: string;
   description: string;
   category: { id: number; name: string };
-  user: { id: number; fname: string; lname: string };
+  user: { id: number; username: string };
   imageUrl?: string;
   thumbImageUrl?: string;
   createdAt: string;
