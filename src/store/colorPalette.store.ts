@@ -1,21 +1,45 @@
 import { proxy } from "valtio";
 
-export const COLOR_PALETTE = {
-  black: "#181A2A",
-  white: "#fffffff",
+type Itheme = {
+  dark: {
+    footerBg: string;
+    inputBg: string;
+    cardBg: string;
+    textColor: string;
+  };
+  light: {
+    footerBg: string;
+    inputBg: string;
+    cardBg: string;
+    textColor: string;
+  };
 };
 
-export type ColorName = keyof typeof COLOR_PALETTE;
+export const THEME_PALETTE: Itheme = {
+  dark: {
+    footerBg: "#141624",
+    inputBg: "#242535",
+    cardBg: "#181A2A",
+    textColor: "#ffffffff",
+  },
+  light: {
+    footerBg: "#f6f6f7",
+    inputBg: "#e8e8ea",
+    textColor: "#141624",
+    cardBg: "#ffffff",
+  },
+};
 
-interface ColorPalette {
-  color: ColorName;
-  setColor: (color: ColorName) => void;
+export type ThemeName = keyof typeof THEME_PALETTE;
+
+interface ThemePalette {
+  theme: ThemeName;
+  setTheme: (color: ThemeName) => void;
 }
 
-export const colorPaletteStore = proxy<ColorPalette>({
-  color: "white",
-
-  setColor(color) {
-    colorPaletteStore.color = color;
+export const themeStore = proxy<ThemePalette>({
+  theme: "light",
+  setTheme(color) {
+    themeStore.theme = color;
   },
 });
