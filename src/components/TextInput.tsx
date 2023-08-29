@@ -1,8 +1,4 @@
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import React, { FC, forwardRef, useState } from "react";
 import { RegisterOptions, UseFormRegister } from "react-hook-form";
 import { useSnapshot } from "valtio";
@@ -77,8 +73,8 @@ const TextInput: FC<InputProps> = forwardRef(
       hAuto: "input-box-name hAuto",
       h150: "input-box-name h150",
     };
-    const colorSearchPaletteSnap = useSnapshot(searchInputStore);
-    const colorTextPaletteSnap = useSnapshot(textStore);
+    const themeSnap = useSnapshot(themeStore);
+
     return (
       <div
         style={style}
@@ -92,9 +88,8 @@ const TextInput: FC<InputProps> = forwardRef(
             onChange={onChange}
             type={type}
             style={{
-              backgroundColor:
-                SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
-              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+              color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           />
         ) : (
@@ -104,18 +99,16 @@ const TextInput: FC<InputProps> = forwardRef(
             name={name}
             onChange={onChange}
             style={{
-              backgroundColor:
-                SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
-              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+              color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           />
         )}
         <span
           className="textInput-text"
           style={{
-            backgroundColor:
-              SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
-            color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+            backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+            color: THEME_PALETTE[themeSnap.theme].textColor,
           }}
         >
           {text}

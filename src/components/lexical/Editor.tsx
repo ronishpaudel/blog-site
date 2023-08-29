@@ -18,12 +18,9 @@ import AutoLinkPlugin from "@/plugins/AutoLinkPlugin";
 import ToolbarPlugin from "@/plugins/ToolbarPlugin";
 import CodeHighlightPlugin from "@/plugins/CodeHighlightPlugin";
 import ListMaxIndentLevelPlugin from "@/plugins/ListMaxIndentLevelPlugin";
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
+
 import { useSnapshot } from "valtio";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -60,8 +57,8 @@ export default function Editor({
   value: string;
   onChange: (e: any) => void;
 }) {
-  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
-  const colorTextPaletteSnap = useSnapshot(textStore);
+  const themeSnap = useSnapshot(themeStore);
+
   return (
     <div className="editor-container">
       <ToolbarPlugin />
@@ -71,9 +68,8 @@ export default function Editor({
             <ContentEditable
               className="editor-input"
               style={{
-                backgroundColor:
-                  SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
-                color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                color: THEME_PALETTE[themeSnap.theme].textColor,
               }}
               value={value}
               onChange={onChange}
