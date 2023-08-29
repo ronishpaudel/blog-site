@@ -4,7 +4,7 @@ import { MutationOptions, useMutation } from "@tanstack/react-query";
 interface ISignInData {
   password: string;
   email: string;
-  id: number;
+  id?: number;
 }
 
 const signin = async (data: ISignInData) => {
