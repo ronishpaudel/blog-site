@@ -9,13 +9,8 @@ import Card from "./Card";
 import Ad from "./Ad";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { useSnapshot } from "valtio";
-import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
-import { FOOTER_COLOR_PALETTE, footerPageStore } from "@/store/footerPageStore";
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
-import { Dialog } from "@radix-ui/react-dialog";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import { getItemFromLocalStorage } from "@/store/storage";
 
 const GG = () => {
   const { push } = useRouter();
@@ -23,6 +18,8 @@ const GG = () => {
 
   const { data: blogSearch } = useBlogSearch(query);
   const { data } = useQueryBlog();
+
+  const token = getItemFromLocalStorage("auth");
 
   return (
     <div className="card-parent" id="main">
@@ -33,7 +30,7 @@ const GG = () => {
               category={blog?.category?.name}
               title={blog.title}
               thumbnailImage={blog.thumbImageUrl}
-              user={`${blog?.user?.fname} ${blog?.user?.lname}`}
+              user={`${blog?.user?.username} `}
               createdAt={dateFormat(blog.createdAt)}
               onCardClick={() => {
                 push({
@@ -53,7 +50,7 @@ const GG = () => {
                 category={blog?.category?.name}
                 title={blog.title}
                 thumbnailImage={blog.thumbImageUrl}
-                user={`${blog?.user?.fname} ${blog?.user?.lname}`}
+                user={` ${blog?.user?.username}`}
                 createdAt={dateFormat(blog.createdAt)}
                 onCardClick={() => {
                   push({
@@ -80,12 +77,12 @@ const Main = () => {
       await fetchNextPage();
     }
   };
-  const colorPaletteSnap = useSnapshot(colorPaletteStore);
-  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
+  const themeSnap = useSnapshot(themeStore);
+
   return (
     <main
       style={{
-        backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+        backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
       }}
     >
       <div className="main">
@@ -93,22 +90,12 @@ const Main = () => {
           <img src="/Image.png" className="Image" alt="Blog Image" />
         </div>
         <Content />
-        <Ad
-          style={{
-            backgroundColor:
-              SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
-          }}
-        />
+        <Ad />
         <GG />
         <div className="viewPost" onClick={handleViewNextPost}>
           View All Post
         </div>
-        <Ad
-          style={{
-            backgroundColor:
-              SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
-          }}
-        />
+        <Ad />
       </div>
     </main>
   );

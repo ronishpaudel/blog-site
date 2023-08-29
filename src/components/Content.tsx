@@ -1,28 +1,19 @@
-import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSnapshot } from "valtio";
 
 const Content = () => {
   const { push } = useRouter();
-  const colorPaletteSnap = useSnapshot(colorPaletteStore);
-  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
-  const colorTextPaletteSnap = useSnapshot(textStore);
+  const themeSnap = useSnapshot(themeStore);
 
   return (
     <>
       <div
         className="content"
         style={{
-          backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
-          border: `1px solid ${
-            SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor]
-          }`,
+          backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+          border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
         }}
         id="content"
         onClick={() => push("/signup")}
@@ -32,7 +23,7 @@ const Content = () => {
           <h1
             className="content-title"
             style={{
-              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           >
             The Impact of Technology on the Workplace: How Technology is

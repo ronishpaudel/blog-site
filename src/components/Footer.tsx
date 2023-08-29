@@ -1,31 +1,21 @@
 import React, { FC } from "react";
 import { useSnapshot } from "valtio";
-import { FOOTER_COLOR_PALETTE, footerPageStore } from "@/store/footerPageStore";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
-import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 const Footer: FC = () => {
-  const colorFooterPaletteSnap = useSnapshot(footerPageStore);
-  const colorTextPaletteSnap = useSnapshot(textStore);
-  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
-  const colorPaletteSnap = useSnapshot(colorPaletteStore);
+  const themeSnap = useSnapshot(themeStore);
   return (
     <>
       <footer
         style={{
-          backgroundColor:
-            FOOTER_COLOR_PALETTE[colorFooterPaletteSnap.footerColor],
+          backgroundColor: THEME_PALETTE[themeSnap.theme].footerBg,
         }}
       >
         <div
           className="footer-content"
           id="footer"
           style={{
-            color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+            color: THEME_PALETTE[themeSnap.theme].textColor,
           }}
         >
           <div className="footer-info">
@@ -70,14 +60,13 @@ const Footer: FC = () => {
           <div
             className="m-newsletter"
             style={{
-              backgroundColor:
-                SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor],
+              backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
             }}
           >
             <div className="news-heading">
               <h4
                 style={{
-                  color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               >
                 Weekly Newsletter
@@ -89,13 +78,13 @@ const Footer: FC = () => {
             <div
               className="news-search"
               style={{
-                backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+                backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
               }}
             >
               <input
                 placeholder="Your Email"
                 style={{
-                  backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
+                  backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
                 }}
               />
               <img src="/mail.png" alt="photo" />

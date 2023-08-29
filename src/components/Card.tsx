@@ -1,13 +1,7 @@
 import React, { DOMAttributes } from "react";
-import { Author } from "./Author";
-import { Tag } from "./Tag";
+
 import { useSnapshot } from "valtio";
-import { COLOR_PALETTE, colorPaletteStore } from "@/store/colorPalette.store";
-import {
-  SEARCH_COLOR_PALETTE,
-  searchInputStore,
-} from "@/store/searchInputStore";
-import { TEXT_COLOR_PALETTE, textStore } from "@/store/textColor";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 interface CardProps extends DOMAttributes<HTMLDivElement> {
   thumbnailImage?: string;
@@ -58,9 +52,7 @@ function Card({
   onProfileClick,
   ...rest
 }: CardProps) {
-  const colorPaletteSnap = useSnapshot(colorPaletteStore);
-  const colorSearchPaletteSnap = useSnapshot(searchInputStore);
-  const colorTextPaletteSnap = useSnapshot(textStore);
+  const themeSnap = useSnapshot(themeStore);
 
   return (
     <>
@@ -68,10 +60,8 @@ function Card({
         className="m-post-card-grid"
         onClick={onCardClick}
         style={{
-          backgroundColor: COLOR_PALETTE[colorPaletteSnap.color],
-          border: `1px solid ${
-            SEARCH_COLOR_PALETTE[colorSearchPaletteSnap.SearchColor]
-          }`,
+          backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+          border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
         }}
       >
         <img src={thumbnailImage} />
@@ -80,7 +70,7 @@ function Card({
           <div
             className="card-title"
             style={{
-              color: TEXT_COLOR_PALETTE[colorTextPaletteSnap.textColor],
+              color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           >
             {title}

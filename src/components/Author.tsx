@@ -2,9 +2,7 @@ import React from "react";
 
 interface IUserInfo {
   style?: React.CSSProperties;
-
   name: string;
-
   createdAt: string;
 }
 
