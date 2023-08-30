@@ -72,6 +72,10 @@ header {
   justify-content: center;
   padding-left: var(--spacing);
   padding-right: var(--spacing);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .header-logo {
@@ -310,9 +314,7 @@ main {
   height: auto;
   width: 100%;
   padding-top: 20px;
-  /* padding-left: var(--spacing);
-  padding-right: var(--spacing);
-  object-fit: cover; */
+  margin-top: 105px;
 }
 @media screen and (max-width: 768px) {
   .Image {
