@@ -7,10 +7,10 @@ import Link from "next/link";
 import { useDebounce } from "@/hooks/useDebounce";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { Meta } from "../../public";
-import { SignIn } from "./signIn";
-import { SignUp } from "./signUp";
 import { Button } from "./ui/button";
-import Logout from "./Logout";
+import { blogCreationStore } from "@/store/blogCreationStore";
+import { modalStore } from "@/store/modalStore";
+import { Logout } from "./Logout";
 
 function setThemePreference(theme: string) {
   localStorage.setItem("themePreference", theme);
@@ -39,7 +39,7 @@ const Header: FC = () => {
   }
 
   async function handleLogin() {
-    // await push("/auth");
+    modalStore.signInModal.setOpen(true);
     console.log({ loggedIn });
   }
 
@@ -49,11 +49,8 @@ const Header: FC = () => {
     setShowLogoutConfirmation(false);
   }
   const handleLogoutConfirmation = () => {
+    modalStore.logout.setOpen(true);
     setShowLogoutConfirmation(true);
-  };
-
-  const handleCancelLogout = () => {
-    setShowLogoutConfirmation(false);
   };
 
   function handlePush() {
@@ -74,7 +71,13 @@ const Header: FC = () => {
       setThemePreference("light");
     }
   }
+  blogCreationStore.setQuery(debouncedSearchQuery);
+  async function handleSearch(e: any) {
+    setSearchQuery(e.target.value);
+    blogCreationStore.setQuery(e.target.value);
 
+    console.log({ searchQuery });
+  }
   return (
     <>
       <header
@@ -118,7 +121,7 @@ const Header: FC = () => {
                   backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
                   color: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearch}
               />
 
               <img
@@ -166,15 +169,12 @@ const Header: FC = () => {
                   >
                     logout
                   </Button>
-                  {showLogoutConfirmation && (
-                    <Logout
-                      onLogout={handleLogout}
-                      onCancel={handleCancelLogout}
-                    />
-                  )}
+                  {showLogoutConfirmation && <Logout onLogout={handleLogout} />}
                 </>
               ) : (
-                <SignIn onClick={handleLogin} />
+                <Button variant={"blue"} onClick={handleLogin}>
+                  login
+                </Button>
               )}
             </div>
             <button className="menu-button" onClick={handleToggleMenu}>
