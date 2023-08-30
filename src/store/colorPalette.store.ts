@@ -28,7 +28,7 @@ export const THEME_PALETTE: Itheme = {
   light: {
     footerBg: "#f6f6f7",
     inputBg: "#e8e8ea",
-    textColor: "#00000",
+    textColor: "#000000",
     cardBg: "#ffffff",
     dailogBg: "#ffffff8a",
   },
