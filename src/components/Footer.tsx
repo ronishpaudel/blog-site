@@ -20,7 +20,7 @@ const Footer: FC = () => {
         >
           <div className="footer-info">
             <div className="About">
-              <h1>About</h1>
+              <h3>About</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut

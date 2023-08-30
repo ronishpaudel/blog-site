@@ -85,6 +85,10 @@ footer {
   gap: 12px;
 }
 
+.About h3 {
+  font-size: 45px;
+}
+
 .link-list {
   display: flex;
   flex-direction: column;
