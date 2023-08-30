@@ -64,7 +64,12 @@ function Card({
           border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
         }}
       >
-        <img src={thumbnailImage} />
+        <img
+          src={thumbnailImage}
+          style={{
+            border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
+          }}
+        />
         <div className="card-content">
           <div className="card-category">{category}</div>
           <div

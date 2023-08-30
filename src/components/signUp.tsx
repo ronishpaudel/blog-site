@@ -10,8 +10,12 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { useSignUpMutation } from "@/hooks/useSignUpMutation";
+import { saveItemToLocalStorage } from "@/store/storage";
+import { authStore } from "@/store/authStore";
+import { useSnapshot } from "valtio";
+import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
-function SignUp() {
+function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUserName] = useState("");
@@ -28,18 +32,34 @@ function SignUp() {
     setUserName(e.target.value);
   }
   const { mutate } = useSignUpMutation({
-    onSuccess: () => {},
+    onSuccess: async (res: { token: string }) => {
+      saveItemToLocalStorage("auth", res.token);
+      authStore.setLoggedIn();
+    },
   });
+  const themeSnap = useSnapshot(themeStore);
   return (
     <div>
       <Dialog>
-        <DialogTrigger>open</DialogTrigger>
+        <DialogTrigger asChild>
+          <Button variant={"blue"}>Sign up</Button>
+        </DialogTrigger>
         <DialogContent>
           <DialogHeader>
             <div className="flex items-center justify-between  ">
               <div>
-                <h1 className="text-black text-xl">Welcome to Lorem</h1>
-                <h1 className="text-5xl">Sign up</h1>
+                <h1
+                  className="text-black text-xl"
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  Welcome to Lorem
+                </h1>
+                <h1
+                  className="text-5xl"
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  Sign up
+                </h1>
               </div>
               <div>
                 <p className=" text-gray-500">Have an Account ?</p>
@@ -50,7 +70,11 @@ function SignUp() {
             </div>
             <DialogTitle>
               <div className="flex flex-col gap-2">
-                <span>Enter your email address</span>
+                <span
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  Enter your email address
+                </span>
                 <Input
                   className="max-w-md mt-2.5 border-gray-400 h-12"
                   name="email"
@@ -58,7 +82,12 @@ function SignUp() {
                   onChange={handleEmailChange}
                 />
 
-                <span className="mt-4">user name </span>
+                <span
+                  className="mt-4"
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  user name{" "}
+                </span>
                 <Input
                   className="max-w-md mt-1 border-gray-400 h-12"
                   name="username"
@@ -68,7 +97,9 @@ function SignUp() {
               </div>
             </DialogTitle>
             <DialogDescription>
-              <span>Enter your Password</span>
+              <span style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}>
+                Enter your Password
+              </span>
               <Input
                 className="max-w-md mt-1 border-gray-400 h-12"
                 type="password"

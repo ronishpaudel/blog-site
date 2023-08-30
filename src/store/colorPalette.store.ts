@@ -6,12 +6,14 @@ type Itheme = {
     inputBg: string;
     cardBg: string;
     textColor: string;
+    dailogBg: string;
   };
   light: {
     footerBg: string;
     inputBg: string;
     cardBg: string;
     textColor: string;
+    dailogBg: string;
   };
 };
 
@@ -21,12 +23,14 @@ export const THEME_PALETTE: Itheme = {
     inputBg: "#242535",
     cardBg: "#181A2A",
     textColor: "#ffffffff",
+    dailogBg: "#191b2abf",
   },
   light: {
     footerBg: "#f6f6f7",
     inputBg: "#e8e8ea",
     textColor: "#141624",
     cardBg: "#ffffff",
+    dailogBg: "#ffffff8a",
   },
 };
 
