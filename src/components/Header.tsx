@@ -12,6 +12,10 @@ import { SignUp } from "./signUp";
 import { Button } from "./ui/button";
 import Logout from "./Logout";
 
+function setThemePreference(theme: string) {
+  localStorage.setItem("themePreference", theme);
+}
+
 const Header: FC = () => {
   const { push } = useRouter();
   const { loggedIn } = useSnapshot(authStore);
@@ -21,6 +25,14 @@ const Header: FC = () => {
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const themeSnap = useSnapshot(themeStore);
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("themePreference");
+    if (storedTheme === "dark") {
+      themeStore.setTheme("dark");
+      setIsLightMode(false);
+    }
+  }, []);
 
   function handleToggleMenu() {
     setIsMenuOpen((prev) => !prev);
@@ -56,8 +68,10 @@ const Header: FC = () => {
   function handleOnClick() {
     if (isLightMode) {
       themeStore.setTheme("dark");
+      setThemePreference("dark");
     } else {
       themeStore.setTheme("light");
+      setThemePreference("light");
     }
   }
 
