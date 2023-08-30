@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import { modalStore } from "@/store/modalStore";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -20,51 +21,63 @@ DialogPortal.displayName = DialogPrimitive.Portal.displayName;
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
->(({ className, ...props }, ref) => (
-  <DialogPrimitive.Overlay
-    style={{ background: THEME_PALETTE[themeStore.theme].dailogBg }}
-    ref={ref}
-    className={cn(
-      " fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const themeSnap = useSnapshot(themeStore);
+  return (
+    <DialogPrimitive.Overlay
+      style={{ background: THEME_PALETTE[themeSnap.theme].dailogBg }}
+      ref={ref}
+      className={cn(
+        " fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        className
+      )}
+      {...props}
+    />
+  );
+});
 DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DialogPortal>
-    <DialogOverlay />
-    <DialogPrimitive.Content
-      ref={ref}
-      style={{
-        borderRadius: "40px",
-        background: THEME_PALETTE[themeStore.theme].cardBg,
-        border: `1px solid ${THEME_PALETTE[themeStore.theme].footerBg}`,
-      }}
-      className={cn(
-        " fixed left-[50%] top-[58%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg md:w-full",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
-        <X
-          className="h-6 w-8"
-          style={{
-            color: `${THEME_PALETTE[themeStore.theme].textColor}`,
-          }}
-        />
-        <span className="sr-only">Close</span>
-      </DialogPrimitive.Close>
-    </DialogPrimitive.Content>
-  </DialogPortal>
-));
+>(({ className, children, ...props }, ref) => {
+  const themeSnap = useSnapshot(themeStore);
+  function handleOnClick() {
+    modalStore.signUpModal.setOpen(false);
+    modalStore.signInModal.setOpen(false);
+    modalStore.logout.setOpen(false);
+  }
+  return (
+    <DialogPortal>
+      <DialogOverlay />
+      <DialogPrimitive.Content
+        ref={ref}
+        style={{
+          borderRadius: "40px",
+          background: THEME_PALETTE[themeSnap.theme].cardBg,
+          border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
+        }}
+        className={cn(
+          " fixed left-[50%] top-[50%] z-50 grid w-full max-w-md translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg md:w-full",
+          className
+        )}
+        {...props}
+      >
+        {children}
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+          <X
+            className="h-6 w-8"
+            onClick={handleOnClick}
+            style={{
+              color: `${THEME_PALETTE[themeSnap.theme].textColor}`,
+            }}
+          />
+          <span className="sr-only">Close</span>
+        </DialogPrimitive.Close>
+      </DialogPrimitive.Content>
+    </DialogPortal>
+  );
+});
 DialogContent.displayName = DialogPrimitive.Content.displayName;
 
 const DialogHeader = ({
