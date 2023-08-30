@@ -1,7 +1,12 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { Iblog, fetchBlogs, useQueryBlog } from "@/hooks/useQueryBlog";
+import {
+  Iblog,
+  fetchBlogs,
+  useOneBlog,
+  useQueryBlog,
+} from "@/hooks/useQueryBlog";
 import { useBlogSearch } from "@/hooks/useBlogSearch";
 import { dateFormat } from "@/utils/dateFormat";
 import { Content } from "./Content";
@@ -10,16 +15,14 @@ import Ad from "./Ad";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import { getItemFromLocalStorage } from "@/store/storage";
+import { CardSkeleton } from "./cardSkeleton";
 
 const GG = () => {
   const { push } = useRouter();
-  const { query } = blogCreationStore;
+  const { query } = useSnapshot(blogCreationStore);
 
   const { data: blogSearch } = useBlogSearch(query);
   const { data } = useQueryBlog();
-
-  const token = getItemFromLocalStorage("auth");
 
   return (
     <div className="card-parent" id="main">
@@ -78,7 +81,8 @@ const Main = () => {
     }
   };
   const themeSnap = useSnapshot(themeStore);
-
+  const { push, query } = useRouter();
+  const { data } = useOneBlog(query?.id as string);
   return (
     <main
       style={{
@@ -89,7 +93,24 @@ const Main = () => {
         <div className="image-wrappper">
           <img src="/Image.png" className="Image" alt="Blog Image" />
         </div>
-        <Content />
+        {data ? (
+          <Content
+            title={data.title}
+            category={data.category.name}
+            createdAt={data.createdAt}
+            user={data.user.username}
+            onCardClick={() =>
+              push({
+                pathname: "/[id]",
+                query: {
+                  id: data.id,
+                },
+              })
+            }
+          />
+        ) : (
+          <CardSkeleton />
+        )}
         <Ad />
         <GG />
         <div className="viewPost" onClick={handleViewNextPost}>
