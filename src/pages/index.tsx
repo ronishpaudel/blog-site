@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Main from "@/components/Main";
 import { SignUp } from "@/components/signUp";
 import { SignIn } from "@/components/signIn";
+import ForgotPassword from "@/components/forgetPassword";
 
 const index = () => {
   return (
@@ -13,6 +14,7 @@ const index = () => {
       <Footer />
       <SignUp />
       <SignIn />
+      <ForgotPassword />
     </>
   );
 };
