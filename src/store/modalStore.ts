@@ -13,6 +13,10 @@ interface IModalStore {
     open: boolean;
     setOpen: (val: boolean) => void;
   };
+  forgotPassword: {
+    open: boolean;
+    setOpen: (val: boolean) => void;
+  };
 }
 export const modalStore = proxy<IModalStore>({
   signUpModal: {
@@ -28,6 +32,12 @@ export const modalStore = proxy<IModalStore>({
     },
   },
   logout: {
+    open: false,
+    setOpen(val) {
+      this.open = val;
+    },
+  },
+  forgotPassword: {
     open: false,
     setOpen(val) {
       this.open = val;
