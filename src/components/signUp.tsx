@@ -34,7 +34,6 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   });
   function handleOnClick() {
     modalStore.signUpModal.setOpen(false);
-    console.log({ signUpModal });
   }
   const themeSnap = useSnapshot(themeStore);
   const { signUpModal } = useSnapshot(modalStore);
