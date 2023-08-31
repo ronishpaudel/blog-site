@@ -46,6 +46,7 @@ const DialogContent = React.forwardRef<
     modalStore.signUpModal.setOpen(false);
     modalStore.signInModal.setOpen(false);
     modalStore.logout.setOpen(false);
+    modalStore.forgotPassword.setOpen(false);
   }
   return (
     <DialogPortal>
