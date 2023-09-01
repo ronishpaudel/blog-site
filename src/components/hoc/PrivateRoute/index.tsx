@@ -2,6 +2,7 @@ import React, { ComponentType, useEffect } from "react";
 import Router from "next/router";
 import { useSnapshot } from "valtio";
 import { authStore } from "@/store/authStore";
+import { modalStore } from "@/store/modalStore";
 
 const PrivateRoute = (AuthComponent: ComponentType) => {
   function PrivateComponent({ children }: any) {
@@ -9,7 +10,7 @@ const PrivateRoute = (AuthComponent: ComponentType) => {
 
     useEffect(() => {
       if (!loggedIn && !tokenFetching) {
-        Router.push("/auth");
+        modalStore.signInModal.setOpen(true);
       }
     }, [loggedIn, tokenFetching]);
 
