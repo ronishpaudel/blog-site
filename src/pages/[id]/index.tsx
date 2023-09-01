@@ -4,22 +4,24 @@ import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
 import { Tag } from "@/components/Tag";
 import { useRouter } from "next/router";
-import { PrivateRoute } from "@/components/hoc/PrivateRoute";
 import { useOneBlog } from "@/hooks/useQueryBlog";
 import parse from "html-react-parser";
 import { dateFormat } from "@/utils/dateFormat";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 
 const index: FC = () => {
   const { push, query } = useRouter();
-  const { data } = useOneBlog(query?.id as string);
+  const { data, isLoading } = useOneBlog(query?.id as string);
   const themeSnap = useSnapshot(themeStore);
 
   return (
     <div>
       <Header />
-      {data && (
+      {!data || isLoading ? (
+        <BlogPageSkeleton />
+      ) : (
         <div
           className="page-wrapper"
           style={{
