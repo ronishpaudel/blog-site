@@ -54,7 +54,7 @@ const DialogContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         style={{
-          borderRadius: "40px",
+          borderRadius: "20px",
           background: THEME_PALETTE[themeSnap.theme].cardBg,
           border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
         }}
