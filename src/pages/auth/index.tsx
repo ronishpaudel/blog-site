@@ -9,9 +9,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignInMutation } from "@/hooks/useSigninMutation";
-import { PublicRoute } from "@/components/hoc/PublicRoute";
 import { authStore } from "@/store/authStore";
 import { saveItemToLocalStorage } from "@/store/storage";
+import { PublicRoute } from "../../../PublicRoute";
 
 interface ISignInData {
   id: number;
