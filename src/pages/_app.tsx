@@ -15,6 +15,7 @@ import "./auth/reset-password/index.css";
 import "./auth/finalise-registration/index.css";
 import "./create-blog/index.css";
 import "../components/lexical/editor.css";
+import "../styles/cardSkeleton.css";
 import {
   Hydrate,
   QueryClient,
