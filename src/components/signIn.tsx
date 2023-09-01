@@ -10,6 +10,14 @@ import { AiFillGithub } from "react-icons/ai";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { useSnapshot } from "valtio";
 import { modalStore } from "@/store/modalStore";
+import { TUser } from "@/hooks/useAuthorInfo";
+import { useRegistration } from "@/hooks/useRegistration";
+import {
+  CredentialResponse,
+  GoogleLogin,
+  GoogleOAuthProvider,
+} from "@react-oauth/google";
+import { useRouter } from "next/router";
 
 function SignIn({ onClick }: { onClick?: () => void }) {
   const [email, setEmail] = useState("");
@@ -39,7 +47,44 @@ function SignIn({ onClick }: { onClick?: () => void }) {
   }
   const themeSnap = useSnapshot(themeStore);
   const { signInModal } = useSnapshot(modalStore);
-  console.log(signInModal);
+
+  const { mutate: googleMutate } = useRegistration();
+  const handleGoogleLoginSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    const tokenId = credentialResponse.credential;
+
+    if (!tokenId) {
+      console.log("Token ID is missing");
+      return;
+    }
+
+    const newUser: TUser = {
+      googleAuthToken: tokenId,
+    };
+
+    try {
+      googleMutate(newUser, {
+        onSuccess: (data) => {
+          console.log("User created:", data);
+          saveItemToLocalStorage("auth", JSON.stringify(tokenId));
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.log("Failed to create user:", error);
+        },
+      });
+    } catch (error) {
+      console.log("Registration failed:", error);
+    }
+  };
+
+  const handleGoogleLoginError = () => {
+    console.log("Login Failed");
+  };
+  const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string;
+  console.log("clientId::", CLIENT_ID);
+
   return (
     <div>
       <Dialog open={signInModal.open}>
@@ -82,7 +127,10 @@ function SignIn({ onClick }: { onClick?: () => void }) {
               name="email"
               value={email}
               onChange={handleEmailChange}
-              style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+              style={{
+                backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                color: THEME_PALETTE[themeSnap.theme].textColor,
+              }}
             />
             <span
               style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
@@ -128,16 +176,16 @@ function SignIn({ onClick }: { onClick?: () => void }) {
                 Or continue with
               </span>
             </div>
-
-            <div className="w-full grid grid-cols-2 gap-4 mt-2">
-              <Button variant={"outline"}>
-                <FcGoogle className="mr-2 h-4 w-4" />
-                Google
-              </Button>
-              <Button variant={"outline"}>
-                <AiFillGithub className="mr-2 h-4 w-4" />
-                Github
-              </Button>
+            <div className="w-full grid grid-cols-2 gap-4 mt-2  ">
+              <GoogleOAuthProvider clientId={CLIENT_ID}>
+                <GoogleLogin
+                  size="large"
+                  shape="square"
+                  width={367}
+                  onSuccess={handleGoogleLoginSuccess}
+                  onError={handleGoogleLoginError}
+                />
+              </GoogleOAuthProvider>
             </div>
           </DialogHeader>
         </DialogContent>

@@ -8,6 +8,14 @@ import { authStore } from "@/store/authStore";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { modalStore } from "@/store/modalStore";
+import {
+  CredentialResponse,
+  GoogleLogin,
+  GoogleOAuthProvider,
+} from "@react-oauth/google";
+import { useRouter } from "next/router";
+import { useRegistration } from "@/hooks/useRegistration";
+import { TUser } from "@/hooks/useAuthorInfo";
 
 function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   const [email, setEmail] = useState("");
@@ -37,6 +45,41 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   }
   const themeSnap = useSnapshot(themeStore);
   const { signUpModal } = useSnapshot(modalStore);
+
+  const { mutate: googleMutate } = useRegistration();
+  const handleGoogleLoginSuccess = async (
+    credentialResponse: CredentialResponse
+  ) => {
+    const tokenId = credentialResponse.credential;
+
+    if (!tokenId) {
+      console.log("Token ID is missing");
+      return;
+    }
+
+    const newUser: TUser = {
+      googleAuthToken: tokenId,
+    };
+
+    try {
+      googleMutate(newUser, {
+        onSuccess: (data) => {
+          saveItemToLocalStorage("auth", JSON.stringify(tokenId));
+          window.location.reload();
+        },
+        onError: (error) => {
+          console.log("Failed to create user:", error);
+        },
+      });
+    } catch (error) {
+      console.log("Registration failed:", error);
+    }
+  };
+
+  const handleGoogleLoginError = () => {
+    console.log("Login Failed");
+  };
+  const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string;
 
   return (
     <div>
@@ -120,6 +163,28 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
             >
               Sign Up
             </Button>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span
+              className="bg-background px-2 text-muted-foreground"
+              style={{
+                color: THEME_PALETTE[themeSnap.theme].textColor,
+                backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+              }}
+            >
+              Or continue with
+            </span>
+          </div>
+          <div className="w-full grid grid-cols-2 gap-4 mt-2  ">
+            <GoogleOAuthProvider clientId={CLIENT_ID}>
+              <GoogleLogin
+                size="large"
+                shape="square"
+                width={367}
+                onSuccess={handleGoogleLoginSuccess}
+                onError={handleGoogleLoginError}
+              />
+            </GoogleOAuthProvider>
           </div>
         </DialogContent>
       </Dialog>
