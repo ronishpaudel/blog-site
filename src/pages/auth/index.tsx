@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignInMutation } from "@/hooks/useSigninMutation";
 import { authStore } from "@/store/authStore";
 import { saveItemToLocalStorage } from "@/store/storage";
-import { PublicRoute } from "../../../PublicRoute";
+import { PublicRoute } from "@/components/hoc/PublicRoute";
 
 interface ISignInData {
   id: number;
