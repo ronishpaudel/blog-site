@@ -15,17 +15,20 @@ import Ad from "./Ad";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import { CardSkeleton } from "./cardSkeleton";
+import CardSkeleton from "./skeleton-loader/cardSkeleton";
+import MainPageSkeleton from "./skeleton-loader/mainPageSkeleton";
 
 const GG = () => {
   const { push } = useRouter();
   const { query } = useSnapshot(blogCreationStore);
 
-  const { data: blogSearch } = useBlogSearch(query);
-  const { data } = useQueryBlog();
+  const { data: blogSearch, isLoading: searchLoading } = useBlogSearch(query);
+  const { data, isLoading } = useQueryBlog();
 
   return (
     <div className="card-parent" id="main">
+      {searchLoading || isLoading ? <CardSkeleton amount={9} /> : ""}
+
       {blogSearch
         ? blogSearch.map((blog) => (
             <Card
@@ -74,7 +77,12 @@ const GG = () => {
 };
 
 const Main = () => {
-  const { hasNextPage, fetchNextPage } = useQueryBlog();
+  const {
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+    data: blogData,
+  } = useQueryBlog();
   const handleViewNextPost = async () => {
     if (hasNextPage) {
       await fetchNextPage();
@@ -89,35 +97,39 @@ const Main = () => {
         backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
       }}
     >
-      <div className="main">
-        <div className="image-wrappper">
-          <img src="/Image.png" className="Image" alt="Blog Image" />
+      {isLoading || !blogData ? (
+        <MainPageSkeleton />
+      ) : (
+        <div className="main">
+          <div className="image-wrappper">
+            <img src="/Image.png" className="Image" alt="Blog Image" />
+          </div>
+          {data ? (
+            <Content
+              title={data.title}
+              category={data.category.name}
+              createdAt={data.createdAt}
+              user={data.user.username}
+              onCardClick={() =>
+                push({
+                  pathname: "/[id]",
+                  query: {
+                    id: data.id,
+                  },
+                })
+              }
+            />
+          ) : (
+            ""
+          )}
+          <Ad />
+          <GG />
+          <div className="viewPost" onClick={handleViewNextPost}>
+            View All Post
+          </div>
+          <Ad />
         </div>
-        {data ? (
-          <Content
-            title={data.title}
-            category={data.category.name}
-            createdAt={data.createdAt}
-            user={data.user.username}
-            onCardClick={() =>
-              push({
-                pathname: "/[id]",
-                query: {
-                  id: data.id,
-                },
-              })
-            }
-          />
-        ) : (
-          <CardSkeleton />
-        )}
-        <Ad />
-        <GG />
-        <div className="viewPost" onClick={handleViewNextPost}>
-          View All Post
-        </div>
-        <Ad />
-      </div>
+      )}
     </main>
   );
 };
