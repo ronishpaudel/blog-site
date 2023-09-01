@@ -7,6 +7,8 @@ type Itheme = {
     cardBg: string;
     textColor: string;
     dailogBg: string;
+    baseColor: string;
+    highlightColor: string;
   };
   light: {
     footerBg: string;
@@ -14,6 +16,8 @@ type Itheme = {
     cardBg: string;
     textColor: string;
     dailogBg: string;
+    baseColor: string;
+    highlightColor: string;
   };
 };
 
@@ -24,6 +28,8 @@ export const THEME_PALETTE: Itheme = {
     cardBg: "#181A2A",
     textColor: "#ffffffff",
     dailogBg: "#191b2abf",
+    baseColor: "#434343c7",
+    highlightColor: "#696a75e3",
   },
   light: {
     footerBg: "#f6f6f7",
@@ -31,6 +37,8 @@ export const THEME_PALETTE: Itheme = {
     textColor: "#000000",
     cardBg: "#ffffff",
     dailogBg: "#ffffff8a",
+    baseColor: "#d9d9d9",
+    highlightColor: "#f5f5f5",
   },
 };
 
