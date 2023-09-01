@@ -5,12 +5,15 @@ import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { modalStore } from "@/store/modalStore";
 import { Input } from "./ui/input";
+import { useResetPw } from "@/hooks/useResetPw";
 
 const ForgotPassword = () => {
   const themeSnap = useSnapshot(themeStore);
   const { forgotPassword } = useSnapshot(modalStore);
   const [email, setEmail] = useState("");
-
+  const { mutate } = useResetPw({
+    onSuccess: async (res: { token: string }) => {},
+  });
   function handleEmailChange(e: any) {
     setEmail(e.target.value);
   }
@@ -49,13 +52,15 @@ const ForgotPassword = () => {
           </span>
           <Input
             className="max-w-md border-gray-400 h-12"
-            type="password"
-            name="password"
+            type="email"
+            name="email"
             value={email}
             onChange={handleEmailChange}
           />
           <div className="mt-10 mb-10">
-            <Button variant={"blue"}>Confirm</Button>
+            <Button variant={"blue"} onClick={() => mutate({ email })}>
+              Confirm
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
