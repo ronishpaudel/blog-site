@@ -32,7 +32,6 @@ const index: FC = () => {
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
-  const colorPaletteSnap = useSnapshot(themeStore);
 
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
@@ -118,7 +117,7 @@ const index: FC = () => {
         style={{ backgroundColor: THEME_PALETTE[themeStore.theme].cardBg }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <div className="title-input">
+          <div className="title-input mt-20">
             <TextInput
               text="Title"
               placeholder="Enter your desired title"
