@@ -1,0 +1,22 @@
+.card-skeleton {
+  padding: 0.35rem;
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  max-width: 392px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+.main-skeleton {
+  max-width: 1300px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+/* .image-wrappper-skeleton {
+  height: 400px;
+} */
