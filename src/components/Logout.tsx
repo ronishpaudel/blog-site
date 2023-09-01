@@ -19,7 +19,7 @@ function Logout({ onLogout }: Ilogout) {
           <div className="flex flex-col gap-2 mb-2">
             <span
               style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-              className="mt-4 text-center text font-bold"
+              className="mt-2 text-center text font-bold text-xs"
             >
               Are you sure you want to sign out?
             </span>
