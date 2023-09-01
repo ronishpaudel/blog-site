@@ -58,7 +58,7 @@ const Header: FC = () => {
     if (token) {
       push("/create-blog");
     } else {
-      push("/auth");
+      modalStore.signInModal.setOpen(true);
     }
   }
 
