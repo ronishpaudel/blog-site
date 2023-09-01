@@ -3,8 +3,10 @@ import { QueryFunction, useQuery } from "@tanstack/react-query";
 
 export interface TUser {
   id?: number;
-  fname: string;
-  lname: string;
+  fname?: string;
+  lname?: string;
+  username?: string;
+  googleAuthToken?: string;
 }
 
 export const getUserKeys = {
