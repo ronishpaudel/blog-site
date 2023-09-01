@@ -9,10 +9,10 @@ import { Input } from "./ui/input";
 const ForgotPassword = () => {
   const themeSnap = useSnapshot(themeStore);
   const { forgotPassword } = useSnapshot(modalStore);
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
-  function handlePasswordChange(e: any) {
-    setPassword(e.target.value);
+  function handleEmailChange(e: any) {
+    setEmail(e.target.value);
   }
   function handleOnClick() {
     modalStore.forgotPassword.setOpen(false);
@@ -45,27 +45,14 @@ const ForgotPassword = () => {
             style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
             className="mt-10"
           >
-            Enter your new password
+            Enter your email account
           </span>
           <Input
             className="max-w-md border-gray-400 h-12"
             type="password"
             name="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <span
-            style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-            className="mt-5"
-          >
-            Re-type your new password
-          </span>
-          <Input
-            className="max-w-md  border-gray-400 h-12"
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
+            value={email}
+            onChange={handleEmailChange}
           />
           <div className="mt-10 mb-10">
             <Button variant={"blue"}>Confirm</Button>
