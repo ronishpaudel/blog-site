@@ -4,9 +4,9 @@ import { useSnapshot } from "valtio";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useUpdatePassword } from "@/hooks/useUpdatePassword";
-import { saveItemToLocalStorage } from "@/store/storage";
 import { useRouter } from "next/router";
 import Header from "@/components/Header";
+import { ColorRing } from "react-loader-spinner";
 
 function index() {
   const [password, setPassword] = useState("");
@@ -14,10 +14,9 @@ function index() {
   const { push, query } = useRouter();
   console.log({ token: query.token });
 
-  const { mutate } = useUpdatePassword({
+  const { mutate, isLoading, isSuccess } = useUpdatePassword({
     onSuccess: async (res: { token: string }) => {
       localStorage.setItem("auth", JSON.stringify(query.token));
-      push("/");
     },
   });
 
@@ -95,9 +94,39 @@ function index() {
               onChange={handleRetypePasswordChange}
             />
             <div className="mt-10 mb-10">
-              <Button variant={"blue"} onClick={handleOnClick}>
-                confirm new password
-              </Button>
+              {isLoading ? (
+                <div className="flex justify-center ">
+                  <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="blocks-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="blocks-wrapper"
+                    colors={[
+                      "#4b6bfb",
+                      "#4b6bfb",
+                      "#4b6bfb",
+                      "#4b6bfb",
+                      "#4b6bfb",
+                    ]}
+                  />
+                </div>
+              ) : isSuccess ? (
+                <div
+                  className="text-xl flex flex-col items-center gap-3"
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  Password Reset Successful!
+                  <Button variant={"blue"} onClick={() => push("/")}>
+                    Continue to the homepage
+                  </Button>
+                </div>
+              ) : (
+                <Button variant={"blue"} onClick={handleOnClick}>
+                  confirm new password
+                </Button>
+              )}
             </div>
           </div>
         </div>
