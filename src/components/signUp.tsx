@@ -16,6 +16,7 @@ import {
 import { useRouter } from "next/router";
 import { useRegistration } from "@/hooks/useRegistration";
 import { TUser } from "@/hooks/useAuthorInfo";
+import { ColorRing } from "react-loader-spinner";
 
 function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   const [email, setEmail] = useState("");
@@ -33,13 +34,20 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   function handleUserNameChange(e: any) {
     setUserName(e.target.value);
   }
-  const { mutate } = useSignUpMutation({
+  const { mutate, isSuccess, isLoading } = useSignUpMutation({
     onSuccess: async (res: { token: string }) => {
       saveItemToLocalStorage("auth", res.token);
       authStore.setLoggedIn();
-      window.location.reload();
     },
   });
+
+  function mutation() {
+    mutate({
+      email,
+      username,
+      password,
+    });
+  }
   function handleOnClick() {
     modalStore.signUpModal.setOpen(false);
   }
@@ -65,7 +73,6 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
       googleMutate(newUser, {
         onSuccess: (data) => {
           saveItemToLocalStorage("auth", JSON.stringify(tokenId));
-          window.location.reload();
         },
         onError: (error) => {
           console.log("Failed to create user:", error);
@@ -151,18 +158,39 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
             Forgot password?
           </span>
           <div className="mt-5 mb-5">
-            <Button
-              onClick={() =>
-                mutate({
-                  email,
-                  username,
-                  password,
-                })
-              }
-              className="max-w-sm w-full text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer"
-            >
-              Sign Up
-            </Button>
+            {isLoading ? (
+              <div className="flex justify-center ">
+                <ColorRing
+                  visible={true}
+                  height="80"
+                  width="80"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={[
+                    "#4b6bfb",
+                    "#4b6bfb",
+                    "#4b6bfb",
+                    "#4b6bfb",
+                    "#4b6bfb",
+                  ]}
+                />
+              </div>
+            ) : isSuccess ? (
+              <div
+                className="text-xl"
+                style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+              >
+                Pls,check your mail to activate the account
+              </div>
+            ) : (
+              <Button
+                onClick={mutation}
+                className="max-w-sm w-full text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer"
+              >
+                Sign Up
+              </Button>
+            )}
           </div>
           <div className="relative flex justify-center text-xs uppercase">
             <span
