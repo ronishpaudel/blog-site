@@ -3,4 +3,5 @@ export interface IUser {
   fname?: string;
   lname?: string;
   username: string;
+  isVerified?: boolean;
 }
