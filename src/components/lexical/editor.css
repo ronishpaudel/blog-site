@@ -298,7 +298,7 @@ pre::-webkit-scrollbar-thumb {
   font-size: 12px;
 }
 
-.debug-timetravel-panel-button:hover {
+.debug-timetravel-panel-button {
   text-decoration: underline;
 }
 
