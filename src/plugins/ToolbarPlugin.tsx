@@ -85,7 +85,15 @@ const blockTypeToBlockName = {
 };
 
 function Divider() {
-  return <div className="divider" />;
+  const themeSnap = useSnapshot(themeStore);
+  return (
+    <div
+      className="divider"
+      style={{
+        backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+      }}
+    />
+  );
 }
 
 function positionEditorElement(editor: any, rect: any) {
@@ -392,40 +400,96 @@ function BlockOptionsDropdownList({
     }
     setShowBlockOptionsDropDown(false);
   };
-
+  const themeSnap = useSnapshot(themeStore);
   return (
-    <div className="dropdown" ref={dropDownRef}>
-      <button className="item" onClick={formatParagraph}>
+    <div
+      className="dropdown"
+      ref={dropDownRef}
+      style={{
+        backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+        color: THEME_PALETTE[themeSnap.theme].textColor,
+      }}
+    >
+      <button
+        className="item"
+        onClick={formatParagraph}
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          color: THEME_PALETTE[themeSnap.theme].textColor,
+        }}
+      >
         <span className="icon paragraph" />
         <span className="text">Normal</span>
         {blockType === "paragraph" && <span className="active" />}
       </button>
-      <button className="item" onClick={formatLargeHeading}>
+      <button
+        className="item"
+        onClick={formatLargeHeading}
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          color: THEME_PALETTE[themeSnap.theme].textColor,
+        }}
+      >
         <span className="icon large-heading" />
         <span className="text">Large Heading</span>
         {blockType === "h1" && <span className="active" />}
       </button>
-      <button className="item" onClick={formatSmallHeading}>
+      <button
+        className="item"
+        onClick={formatSmallHeading}
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          color: THEME_PALETTE[themeSnap.theme].textColor,
+        }}
+      >
         <span className="icon small-heading" />
         <span className="text">Small Heading</span>
         {blockType === "h2" && <span className="active" />}
       </button>
-      <button className="item" onClick={formatBulletList}>
+      <button
+        className="item"
+        onClick={formatBulletList}
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          color: THEME_PALETTE[themeSnap.theme].textColor,
+        }}
+      >
         <span className="icon bullet-list" />
         <span className="text">Bullet List</span>
         {blockType === "ul" && <span className="active" />}
       </button>
-      <button className="item" onClick={formatNumberedList}>
+      <button
+        className="item"
+        onClick={formatNumberedList}
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          color: THEME_PALETTE[themeSnap.theme].textColor,
+        }}
+      >
         <span className="icon numbered-list" />
         <span className="text">Numbered List</span>
         {blockType === "ol" && <span className="active" />}
       </button>
-      <button className="item" onClick={formatQuote}>
+      <button
+        className="item"
+        onClick={formatQuote}
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          color: THEME_PALETTE[themeSnap.theme].textColor,
+        }}
+      >
         <span className="icon quote" />
         <span className="text">Quote</span>
         {blockType === "quote" && <span className="active" />}
       </button>
-      <button className="item" onClick={formatCode}>
+      <button
+        className="item"
+        onClick={formatCode}
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          color: THEME_PALETTE[themeSnap.theme].textColor,
+        }}
+      >
         <span className="icon code" />
         <span className="text">Code Block</span>
         {blockType === "code" && <span className="active" />}
@@ -575,7 +639,7 @@ export default function ToolbarPlugin() {
         <i className="format undo">
           <Arrowcounterclockwise
             style={{
-              color: THEME_PALETTE[themeSnap.theme].textColor,
+              fill: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           />
         </i>
@@ -591,7 +655,7 @@ export default function ToolbarPlugin() {
         <i className="format redo">
           <Arrowclockwise
             style={{
-              color: THEME_PALETTE[themeSnap.theme].textColor,
+              fill: THEME_PALETTE[themeSnap.theme].textColor,
             }}
           />
         </i>
@@ -609,7 +673,7 @@ export default function ToolbarPlugin() {
             <span className={"icon block-type " + blockType}>
               <Textparagraph
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </span>
@@ -617,7 +681,7 @@ export default function ToolbarPlugin() {
             <i className="chevron-down">
               <Chevrondown
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -657,7 +721,7 @@ export default function ToolbarPlugin() {
             <i className="format bold">
               <Typebold
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -672,7 +736,7 @@ export default function ToolbarPlugin() {
             <i className="format italic">
               <Typeitalic
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -687,7 +751,7 @@ export default function ToolbarPlugin() {
             <i className="format underline">
               <Typeunderline
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -704,7 +768,7 @@ export default function ToolbarPlugin() {
             <i className="format strikethrough">
               <Typestrikethrough
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -719,7 +783,7 @@ export default function ToolbarPlugin() {
             <i className="format code">
               <Code
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -732,7 +796,7 @@ export default function ToolbarPlugin() {
             <i className="format link">
               <TypeLink
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -750,7 +814,7 @@ export default function ToolbarPlugin() {
             <i className="format left-align">
               <TextLeft
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -765,7 +829,7 @@ export default function ToolbarPlugin() {
             <i className="format center-align">
               <TextCenter
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -780,7 +844,7 @@ export default function ToolbarPlugin() {
             <i className="format right-align">
               <TextRight
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
@@ -795,7 +859,7 @@ export default function ToolbarPlugin() {
             <i className="format justify-align">
               <TextJustify
                 style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  fill: THEME_PALETTE[themeSnap.theme].textColor,
                 }}
               />
             </i>
