@@ -9,11 +9,12 @@ import { $generateHtmlFromNodes } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { proxy, useSnapshot } from "valtio";
 import { useCategoryQuery } from "@/hooks/useGetCategory";
-import Dropdown from "@/components/Dropdown";
+
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { resizeImage2 } from "@/utils/resizeImage";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { ColorRing } from "react-loader-spinner";
+import { DropDown } from "@/components/Dropdown";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -82,36 +83,9 @@ const index: FC = () => {
     id: category.id,
   }));
 
-  function handleOnClick() {
-    if (title || file || description) {
-      editor.update(async () => {
-        const htmlString = $generateHtmlFromNodes(editor, null);
-        blogCreationStore.setDescription(htmlString);
-        blogCreationStore.setTitle(title);
-        blogCreationStore.setImage(file);
-      });
-
-      push("/recheck-blog");
-    } else {
-      return (
-        <>
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
-          />
-        </>
-      );
-    }
-  }
   return (
     <>
       <Header />
-
       <div
         className="form-container"
         style={{ backgroundColor: THEME_PALETTE[themeStore.theme].cardBg }}
@@ -168,7 +142,7 @@ const index: FC = () => {
                 backgroundColor: "#0057ff",
               }}
             >
-              <Dropdown
+              <DropDown
                 options={categoryOptions || []}
                 onChange={(val) =>
                   blogCreationStore.setCategory({
@@ -176,13 +150,7 @@ const index: FC = () => {
                     displayName: val.displayName,
                   })
                 }
-                style={{
-                  maxWidth: "170px",
-                  width: "100%",
-                  position: "absolute",
-                  right: "20%",
-                }}
-                label="Select Category"
+                label="Category"
               />
             </div>
           </div>
