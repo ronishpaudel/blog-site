@@ -1,10 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { DropDown } from "../../public";
-
-import { useSnapshot } from "valtio";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import { useState } from "react";
+import { useSnapshot } from "valtio";
 
-function Dropdown({
+function DropDown({
   onChange,
   options,
   label,
@@ -14,6 +17,7 @@ function Dropdown({
   label?: string;
   style?: React.CSSProperties;
 }) {
+  const themeSnap = useSnapshot(themeStore);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
@@ -21,68 +25,56 @@ function Dropdown({
     setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    document.addEventListener("mouseup", (e: any) => {
-      if (!e.target.classList.value.includes("dd-list-item")) {
-        setIsOpen(false);
-      }
-    });
-    return () => {
-      document.removeEventListener("mouseup", () => {});
-    };
-  }, []);
-  const themeSnap = useSnapshot(themeStore);
+  const handleOptionClick = (item: { id: string; displayName: string }) => {
+    onChange(item);
+    setIsOpen(false);
+    setSelectedOption(item.displayName);
+  };
 
   return (
-    <div>
-      <div>
-        <div className="dd-header" onClick={toggleDropdown}>
-          <div
-            className="dd-header-title"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              color: THEME_PALETTE[themeSnap.theme].textColor,
-            }}
-          >
-            {selectedOption || label}
-            <DropDown style={{ width: "30px" }} />
-          </div>
-        </div>
-      </div>
-      {isOpen && (
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+        className="h-8 w-20 rounded-sm"
+      >
         <div
-          className="dd-list"
+          className="dd-header-title flex justify-center "
           style={{
-            backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
             color: THEME_PALETTE[themeSnap.theme].textColor,
+            fontSize: "16px",
           }}
+          onClick={toggleDropdown}
         >
+          {selectedOption}
+        </div>
+        {selectedOption ? null : (
           <div style={{ height: "30px" }} className="dd-list-label">
             {label}
           </div>
-          {options.map((item) => (
-            <div
-              style={{ height: "30px" }}
-              className="dd-list-item asd"
-              key={item.id}
-              onClick={(e) => {
-                e.stopPropagation();
-                onChange({
-                  id: String(item.id),
-                  displayName: item.displayName,
-                });
-                setIsOpen(false);
-                setSelectedOption(item.displayName);
-              }}
-            >
-              {item.displayName}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+        )}
+      </DropdownMenuTrigger>
+      {options.map((item) => (
+        <DropdownMenuContent
+          style={{
+            height: "30px",
+            color: THEME_PALETTE[themeSnap.theme].textColor,
+            backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+          }}
+          className="dd-list-item asd mt-2 hover:to-blue-400 flex flex-col items-center"
+          key={item.id}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleOptionClick({
+              id: String(item.id),
+              displayName: item.displayName,
+            });
+          }}
+        >
+          {item.displayName}
+        </DropdownMenuContent>
+      ))}
+    </DropdownMenu>
   );
 }
 
-export default Dropdown;
+export { DropDown };
