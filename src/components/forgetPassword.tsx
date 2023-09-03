@@ -6,12 +6,13 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { modalStore } from "@/store/modalStore";
 import { Input } from "./ui/input";
 import { useResetPw } from "@/hooks/useResetPw";
+import { ColorRing } from "react-loader-spinner";
 
 const ForgotPassword = () => {
   const themeSnap = useSnapshot(themeStore);
   const { forgotPassword } = useSnapshot(modalStore);
   const [email, setEmail] = useState("");
-  const { mutate } = useResetPw({
+  const { mutate, isLoading, isSuccess } = useResetPw({
     onSuccess: async (res: { token: string }) => {},
   });
   function handleEmailChange(e: any) {
@@ -20,7 +21,6 @@ const ForgotPassword = () => {
   function handleOnClick() {
     modalStore.forgotPassword.setOpen(false);
   }
-
   return (
     <div>
       <Dialog open={forgotPassword.open}>
@@ -58,9 +58,37 @@ const ForgotPassword = () => {
             onChange={handleEmailChange}
           />
           <div className="mt-10 mb-10">
-            <Button variant={"blue"} onClick={() => mutate({ email })}>
-              Confirm
-            </Button>
+            {isLoading ? (
+              <div className="flex justify-center ">
+                <ColorRing
+                  visible={true}
+                  height="80"
+                  width="80"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={[
+                    "#4b6bfb",
+                    "#4b6bfb",
+                    "#4b6bfb",
+                    "#4b6bfb",
+                    "#4b6bfb",
+                  ]}
+                />
+              </div>
+            ) : isSuccess ? (
+              <div
+                className="text-xl"
+                style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+              >
+                We have sent you a reset-password link in your email account.
+                Thank you
+              </div>
+            ) : (
+              <Button variant={"blue"} onClick={() => mutate({ email })}>
+                Confirm
+              </Button>
+            )}
           </div>
         </DialogContent>
       </Dialog>
