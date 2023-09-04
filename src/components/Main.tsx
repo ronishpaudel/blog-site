@@ -42,7 +42,7 @@ const GG = () => {
                 push({
                   pathname: "/[id]",
                   query: {
-                    id: blog.id,
+                    id: blog.slug,
                   },
                 });
               }}
