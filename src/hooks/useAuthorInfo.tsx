@@ -7,21 +7,17 @@ export interface TUser {
   lname?: string;
   username?: string;
   googleAuthToken?: string;
+  isVerified?: boolean;
 }
 
-export const getUserKeys = {
-  all: ["getUser"] as const,
-};
-
-type TGetUserKey = typeof getUserKeys.all;
-const fetchUserData: QueryFunction<TUser[], TGetUserKey> = async () => {
+const fetchUserData = async () => {
   const response = await API.get("/user/me");
-  return response.data;
+  return response.data as TUser;
 };
 
 const useAuthorInfo = ({ ...rest } = {}) => {
   return useQuery({
-    queryKey: getUserKeys.all,
+    queryKey: ["userData"],
     queryFn: fetchUserData,
     ...rest,
   });
