@@ -7,14 +7,12 @@ const verifyUserToken = async (token: string) => {
   });
   return response.data;
 };
-const useSignUpVerifyTokenMutation = () => {
+const useSignUpVerifyTokenMutation = ({ onSuccess }: { onSuccess: any }) => {
   // const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: verifyUserToken,
-    onSuccess: async () => {
-      // queryClient.invalidateQueries({ queryKey: getBlogdataKeys.all });
-    },
+    onSuccess: onSuccess,
   });
 };
 export { useSignUpVerifyTokenMutation };
