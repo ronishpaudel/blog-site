@@ -15,10 +15,17 @@ const signin = async (data: ISignInData) => {
   return response.data;
 };
 
-const useSignInMutation = ({ onSuccess }: { onSuccess: (res: any) => {} }) => {
+const useSignInMutation = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess: (res: any) => {};
+  onError: (res: any) => void;
+}) => {
   return useMutation({
     mutationFn: signin,
     onSuccess,
+    onError,
   });
 };
 
