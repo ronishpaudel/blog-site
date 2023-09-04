@@ -71,13 +71,14 @@ const Header: FC = () => {
       setThemePreference("light");
     }
   }
-  blogCreationStore.setQuery(debouncedSearchQuery);
+
   async function handleSearch(e: any) {
     setSearchQuery(e.target.value);
     blogCreationStore.setQuery(e.target.value);
 
     console.log({ searchQuery });
   }
+
   return (
     <>
       <header
