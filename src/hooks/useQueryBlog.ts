@@ -10,6 +10,7 @@ export interface Iblog {
   imageUrl?: string;
   thumbImageUrl?: string;
   createdAt: string;
+  slug: string;
 }
 
 const fetchBlogs = async ({ pageParam = 1 }) => {
@@ -17,8 +18,8 @@ const fetchBlogs = async ({ pageParam = 1 }) => {
   return res.data;
 };
 
-const fetchOneBlog = async (id: string) => {
-  const res = await API.get(`/blogs/${id}`);
+const fetchOneBlog = async (slug: string) => {
+  const res = await API.get(`/blogs/${slug}`);
   return res.data as Iblog;
 };
 
