@@ -46,7 +46,7 @@
 }
 .m-post-card-grid img {
   object-fit: cover;
-  object-position: top;
+  object-position: center;
   max-width: 360px;
   width: 100%;
   height: 240px;
