@@ -50,7 +50,7 @@ interface ThemePalette {
 }
 
 export const themeStore = proxy<ThemePalette>({
-  theme: "light",
+  theme: "dark",
   setTheme(color) {
     themeStore.theme = color;
   },
