@@ -19,7 +19,7 @@ function setThemePreference(theme: string) {
 const Header: FC = () => {
   const { push } = useRouter();
   const { loggedIn } = useSnapshot(authStore);
-  const [isLightMode, setIsLightMode] = useState(true);
+  const [isLightMode, setIsLightMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
@@ -124,14 +124,13 @@ const Header: FC = () => {
                 }}
                 onChange={handleSearch}
               />
-
               <img
                 src="/search-outline.png"
                 className="search-png"
                 style={{ cursor: "pointer" }}
               />
             </div>
-            <div
+            {/* <div
               className={`header-toggle ${
                 isLightMode ? "left-to-right" : "right-to-left"
               }`}
@@ -160,7 +159,7 @@ const Header: FC = () => {
               <div className="golo">
                 <img src="/sunny.png" />
               </div>
-            </div>
+            </div> */}
             <div className="lgnin-lgnout-btn">
               {loggedIn ? (
                 <>
@@ -168,13 +167,13 @@ const Header: FC = () => {
                     onClick={handleLogoutConfirmation}
                     className="max-w-md w-full text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer"
                   >
-                    logout
+                    Logout
                   </Button>
                   {showLogoutConfirmation && <Logout onLogout={handleLogout} />}
                 </>
               ) : (
                 <Button variant={"blue"} onClick={handleLogin}>
-                  login
+                  Login
                 </Button>
               )}
             </div>
