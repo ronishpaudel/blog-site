@@ -10,7 +10,7 @@ interface ContentProps {
   authorName?: string;
   profilePic?: string;
   createdAt: string;
-  onCardClick: () => void;
+  onCardClick?: () => void;
   user?: string;
 }
 
