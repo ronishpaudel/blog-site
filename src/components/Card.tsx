@@ -36,13 +36,13 @@ function Card({
         onClick={onCardClick}
         style={{
           backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
-          border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
+          border: `1px solid ${THEME_PALETTE[themeSnap.theme].inputBg}`,
         }}
       >
         <img
           src={thumbnailImage}
           style={{
-            border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
+            border: `1px solid ${THEME_PALETTE[themeSnap.theme].inputBg}`,
           }}
         />
         <div className="card-content">
