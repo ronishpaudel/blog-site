@@ -18,7 +18,6 @@ import {
 import { useUploadUrl } from "@/hooks/useImageUploadUrl";
 import { fileToBlob } from "@/utils/filetoBlob";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { useAuthorInfo } from "@/hooks/useAuthorInfo";
 import { authStore } from "@/store/authStore";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
@@ -36,7 +35,8 @@ function index() {
   const { title, description, imageUrl, category, thumbImageUrl } =
     useSnapshot(blogCreationStore);
   const themeSnap = useSnapshot(themeStore);
-
+  console.log("Review Category ID:", category.id);
+  console.log("Review Category Name:", blogCreationStore.category.displayName);
   const { push } = useRouter();
 
   const [fileType, setFileType] = useState("");
@@ -65,14 +65,11 @@ function index() {
   const { mutateAsync: s3Mutate, isLoading: isUploading } = useMutation({
     mutationFn: uploadToS3,
   });
-  console.log({ thumbImageUrl });
-  console.log({ imageUrl });
+
   const { mutate: createBlogWithImage, isLoading: isCreatingUpload } =
     useUploadUrl({
       onSuccess: async (res: UploadResponse) => {
         if (imageUrl && thumbImageUrl) {
-          console.log(imageUrl);
-          console.log(thumbImageUrl);
           editor.update(async () => {
             const htmlString = $generateHtmlFromNodes(editor, null);
             const blobData = await fileToBlob(imageUrl, fileType);
