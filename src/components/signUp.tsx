@@ -13,7 +13,7 @@ import {
   GoogleLogin,
   GoogleOAuthProvider,
 } from "@react-oauth/google";
-import { useRouter } from "next/router";
+
 import { useRegistration } from "@/hooks/useRegistration";
 import { TUser } from "@/hooks/useAuthorInfo";
 import { ColorRing } from "react-loader-spinner";
@@ -36,9 +36,9 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   }
   const { mutate, isSuccess, isLoading } = useSignUpMutation({
     onSuccess: async (res: { token: string }) => {
-      saveItemToLocalStorage("auth", res.token);
-      authStore.setLoggedIn();
+      console.log(res.token);
     },
+    onError: (res: string) => {},
   });
 
   function mutation() {
@@ -71,8 +71,8 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
 
     try {
       googleMutate(newUser, {
-        onSuccess: (data) => {
-          saveItemToLocalStorage("auth", JSON.stringify(tokenId));
+        onSuccess: (res: { token: string }) => {
+          saveItemToLocalStorage("auth", res.token);
         },
         onError: (error) => {
           console.log("Failed to create user:", error);
@@ -98,7 +98,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
                 className="text-black text-xl"
                 style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
               >
-                Welcome to Lorem
+                techEra.io
               </h1>
               <h1
                 className="text-5xl"
@@ -122,7 +122,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
               style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
               className="mt-10"
             >
-              Enter your email address
+              Email Address
             </span>
             <Input
               className="max-w-sm border-gray-400 h-12"
@@ -135,7 +135,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
               className="mt-2"
               style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
             >
-              user name
+              Username
             </span>
             <Input
               className="max-w-sm  border-gray-400 h-12"
@@ -145,7 +145,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
             />
           </div>
           <span style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}>
-            Enter your Password
+            Password
           </span>
           <Input
             className="max-w-sm border-gray-400 h-12"
@@ -178,10 +178,10 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
               </div>
             ) : isSuccess ? (
               <div
-                className="text-xl"
+                className="text-xl text-center"
                 style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
               >
-                Pls,check your mail to activate the account
+                Check your mail to activate the account
               </div>
             ) : (
               <Button
