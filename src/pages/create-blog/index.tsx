@@ -7,14 +7,14 @@ import Editor from "@/components/lexical/Editor";
 import Header from "@/components/Header";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { proxy, useSnapshot } from "valtio";
 import { useCategoryQuery } from "@/hooks/useGetCategory";
-
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { resizeImage2 } from "@/utils/resizeImage";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import { ColorRing } from "react-loader-spinner";
-import { DropDown } from "@/components/Dropdown";
+import { Input } from "@/components/ui/input";
+import { useSnapshot } from "valtio";
+import Dropdown from "@/components/Dropdown";
+import { jsonParse } from "@/utils/jsonParse";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -33,13 +33,16 @@ const index: FC = () => {
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
-
+  const [titleError, setTitleError] = useState("");
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
+
+    setTitleError("");
   }
+
   function handleDescriptionChange(e: React.ChangeEvent<HTMLInputElement>) {
     setDescription(e.target.value);
   }
@@ -82,6 +85,7 @@ const index: FC = () => {
     displayName: category.name,
     id: category.id,
   }));
+  const themeSnap = useSnapshot(themeStore);
 
   return (
     <>
@@ -92,27 +96,26 @@ const index: FC = () => {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
           <div className="title-input mt-20">
-            <TextInput
-              text="Title"
+            <Input
               placeholder="Enter your desired title"
               name="title"
               value={title}
               onChange={handleTitleChange}
-              maxWidth="mW700"
+              className="h-14 "
             />
             <div className="error-message">
-              {!title ? <div>Title required</div> : ""}
+              {titleError && <div>Title required</div>}
             </div>
           </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+          <div className="flex justify-between items-center my-2">
             <div className="uploadImg">
-              <input type="file" onChange={handleImageSelect} />
+              <input
+                type="file"
+                onChange={handleImageSelect}
+                style={{
+                  backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+                }}
+              />
               {file && (
                 <div className="selected-image-container">
                   <img src={file} alt="Selected Image" />
@@ -134,23 +137,16 @@ const index: FC = () => {
                 <div className="error-message">{imageSizeError}</div>
               )}
             </div>
-            <div
-              className="create-dropdown"
-              style={{
-                border: "none",
-                borderRadius: "8px",
-                backgroundColor: "#0057ff",
-              }}
-            >
-              <DropDown
+            <div className="create-dropdown">
+              <Dropdown
                 options={categoryOptions || []}
-                onChange={(val) =>
+                onChange={(val) => {
+                  const parsedVal = jsonParse(val);
                   blogCreationStore.setCategory({
-                    id: Number(val.id),
-                    displayName: val.displayName,
-                  })
-                }
-                label="Category"
+                    id: Number(parsedVal.id),
+                    displayName: parsedVal.displayName,
+                  });
+                }}
               />
             </div>
           </div>
@@ -168,15 +164,17 @@ const index: FC = () => {
               type="submit"
               text={"preview your blog"}
               onClick={() => {
-                editor.update(async () => {
-                  const htmlString = $generateHtmlFromNodes(editor, null);
-                  blogCreationStore.setDescription(htmlString);
-                  blogCreationStore.setTitle(title);
-                  blogCreationStore.setImage(file);
-                });
-
-                {
-                  title ? push("/recheck-blog") : "";
+                if (!title) {
+                  setTitleError("Title required");
+                } else {
+                  setTitleError("");
+                  editor.update(async () => {
+                    const htmlString = $generateHtmlFromNodes(editor, null);
+                    blogCreationStore.setDescription(htmlString);
+                    blogCreationStore.setTitle(title);
+                    blogCreationStore.setImage(file);
+                  });
+                  push("/recheck-blog");
                 }
               }}
             />
