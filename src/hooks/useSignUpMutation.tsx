@@ -11,10 +11,17 @@ const createUser = async (newUser: IUserData) => {
   const response = await API.post("/user/signup", newUser);
   return response.data;
 };
-const useSignUpMutation = ({ onSuccess }: { onSuccess: any }) => {
+const useSignUpMutation = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess: any;
+  onError: any;
+}) => {
   return useMutation({
     mutationFn: createUser,
     onSuccess,
+    onError,
   });
 };
 export { useSignUpMutation };
