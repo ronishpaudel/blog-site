@@ -1,4 +1,5 @@
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import { dateFormat } from "@/utils/dateFormat";
 import { useRouter } from "next/router";
 import React from "react";
 import { useSnapshot } from "valtio";
@@ -54,7 +55,7 @@ const Content = ({
         <div className="author">
           <img src="/rbg.jpg" className="author-img" />
           <p className="ronish">{user}</p>
-          <p>{createdAt}</p>
+          <p>{dateFormat(createdAt)}</p>
         </div>
       </div>
     </>
