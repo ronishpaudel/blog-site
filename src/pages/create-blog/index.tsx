@@ -16,6 +16,7 @@ import { useSnapshot } from "valtio";
 import Dropdown from "@/components/Dropdown";
 import { jsonParse } from "@/utils/jsonParse";
 import { BsUpload } from "react-icons/bs";
+import Footer from "@/components/Footer";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -213,6 +214,7 @@ const index: FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
