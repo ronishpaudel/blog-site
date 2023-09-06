@@ -313,7 +313,7 @@ pre::-webkit-scrollbar-thumb {
   color: #fff;
 }
 
-.debug-timetravel-button:hover {
+.debug-timetravel-button {
   text-decoration: underline;
 }
 
@@ -396,7 +396,8 @@ pre::-webkit-scrollbar-thumb {
 }
 
 .toolbar .toolbar-item:hover:not([disabled]) {
-  background-color: #eee;
+  background-color: rgba(223, 232, 250, 0.3);
+  color: white;
 }
 
 .toolbar .divider {
@@ -476,7 +477,7 @@ i.chevron-down {
   background-image: url(/public/images/icons/chevron-down.svg);
 }
 
-#block-controls button:hover {
+#block-controls button {
   background-color: #efefef;
 }
 
@@ -565,7 +566,7 @@ i.chevron-down {
   margin-bottom: 8px;
 }
 
-.dropdown .item:hover {
+.dropdown .item {
   background-color: #eee;
 }
 
@@ -641,7 +642,7 @@ i.chevron-down {
   text-overflow: ellipsis;
 }
 
-.link-editor .link-input a:hover {
+.link-editor .link-input {
   text-decoration: underline;
 }
 
