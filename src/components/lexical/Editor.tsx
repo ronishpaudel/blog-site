@@ -23,7 +23,7 @@ import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 function Placeholder() {
-  return <div className="editor-placeholder">Enter some rich text...</div>;
+  return <div className="editor-placeholder">Start writing your blog...</div>;
 }
 
 export const editorConfig = {
