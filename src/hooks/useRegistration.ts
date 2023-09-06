@@ -7,9 +7,10 @@ const createUser = async (newUser: TUser) => {
   return response.data;
 };
 
-const useRegistration = () => {
+const useRegistration = ({ onSuccess }: { onSuccess: () => void }) => {
   return useMutation({
     mutationFn: createUser,
+    onSuccess,
   });
 };
 export { useRegistration };
