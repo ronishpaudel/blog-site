@@ -19,6 +19,7 @@ const index = () => {
       >
         <Header />
         <Main />
+
         <Footer />
         <SignUp />
         <SignIn />
