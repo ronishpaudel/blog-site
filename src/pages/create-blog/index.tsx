@@ -1,5 +1,5 @@
 import { TextInput } from "@/components/TextInput";
-import React, { ChangeEvent, FC, useEffect, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "@/components/Button";
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { useSnapshot } from "valtio";
 import Dropdown from "@/components/Dropdown";
 import { jsonParse } from "@/utils/jsonParse";
+import { BsUpload } from "react-icons/bs";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -36,6 +37,7 @@ const index: FC = () => {
   const [titleError, setTitleError] = useState("");
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value);
@@ -54,7 +56,11 @@ const index: FC = () => {
       const reader = new FileReader();
 
       reader.onload = async (e) => {
-        setFile(e?.target?.result as any);
+        const mainResizeImage = await resizeImage2(
+          e?.target?.result as string,
+          800
+        );
+        setFile(mainResizeImage);
 
         const base64ImageSize = getBase64ImageSize(e?.target?.result as string);
         if (base64ImageSize > 2 * 1024 * 1024) {
@@ -87,6 +93,12 @@ const index: FC = () => {
   }));
   const themeSnap = useSnapshot(themeStore);
 
+  const triggerFileInputClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   return (
     <>
       <Header />
@@ -112,19 +124,39 @@ const index: FC = () => {
               <input
                 type="file"
                 onChange={handleImageSelect}
+                ref={fileInputRef}
                 style={{
                   backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+                  display: "none",
                 }}
               />
+              <div
+                className="w-40 h-9 p-2 text-white flex gap-1 justify-between items-center rounded-lg "
+                onClick={triggerFileInputClick}
+                style={{
+                  border: `1px solid ${
+                    THEME_PALETTE[themeSnap.theme].textColor
+                  }`,
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                }}
+              >
+                <BsUpload />
+                <div>Click to Upload</div>
+              </div>
               {file && (
                 <div className="selected-image-container">
-                  <img src={file} alt="Selected Image" />
+                  <img
+                    src={file}
+                    alt="Selected Image"
+                    style={{ marginLeft: "70px" }}
+                  />
                   <p
                     style={{
                       position: "relative",
-                      right: "0.5%",
+                      right: "2%",
                       cursor: "pointer",
-                      fontWeight: "630",
+                      fontWeight: "650",
+                      color: THEME_PALETTE[themeSnap.theme].textColor,
                     }}
                     onClick={removeImage}
                   >
@@ -162,7 +194,7 @@ const index: FC = () => {
           >
             <Button
               type="submit"
-              text={"preview your blog"}
+              text={"Preview"}
               onClick={() => {
                 if (!title) {
                   setTitleError("Title required");
