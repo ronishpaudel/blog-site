@@ -1,7 +1,6 @@
 .form-container {
   display: flex;
   justify-content: center;
-  height: 120vh;
 }
 .form {
   display: flex;
