@@ -16,32 +16,22 @@ import {
   GoogleOAuthProvider,
 } from "@react-oauth/google";
 import { ColorRing } from "react-loader-spinner";
+import { useToast } from "./ui/use-toast";
+
 function SignIn({ onClick }: { onClick?: () => void }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const { toast } = useToast();
 
   const { mutate, isLoading, isSuccess, isError } = useSignInMutation({
     onSuccess: async (res: { token: string }) => {
       saveItemToLocalStorage("auth", res.token);
       authStore.setLoggedIn();
+      modalStore.signInModal.setOpen(false);
     },
     onError: (error) => {
       console.log({ error: error.errorType });
-      if (error) {
-        const { errorType, message } = error;
-        setErrorMessage(message);
-
-        if (errorType === "USER_NOT_FOUND") {
-          setErrorMessage(" Please sign up.User not found ");
-        } else if (errorType === "INVALID_CREDENTIALS") {
-          setErrorMessage("Password doesn't match");
-        } else if (errorType === "USER_NOT_VERIFIED") {
-          setErrorMessage("We have sent you a mail.pls,verify your account");
-        }
-      } else {
-        setErrorMessage("An unexpected error occurred.");
-      }
     },
   });
 
@@ -62,7 +52,11 @@ function SignIn({ onClick }: { onClick?: () => void }) {
   const themeSnap = useSnapshot(themeStore);
   const { signInModal } = useSnapshot(modalStore);
 
-  const { mutate: googleMutate } = useRegistration();
+  const { mutate: googleMutate } = useRegistration({
+    onSuccess: () => {
+      modalStore.signInModal.setOpen(false);
+    },
+  });
   const handleGoogleLoginSuccess = async (
     credentialResponse: CredentialResponse
   ) => {
@@ -97,12 +91,16 @@ function SignIn({ onClick }: { onClick?: () => void }) {
     console.log("Login Failed");
   };
   const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string;
-  console.log("clientId::", CLIENT_ID);
 
+  function handleOnClick() {
+    mutate({ email, password });
+  }
   return (
     <div>
       <Dialog open={signInModal.open}>
-        <DialogContent>
+        <DialogContent
+          onCloseClick={() => modalStore.signInModal.setOpen(false)}
+        >
           <DialogHeader>
             <div className="flex items-center justify-between  ">
               <div>
@@ -136,7 +134,7 @@ function SignIn({ onClick }: { onClick?: () => void }) {
               Email Address
             </span>
             <Input
-              className="max-w-md mt-2.5 border-gray-400 h-12"
+              className="max-w-md mt-2 border-gray-400 h-12"
               type="email"
               name="email"
               value={email}
@@ -148,7 +146,7 @@ function SignIn({ onClick }: { onClick?: () => void }) {
             />
             <span
               style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-              className="mt-8"
+              className="mt-4"
             >
               Password
             </span>
@@ -166,7 +164,7 @@ function SignIn({ onClick }: { onClick?: () => void }) {
               Forgot password?
             </span>
 
-            <div className="mt-10 mb-10">
+            <div className="mt-5 mb-5">
               {isLoading ? (
                 <div className="flex justify-center ">
                   <ColorRing
@@ -185,13 +183,6 @@ function SignIn({ onClick }: { onClick?: () => void }) {
                     ]}
                   />
                 </div>
-              ) : isSuccess ? (
-                <Button
-                  variant={"blue"}
-                  onClick={() => modalStore.signInModal.setOpen(false)}
-                >
-                  Continue to homepage
-                </Button>
               ) : isError ? (
                 <>
                   <div className="flex flex-col items-center">
@@ -201,27 +192,14 @@ function SignIn({ onClick }: { onClick?: () => void }) {
                   </div>
                   <Button
                     variant={"blue"}
-                    onClick={() =>
-                      mutate({
-                        email,
-                        password,
-                      })
-                    }
+                    onClick={handleOnClick}
                     className="mt-3"
                   >
                     Sign in
                   </Button>
                 </>
               ) : (
-                <Button
-                  variant={"blue"}
-                  onClick={() =>
-                    mutate({
-                      email,
-                      password,
-                    })
-                  }
-                >
+                <Button variant={"blue"} onClick={handleOnClick}>
                   Sign in
                 </Button>
               )}
