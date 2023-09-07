@@ -72,7 +72,6 @@ export default function App({ Component, pageProps }: AppProps) {
       authStore.setTokenFetching(false);
     }
   }, [token]);
-
   return (
     <div className={workSans.className}>
       <QueryClientProvider client={queryClient}>
