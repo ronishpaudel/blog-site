@@ -74,21 +74,22 @@ const Header: FC = () => {
 
   async function handleSearch(e: any) {
     setSearchQuery(e.target.value);
-    blogCreationStore.setQuery(e.target.value);
 
-    console.log({ searchQuery });
+    blogCreationStore.setQuery(debouncedSearchQuery);
   }
 
+  function onPush() {
+    push("/");
+    setSearchQuery("");
+  }
   return (
     <>
       <header
         style={{ backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg }}
       >
         <div className="header">
-          <div className="header-logo">
-            <Link href="/">
-              {isLightMode ? <img src="/logo.png" alt="asd" /> : <Meta />}
-            </Link>
+          <div className="header-logo" onClick={onPush}>
+            {isLightMode ? <img src="/logo.png" alt="asd" /> : <Meta />}
           </div>
 
           <div className="lastchildheaderparent">
