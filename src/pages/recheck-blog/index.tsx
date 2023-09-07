@@ -23,6 +23,7 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { ColorRing } from "react-loader-spinner";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import { useOneBlog } from "@/hooks/useQueryBlog";
 
 type UploadResponse = {
   message: string;
@@ -43,11 +44,21 @@ function index() {
   const [editor] = useLexicalComposerContext();
 
   const { dbUser } = useSnapshot(authStore);
-
+  const { query } = useRouter();
+  const { data } = useOneBlog(query?.id as string);
   const queryClient = useQueryClient();
+
   const { mutateAsync: createBlog, isLoading: isCreating } = useCreateBlog({
-    onSuccess: () => {
+    onSuccess: async () => {
       queryClient.invalidateQueries(["blogs"]);
+      // if (data?.slug) {
+      //   await push({
+      //     pathname: "/[id]",
+      //     query: {
+      //       id: data.slug,
+      //     },
+      //   });
+      // }
       push("/");
     },
   });
@@ -112,11 +123,12 @@ function index() {
       },
     });
 
-  const handleOnSubmit = () => {
+  const handleOnSubmit = async () => {
     if (isCreating || isUploading || isCreatingUpload || !title) {
       return;
     }
-    createBlogWithImage({});
+
+    await createBlogWithImage({});
   };
 
   return (
@@ -180,7 +192,7 @@ function index() {
               colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
             />
           ) : (
-            <Button text={"publish now"} onClick={() => handleOnSubmit()} />
+            <Button text={"Publish"} onClick={() => handleOnSubmit()} />
           )}
         </div>
       </div>
