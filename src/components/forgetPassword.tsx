@@ -24,7 +24,9 @@ const ForgotPassword = () => {
   return (
     <div>
       <Dialog open={forgotPassword.open}>
-        <DialogContent>
+        <DialogContent
+          onCloseClick={() => modalStore.forgotPassword.setOpen(false)}
+        >
           <div className="flex items-center justify-between  ">
             <div>
               <h1
