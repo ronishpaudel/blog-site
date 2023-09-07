@@ -9,13 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.1.1",
+    "@hookform/resolvers": "^3.3.1",
     "@lexical/react": "^0.11.3",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@next/font": "^13.4.10",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
+    "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-toast": "^1.1.4",
@@ -35,7 +36,7 @@
     "next": "13.4.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.45.2",
+    "react-hook-form": "^7.46.1",
     "react-icons": "^4.10.1",
     "react-loader-spinner": "^5.3.4",
     "react-loading-skeleton": "^3.3.1",
@@ -46,7 +47,7 @@
     "typescript": "5.1.6",
     "valtio": "^1.11.1",
     "valtio-persist": "^1.0.2",
-    "zod": "^3.21.4"
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.0.1",
