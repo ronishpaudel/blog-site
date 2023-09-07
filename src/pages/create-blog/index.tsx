@@ -99,22 +99,23 @@ const index: FC = () => {
       fileInputRef.current.click();
     }
   };
-
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
   return (
     <>
       <Header />
       <div
-        className="form-container"
+        className="form-container "
         style={{ backgroundColor: THEME_PALETTE[themeStore.theme].cardBg }}
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-          <div className="title-input mt-20">
+          <div className="title-input mt-24">
             <Input
               placeholder="Enter your desired title"
               name="title"
               value={title}
               onChange={handleTitleChange}
               className="h-14 "
+              ref={titleInputRef}
             />
             <div className="error-message">
               {titleError && <div>Title required</div>}
@@ -199,6 +200,12 @@ const index: FC = () => {
               onClick={() => {
                 if (!title) {
                   setTitleError("Title required");
+                  if (titleInputRef.current) {
+                    titleInputRef.current.scrollIntoView({
+                      behavior: "smooth",
+                      block: "nearest",
+                    });
+                  }
                 } else {
                   setTitleError("");
                   editor.update(async () => {
@@ -210,6 +217,7 @@ const index: FC = () => {
                   push("/recheck-blog");
                 }
               }}
+              className="mb-10"
             />
           </div>
         </div>
