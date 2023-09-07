@@ -15,7 +15,7 @@ function Logout({ onLogout }: Ilogout) {
   return (
     <div>
       <Dialog open={logout.open}>
-        <DialogContent>
+        <DialogContent onCloseClick={() => modalStore.logout.setOpen(false)}>
           <div className="flex flex-col gap-2 mb-2">
             <span
               style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
@@ -24,11 +24,7 @@ function Logout({ onLogout }: Ilogout) {
               Are you sure you want to sign out ?
             </span>
             <div className="flex gap-12 mt-4 justify-center">
-              <Button
-                variant={"destructive"}
-                onClick={onLogout}
-                className="text-xl"
-              >
+              <Button variant={"destructive"} onClick={onLogout} className="">
                 Yes , Sign out
               </Button>
             </div>
