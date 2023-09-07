@@ -13,14 +13,21 @@ import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 
 const index: FC = () => {
   const { push, query } = useRouter();
-  const { data, isLoading } = useOneBlog(query?.id as string);
+  const { data, isLoading, isFetching } = useOneBlog(query?.id as string);
   const themeSnap = useSnapshot(themeStore);
 
   return (
     <div>
       <Header />
-      {!data || isLoading ? (
-        <BlogPageSkeleton />
+      {!data || isLoading || isFetching ? (
+        <div
+          style={{
+            backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+            height: "100vh",
+          }}
+        >
+          <BlogPageSkeleton />
+        </div>
       ) : (
         <div
           className="page-wrapper"
