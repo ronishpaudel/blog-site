@@ -4,7 +4,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   height: auto;
-  margin-top: -200px;
+  margin-top: -185px;
   margin-left: 100px;
   align-self: flex-start;
   border-radius: 12px;
@@ -18,15 +18,13 @@
 @media (max-width: 1240px) {
   .content {
     margin-left: 100px;
-    padding: 30px;
   }
 }
 @media (max-width: 1000px) {
   .content {
     width: 50%;
-    padding: 20px;
+
     font-size: 0.9rem;
-    margin-top: -190px;
   }
   .heading {
     gap: 10px;
@@ -44,7 +42,7 @@
 }
 @media (max-width: 768px) {
   .content {
-    width: unset;
+    width: 100%;
     margin: 0;
     border-radius: unset;
     border-bottom-left-radius: 12px;
