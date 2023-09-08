@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { useSignUpMutation } from "@/hooks/useSignUpMutation";
 import { saveItemToLocalStorage } from "@/store/storage";
-import { authStore } from "@/store/authStore";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { modalStore } from "@/store/modalStore";
@@ -13,27 +12,30 @@ import {
   GoogleLogin,
   GoogleOAuthProvider,
 } from "@react-oauth/google";
-
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormMessage,
+} from "@/components/ui/form";
 import { useRegistration } from "@/hooks/useRegistration";
 import { TUser } from "@/hooks/useAuthorInfo";
 import { ColorRing } from "react-loader-spinner";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  email: z.string().email("Enter a valid email"),
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  password: z
+    .string()
+    .min(2, { message: "Password must be at least 8 characters long" }),
+});
 
 function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUserName] = useState("");
-
-  function handleEmailChange(e: any) {
-    setEmail(e.target.value);
-  }
-
-  function handlePasswordChange(e: any) {
-    setPassword(e.target.value);
-  }
-
-  function handleUserNameChange(e: any) {
-    setUserName(e.target.value);
-  }
   const { mutate, isSuccess, isLoading } = useSignUpMutation({
     onSuccess: async (res: { token: string }) => {
       console.log(res.token);
@@ -41,20 +43,15 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
     onError: (res: string) => {},
   });
 
-  function mutation() {
-    mutate({
-      email,
-      username,
-      password,
-    });
-  }
   function handleOnClick() {
     modalStore.signUpModal.setOpen(false);
   }
   const themeSnap = useSnapshot(themeStore);
   const { signUpModal } = useSnapshot(modalStore);
 
-  const { mutate: googleMutate } = useRegistration();
+  const { mutate: googleMutate } = useRegistration({
+    onSuccess: () => {},
+  });
   const handleGoogleLoginSuccess = async (
     credentialResponse: CredentialResponse
   ) => {
@@ -88,10 +85,24 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   };
   const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string;
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      username: "",
+      password: "",
+    },
+  });
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    mutate(values);
+  }
+
   return (
     <div>
       <Dialog open={signUpModal.open}>
-        <DialogContent>
+        <DialogContent
+          onCloseClick={() => modalStore.signUpModal.setOpen(false)}
+        >
           <div className="flex items-center justify-between  ">
             <div>
               <h1
@@ -117,81 +128,114 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
               </p>
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <span
-              style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-              className="mt-10"
-            >
-              Email Address
-            </span>
-            <Input
-              className="max-w-sm border-gray-400 h-12"
-              name="email"
-              value={email}
-              onChange={handleEmailChange}
-            />
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <div className="flex flex-col">
+                <span
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                  className="mt-5"
+                >
+                  Email Address
+                </span>
 
-            <span
-              className="mt-2"
-              style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-            >
-              Username
-            </span>
-            <Input
-              className="max-w-sm  border-gray-400 h-12"
-              name="username"
-              value={username}
-              onChange={handleUserNameChange}
-            />
-          </div>
-          <span style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}>
-            Password
-          </span>
-          <Input
-            className="max-w-sm border-gray-400 h-12"
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <span className="text-base max-w-md mt-1.5 text-blue-500 cursor-pointer hover:text-blue-600 flex justify-end ">
-            Forgot password?
-          </span>
-          <div className="mt-5 mb-5">
-            {isLoading ? (
-              <div className="flex justify-center ">
-                <ColorRing
-                  visible={true}
-                  height="80"
-                  width="80"
-                  ariaLabel="blocks-loading"
-                  wrapperStyle={{}}
-                  wrapperClass="blocks-wrapper"
-                  colors={[
-                    "#4b6bfb",
-                    "#4b6bfb",
-                    "#4b6bfb",
-                    "#4b6bfb",
-                    "#4b6bfb",
-                  ]}
+                <FormField
+                  name="email"
+                  render={({ field }) => (
+                    <>
+                      <FormControl>
+                        <Input
+                          placeholder=" Email Address"
+                          {...field}
+                          className="max-w-sm  border-gray-400 h-12 "
+                        />
+                      </FormControl>
+
+                      <FormMessage />
+                    </>
+                  )}
+                />
+                <span
+                  className="mt-2"
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  Username
+                </span>
+                <FormField
+                  name="username"
+                  render={({ field }) => (
+                    <>
+                      <FormControl>
+                        <Input
+                          placeholder="Username"
+                          {...field}
+                          className="max-w-sm  border-gray-400 h-12"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </>
+                  )}
+                />
+
+                <span
+                  className="mt-3"
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  Password
+                </span>
+                <FormField
+                  name="password"
+                  render={({ field }) => (
+                    <>
+                      <FormControl>
+                        <Input
+                          placeholder=" Password"
+                          {...field}
+                          className="max-w-sm  border-gray-400 h-12"
+                        />
+                      </FormControl>
+
+                      <FormMessage />
+                    </>
+                  )}
                 />
               </div>
-            ) : isSuccess ? (
-              <div
-                className="text-xl text-center"
-                style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-              >
-                Check your mail to activate the account
+              <div className="mt-5 mb-5">
+                {isLoading ? (
+                  <div className="flex justify-center ">
+                    <ColorRing
+                      visible={true}
+                      height="80"
+                      width="80"
+                      ariaLabel="blocks-loading"
+                      wrapperStyle={{}}
+                      wrapperClass="blocks-wrapper"
+                      colors={[
+                        "#4b6bfb",
+                        "#4b6bfb",
+                        "#4b6bfb",
+                        "#4b6bfb",
+                        "#4b6bfb",
+                      ]}
+                    />
+                  </div>
+                ) : isSuccess ? (
+                  <div
+                    className="text-xl text-center"
+                    style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                  >
+                    Check your mail to activate the account
+                  </div>
+                ) : (
+                  <Button
+                    type="submit"
+                    className="max-w-sm w-full text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer"
+                  >
+                    Sign Up
+                  </Button>
+                )}
               </div>
-            ) : (
-              <Button
-                onClick={mutation}
-                className="max-w-sm w-full text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer"
-              >
-                Sign Up
-              </Button>
-            )}
-          </div>
+            </form>
+          </Form>
           <div className="relative flex justify-center text-xs uppercase">
             <span
               className="bg-background px-2 text-muted-foreground"
@@ -203,7 +247,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
               Or continue with
             </span>
           </div>
-          <div className="w-full grid grid-cols-2 gap-4 mt-2  ">
+          <div className="w-full grid grid-cols-2 gap-4   ">
             <GoogleOAuthProvider clientId={CLIENT_ID}>
               <GoogleLogin
                 size="large"

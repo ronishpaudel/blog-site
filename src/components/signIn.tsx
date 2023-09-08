@@ -17,10 +17,19 @@ import {
 } from "@react-oauth/google";
 import { ColorRing } from "react-loader-spinner";
 import { useToast } from "./ui/use-toast";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormMessage } from "./ui/form";
+
+const formSchema = z.object({
+  email: z.string().email("Enter a valid email"),
+  password: z.string().min(1, "dsf"),
+});
 
 function SignIn({ onClick }: { onClick?: () => void }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { toast } = useToast();
 
@@ -32,16 +41,38 @@ function SignIn({ onClick }: { onClick?: () => void }) {
     },
     onError: (error) => {
       console.log({ error: error.errorType });
+      if (error) {
+        const { errorType, message } = error;
+        setErrorMessage(message);
+
+        if (errorType === "USER_NOT_FOUND") {
+          setErrorMessage(" Please sign up.User not found ");
+        } else if (errorType === "INVALID_CREDENTIALS") {
+          setErrorMessage("Password doesn't match");
+        } else if (errorType === "USER_NOT_VERIFIED") {
+          setErrorMessage("We have sent you a mail.pls,verify your account");
+        }
+      } else {
+        setErrorMessage("An unexpected error occurred.");
+      }
     },
   });
 
-  function handleEmailChange(e: any) {
-    setEmail(e.target.value);
-  }
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-  function handlePasswordChange(e: any) {
-    setPassword(e.target.value);
-  }
+  // function handleEmailChange(e: any) {
+  //   setEmail(e.target.value);
+  // }
+
+  // function handlePasswordChange(e: any) {
+  //   setPassword(e.target.value);
+  // }
 
   function handleShowSignUp() {
     modalStore.signUpModal.setOpen(true);
@@ -92,9 +123,10 @@ function SignIn({ onClick }: { onClick?: () => void }) {
   };
   const CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID as string;
 
-  function handleOnClick() {
-    mutate({ email, password });
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    mutate(values);
   }
+
   return (
     <div>
       <Dialog open={signInModal.open}>
@@ -127,83 +159,98 @@ function SignIn({ onClick }: { onClick?: () => void }) {
                 </div>
               </div>
             </div>
-            <span
-              style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-              className="mt-10"
-            >
-              Email Address
-            </span>
-            <Input
-              className="max-w-md mt-2 border-gray-400 h-12"
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleEmailChange}
-              style={{
-                backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                color: THEME_PALETTE[themeSnap.theme].textColor,
-              }}
-            />
-            <span
-              style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-              className="mt-4"
-            >
-              Password
-            </span>
-            <Input
-              className="max-w-md mt-1 border-gray-400 h-12"
-              type="password"
-              name="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-            <span
-              onClick={handleShowForgotPassword}
-              className="text-base max-w-md mt-1.5 text-blue-500 cursor-pointer hover:text-blue-600 flex justify-end "
-            >
-              Forgot password?
-            </span>
 
-            <div className="mt-5 mb-5">
-              {isLoading ? (
-                <div className="flex justify-center ">
-                  <ColorRing
-                    visible={true}
-                    height="80"
-                    width="80"
-                    ariaLabel="blocks-loading"
-                    wrapperStyle={{}}
-                    wrapperClass="blocks-wrapper"
-                    colors={[
-                      "#4b6bfb",
-                      "#4b6bfb",
-                      "#4b6bfb",
-                      "#4b6bfb",
-                      "#4b6bfb",
-                    ]}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="flex flex-col gap-3">
+                  <span
+                    style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                    className="mt-10"
+                  >
+                    Email Address
+                  </span>
+                  <FormField
+                    name="email"
+                    render={({ field }) => (
+                      <>
+                        <FormControl>
+                          <Input
+                            placeholder=" Email Address"
+                            className="max-w-sm  border-gray-400 h-12 "
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </>
+                    )}
+                  />
+                  <span
+                    style={{
+                      color: THEME_PALETTE[themeSnap.theme].textColor,
+                    }}
+                    className="mt-"
+                  >
+                    Password
+                  </span>
+                  <FormField
+                    name="password"
+                    render={({ field }) => (
+                      <>
+                        <FormControl>
+                          <Input
+                            placeholder=" Email Address"
+                            className="max-w-sm  border-gray-400 h-12 "
+                            {...field}
+                          />
+                        </FormControl>
+
+                        <FormMessage />
+                      </>
+                    )}
                   />
                 </div>
-              ) : isError ? (
-                <>
-                  <div className="flex flex-col items-center">
-                    <div className="text-red-500 text-center">
-                      {errorMessage}
+                <span
+                  onClick={handleShowForgotPassword}
+                  className="text-base max-w-md mt-1.5 text-blue-500 cursor-pointer hover:text-blue-600 flex justify-end "
+                >
+                  Forgot password?
+                </span>
+
+                <div className="mt-5 mb-5">
+                  {isLoading ? (
+                    <div className="flex justify-center ">
+                      <ColorRing
+                        visible={true}
+                        height="80"
+                        width="80"
+                        ariaLabel="blocks-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="blocks-wrapper"
+                        colors={[
+                          "#4b6bfb",
+                          "#4b6bfb",
+                          "#4b6bfb",
+                          "#4b6bfb",
+                          "#4b6bfb",
+                        ]}
+                      />
                     </div>
-                  </div>
-                  <Button
-                    variant={"blue"}
-                    onClick={handleOnClick}
-                    className="mt-3"
-                  >
+                  ) : isError ? (
+                    <>
+                      <div className="flex flex-col items-center">
+                        <div className="text-red-500 text-center">
+                          {errorMessage}
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+                  <Button variant={"blue"} type="submit">
                     Sign in
                   </Button>
-                </>
-              ) : (
-                <Button variant={"blue"} onClick={handleOnClick}>
-                  Sign in
-                </Button>
-              )}
-            </div>
+                </div>
+              </form>
+            </Form>
             <div className="relative flex justify-center text-xs uppercase">
               <span
                 className="bg-background px-2 text-muted-foreground"
