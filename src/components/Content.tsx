@@ -27,7 +27,6 @@ const Content = ({
 
   ...rest
 }: ContentProps) => {
-  const { push } = useRouter();
   const themeSnap = useSnapshot(themeStore);
 
   return (
@@ -39,7 +38,7 @@ const Content = ({
           border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
         }}
         id="content"
-        onClick={() => push("/signup")}
+        onClick={onCardClick}
       >
         <div className="heading">
           <p className="category">{category}</p>
