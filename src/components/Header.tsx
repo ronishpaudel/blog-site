@@ -3,28 +3,27 @@ import { useRouter } from "next/router";
 import { useSnapshot } from "valtio";
 import { authStore } from "@/store/authStore";
 import { AiOutlinePlus } from "react-icons/ai";
-import Link from "next/link";
-import { useDebounce } from "@/hooks/useDebounce";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { Meta } from "../../public";
 import { Button } from "./ui/button";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { modalStore } from "@/store/modalStore";
 import { Logout } from "./Logout";
+import { BsSearch } from "react-icons/bs";
+import { headers } from "next/dist/client/components/headers";
 
 function setThemePreference(theme: string) {
   localStorage.setItem("themePreference", theme);
 }
 
 const Header: FC = () => {
-  const { push } = useRouter();
+  const { push, pathname } = useRouter();
   const { loggedIn } = useSnapshot(authStore);
   const [isLightMode, setIsLightMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
-  const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const themeSnap = useSnapshot(themeStore);
+  const { query } = useSnapshot(blogCreationStore);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("themePreference");
@@ -73,15 +72,14 @@ const Header: FC = () => {
   }
 
   async function handleSearch(e: any) {
-    setSearchQuery(e.target.value);
-
-    blogCreationStore.setQuery(debouncedSearchQuery);
+    blogCreationStore.setQuery(e.target.value);
   }
 
   function onPush() {
     push("/");
-    setSearchQuery("");
+    blogCreationStore.setQuery("");
   }
+
   return (
     <>
       <header
@@ -93,44 +91,59 @@ const Header: FC = () => {
           </div>
 
           <div className="lastchildheaderparent">
-            <div>
-              <div>
+            {pathname !== "/create-blog" && pathname !== "/recheck-blog" && (
+              <>
                 <div
-                  className="blogsCreate"
-                  onClick={handlePush}
+                  className={`header-items ${isMenuOpen ? "menu-open" : ""} `}
+                  onClick={() => setIsMenuOpen(false)}
                   style={{
                     backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
                     color: THEME_PALETTE[themeSnap.theme].textColor,
                     border: "none",
                   }}
                 >
-                  Craft, Blogs
-                  <AiOutlinePlus style={{ fontSize: "15px" }} />
+                  <div
+                    className="blogs-create "
+                    onClick={handlePush}
+                    style={{
+                      backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                      color: THEME_PALETTE[themeSnap.theme].textColor,
+                      border: "none",
+                    }}
+                  >
+                    Create Blogs
+                    <AiOutlinePlus
+                      style={{ fontSize: "15px" }}
+                      className="search-png"
+                    />
+                  </div>
                 </div>
-              </div>
-            </div>
-            <div
-              className="header-search"
-              style={{
-                backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-              }}
-            >
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchQuery}
-                style={{
-                  backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
-                }}
-                onChange={handleSearch}
-              />
-              <img
-                src="/search-outline.png"
-                className="search-png"
-                style={{ cursor: "pointer" }}
-              />
-            </div>
+
+                <div
+                  className="header-search"
+                  style={{
+                    backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="rounded-lg"
+                    value={query}
+                    style={{
+                      backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                      color: THEME_PALETTE[themeSnap.theme].textColor,
+                    }}
+                    onChange={handleSearch}
+                  />
+                  <img
+                    src="/search-outline.png"
+                    className="search-png"
+                    style={{ cursor: "pointer" }}
+                  />
+                </div>
+              </>
+            )}
             {/* <div
               className={`header-toggle ${
                 isLightMode ? "left-to-right" : "right-to-left"
@@ -161,28 +174,48 @@ const Header: FC = () => {
                 <img src="/sunny.png" />
               </div>
             </div> */}
-            <div className="lgnin-lgnout-btn">
-              {loggedIn ? (
-                <>
-                  <Button
-                    onClick={handleLogoutConfirmation}
-                    className="max-w-md w-full text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer"
-                  >
-                    Logout
-                  </Button>
-                  {showLogoutConfirmation && <Logout onLogout={handleLogout} />}
-                </>
-              ) : (
-                <Button variant={"blue"} onClick={handleLogin}>
-                  Login
-                </Button>
-              )}
-            </div>
-            <button className="menu-button" onClick={handleToggleMenu}>
-              Menu
-            </button>
+            {pathname !== "/create-blog" && pathname !== "/recheck-blog" && (
+              <div className="lgnin-lgnout-btn">
+                <div
+                  className={`header-items-btn ${
+                    isMenuOpen ? "menu-open" : ""
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {loggedIn ? (
+                    <>
+                      <Button
+                        onClick={handleLogoutConfirmation}
+                        className="max-w-md w-full text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer"
+                      >
+                        Logout
+                      </Button>
+                      {showLogoutConfirmation && (
+                        <Logout onLogout={handleLogout} />
+                      )}
+                    </>
+                  ) : (
+                    <Button variant={"blue"} onClick={handleLogin}>
+                      Login
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
+        {/* <button className="search-logo-btn mr-4" onClick={handleToggleSearch}>
+          <BsSearch
+            style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+          />
+        </button> */}
+        <button
+          className="menu-button"
+          onClick={handleToggleMenu}
+          style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+        >
+          Menu
+        </button>
       </header>
     </>
   );
