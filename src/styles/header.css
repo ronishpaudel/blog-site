@@ -195,7 +195,9 @@ header {
   background-color: bisque;
   color: black;
 }
-
+.header-items {
+  border-radius: 7px;
+}
 @media (max-width: 768px) {
   .header-items {
     display: none;
