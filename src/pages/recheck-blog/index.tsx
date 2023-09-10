@@ -51,14 +51,6 @@ function index() {
   const { mutateAsync: createBlog, isLoading: isCreating } = useCreateBlog({
     onSuccess: async () => {
       queryClient.invalidateQueries(["blogs"]);
-      // if (data?.slug) {
-      //   await push({
-      //     pathname: "/[id]",
-      //     query: {
-      //       id: data.slug,
-      //     },
-      //   });
-      // }
       push("/");
     },
   });
@@ -117,6 +109,7 @@ function index() {
             blogCreationStore.clearStore();
           });
         }
+        push("/");
       },
       onError: (error: any) => {
         console.log(error);
@@ -128,7 +121,7 @@ function index() {
       return;
     }
 
-    await createBlogWithImage({});
+    createBlogWithImage({});
   };
 
   return (
