@@ -1,11 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import {
-  Iblog,
-  fetchBlogs,
-  useOneBlog,
-  useQueryBlog,
-} from "@/hooks/useQueryBlog";
+import { Iblog, useQueryBlog } from "@/hooks/useQueryBlog";
 import { dateFormat } from "@/utils/dateFormat";
 import { Content } from "./Content";
 import Card from "./Card";
@@ -13,6 +8,7 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import CardSkeleton from "./skeleton-loader/cardSkeleton";
+import { Input } from "./ui/input";
 
 const BlogCardList = () => {
   const { push } = useRouter();
@@ -70,7 +66,7 @@ const Main = () => {
   console.log({ blogSearch });
 
   const themeSnap = useSnapshot(themeStore);
-  const { push, query } = useRouter();
+  const { push } = useRouter();
   const { query: blogQuery } = useSnapshot(blogCreationStore);
 
   const firstItem = blogSearch?.pages?.[0]?.[0];
@@ -86,6 +82,9 @@ const Main = () => {
         </div>
       ) : (
         <div className="main">
+          <div className="main-search">
+            <Input type="search" placeholder="Search" className="h-full" />
+          </div>
           <div className="image-wrappper">
             <img src="/Image.png" className="Image" alt="Blog Image" />
           </div>
