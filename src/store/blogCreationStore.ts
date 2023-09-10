@@ -7,12 +7,15 @@ export const blogCreationStore = proxy<{
   category: { id: number; displayName: string };
   imageUrl: string;
   thumbImageUrl: string;
+  searchBar: boolean;
   setDescription: (description: string) => void;
   setTitle: (title: string) => void;
   setImage: (imageUrl: string) => void;
   setCategory: (val: { id: number; displayName: string }) => void;
   setThumbImageUrl: (thumbImageUrl: string) => void;
   setQuery: (query: string) => void;
+  setSearchBar: (q: boolean) => void;
+
   clearStore: () => void;
 }>({
   title: "",
@@ -21,6 +24,7 @@ export const blogCreationStore = proxy<{
   imageUrl: "",
   thumbImageUrl: "",
   query: "",
+  searchBar: false,
   setTitle(title) {
     this.title = title;
   },
@@ -38,6 +42,9 @@ export const blogCreationStore = proxy<{
   },
   setThumbImageUrl(val) {
     this.thumbImageUrl = val;
+  },
+  setSearchBar(val) {
+    this.searchBar = val;
   },
   clearStore() {
     this.title = "";
