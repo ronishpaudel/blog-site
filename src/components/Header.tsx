@@ -10,7 +10,6 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { modalStore } from "@/store/modalStore";
 import { Logout } from "./Logout";
 import { BsSearch } from "react-icons/bs";
-import { headers } from "next/dist/client/components/headers";
 
 function setThemePreference(theme: string) {
   localStorage.setItem("themePreference", theme);
@@ -94,32 +93,6 @@ const Header: FC = () => {
             {pathname !== "/create-blog" && pathname !== "/recheck-blog" && (
               <>
                 <div
-                  className={`header-items ${isMenuOpen ? "menu-open" : ""} `}
-                  onClick={() => setIsMenuOpen(false)}
-                  style={{
-                    backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                    color: THEME_PALETTE[themeSnap.theme].textColor,
-                    border: "none",
-                  }}
-                >
-                  <div
-                    className="blogs-create "
-                    onClick={handlePush}
-                    style={{
-                      backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                      color: THEME_PALETTE[themeSnap.theme].textColor,
-                      border: "none",
-                    }}
-                  >
-                    Create Blogs
-                    <AiOutlinePlus
-                      style={{ fontSize: "15px" }}
-                      className="search-png"
-                    />
-                  </div>
-                </div>
-
-                <div
                   className="header-search"
                   style={{
                     backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
@@ -138,7 +111,6 @@ const Header: FC = () => {
                   />
                   <img
                     src="/search-outline.png"
-                    className="search-png"
                     style={{ cursor: "pointer" }}
                   />
                 </div>
@@ -175,13 +147,30 @@ const Header: FC = () => {
               </div>
             </div> */}
             {pathname !== "/create-blog" && pathname !== "/recheck-blog" && (
-              <div className="lgnin-lgnout-btn">
+              <div
+                className={`header-items ${isMenuOpen ? "menu-open" : ""} `}
+                onClick={() => setIsMenuOpen(false)}
+                style={{
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                }}
+              >
                 <div
-                  className={`header-items-btn ${
-                    isMenuOpen ? "menu-open" : ""
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
+                  className="blogs-create "
+                  onClick={handlePush}
+                  style={{
+                    backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                    color: THEME_PALETTE[themeSnap.theme].textColor,
+                    border: "none",
+                  }}
                 >
+                  Create
+                  <AiOutlinePlus
+                    style={{ fontSize: "15px" }}
+                    className="search-png"
+                  />
+                </div>
+
+                <div className="lgnin-lgnout-btn">
                   {loggedIn ? (
                     <>
                       <Button
@@ -204,11 +193,14 @@ const Header: FC = () => {
             )}
           </div>
         </div>
-        {/* <button className="search-logo-btn mr-4" onClick={handleToggleSearch}>
+        <button
+          className="search-logo-btn mr-4"
+          onClick={() => blogCreationStore.setSearchBar(true)}
+        >
           <BsSearch
             style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
           />
-        </button> */}
+        </button>
         <button
           className="menu-button"
           onClick={handleToggleMenu}
