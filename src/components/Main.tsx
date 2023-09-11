@@ -18,18 +18,27 @@ const BlogCardList = () => {
   const {
     data: blogSearch,
     isLoading: searchLoading,
-    hasNextPage,
-    fetchNextPage,
+    isFetching: searchFetching,
   } = useQueryBlog(query);
-  const handleViewNextPost = async () => {
-    if (hasNextPage) {
-      await fetchNextPage();
-    }
-  };
+
+  const themeSnap = useSnapshot(themeStore);
+
   return (
     <>
       <div className="card-parent mt-20" id="main">
         {searchLoading ? <CardSkeleton amount={9} /> : ""}
+        {!blogSearch?.pages?.[0]?.[0]?.id &&
+        !searchLoading &&
+        !searchFetching ? (
+          <div
+            style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+            className="mt-10 mb-20"
+          >
+            No results match that query
+          </div>
+        ) : (
+          ""
+        )}
         {blogSearch?.pages.map((page: any) =>
           page.map((blog: Iblog) => (
             <Card
@@ -52,24 +61,23 @@ const BlogCardList = () => {
           ))
         )}
       </div>
-
-      <div className="viewPost mb-16" onClick={handleViewNextPost}>
-        View All Post
-      </div>
     </>
   );
 };
 
 const Main = () => {
-  const { data: blogSearch } = useQueryBlog("");
-
-  console.log({ blogSearch });
+  const { data: blogSearch, hasNextPage, fetchNextPage } = useQueryBlog("");
 
   const themeSnap = useSnapshot(themeStore);
   const { push } = useRouter();
   const { query: blogQuery } = useSnapshot(blogCreationStore);
 
   const firstItem = blogSearch?.pages?.[0]?.[0];
+  const handleViewNextPost = async () => {
+    if (hasNextPage) {
+      await fetchNextPage();
+    }
+  };
   return (
     <main
       style={{
@@ -104,6 +112,9 @@ const Main = () => {
           />
 
           <BlogCardList />
+          <div className="viewPost mb-16" onClick={handleViewNextPost}>
+            View All Post
+          </div>
         </div>
       )}
     </main>
