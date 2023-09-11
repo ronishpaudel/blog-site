@@ -8,7 +8,7 @@ import { useState } from "react";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { useSnapshot } from "valtio";
 import { modalStore } from "@/store/modalStore";
-import { TUser, useAuthorInfo } from "@/hooks/useAuthorInfo";
+import { TUser } from "@/hooks/useAuthorInfo";
 import { useRegistration } from "@/hooks/useRegistration";
 import {
   CredentialResponse,
@@ -65,14 +65,6 @@ function SignIn({ onClick }: { onClick?: () => void }) {
       password: "",
     },
   });
-
-  // function handleEmailChange(e: any) {
-  //   setEmail(e.target.value);
-  // }
-
-  // function handlePasswordChange(e: any) {
-  //   setPassword(e.target.value);
-  // }
 
   function handleShowSignUp() {
     modalStore.signUpModal.setOpen(true);
