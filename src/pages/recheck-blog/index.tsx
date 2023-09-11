@@ -10,11 +10,7 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import { useState } from "react";
 import axios from "axios";
-import {
-  QueryClient,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useUploadUrl } from "@/hooks/useImageUploadUrl";
 import { fileToBlob } from "@/utils/filetoBlob";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -23,7 +19,6 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { ColorRing } from "react-loader-spinner";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import { useOneBlog } from "@/hooks/useQueryBlog";
 
 type UploadResponse = {
   message: string;
@@ -44,14 +39,19 @@ function index() {
   const [editor] = useLexicalComposerContext();
 
   const { dbUser } = useSnapshot(authStore);
-  const { query } = useRouter();
-  const { data } = useOneBlog(query?.id as string);
   const queryClient = useQueryClient();
 
   const { mutateAsync: createBlog, isLoading: isCreating } = useCreateBlog({
-    onSuccess: async () => {
+    onSuccess: async (res: any) => {
       queryClient.invalidateQueries(["blogs"]);
-      push("/");
+      if (res?.slug) {
+        push({
+          pathname: "/[id]",
+          query: {
+            id: res?.slug,
+          },
+        });
+      }
     },
   });
 
@@ -109,7 +109,6 @@ function index() {
             blogCreationStore.clearStore();
           });
         }
-        push("/");
       },
       onError: (error: any) => {
         console.log(error);
