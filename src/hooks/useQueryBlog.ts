@@ -36,7 +36,7 @@ const fetchOneBlog = async (slug: string) => {
   return res.data as Iblog;
 };
 
-function useQueryBlog(queryVal: string) {
+function useQueryBlog(queryVal: string, ...rest: any) {
   return useInfiniteQuery(
     ["blogs", queryVal],
     (_context) => fetchBlogs(_context, queryVal),
@@ -46,6 +46,7 @@ function useQueryBlog(queryVal: string) {
       },
       cacheTime: 5 * 60 * 1000,
       staleTime: 4 * 60 * 1000,
+      ...rest,
     }
   );
 }
