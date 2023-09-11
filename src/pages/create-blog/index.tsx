@@ -17,6 +17,7 @@ import Dropdown from "@/components/Dropdown";
 import { jsonParse } from "@/utils/jsonParse";
 import { BsUpload } from "react-icons/bs";
 import Footer from "@/components/Footer";
+import { z } from "zod";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -28,26 +29,32 @@ function getBase64ImageSize(base64String: string): number {
   return sizeInBytes;
 }
 
+const formSchema = z.object({
+  email: z.string().email("Enter a valid email"),
+  password: z.string().min(1, "dsf"),
+});
+
 const index: FC = () => {
-  const [title, setTitle] = useState(blogCreationStore.title);
-  const [description, setDescription] = useState(blogCreationStore.description);
+  const { title } = useSnapshot(blogCreationStore);
+  const { description } = useSnapshot(blogCreationStore);
   const { push } = useRouter();
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
   const [titleError, setTitleError] = useState("");
+  const [categoryError, setCategoryError] = useState("");
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setTitle(e.target.value);
+    blogCreationStore.setTitle(e.target.value);
 
     setTitleError("");
   }
 
   function handleDescriptionChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setDescription(e.target.value);
+    blogCreationStore.setDescription(e.target.value);
   }
 
   const handleImageSelect = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -109,12 +116,17 @@ const index: FC = () => {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
           <div className="title-input mt-24">
+            <div
+              style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+              className="text-lg"
+            >
+              Title
+            </div>
             <Input
               placeholder="Enter your desired title"
               name="title"
-              value={title}
               onChange={handleTitleChange}
-              className="h-14 "
+              className="h-14 mt-2"
               ref={titleInputRef}
             />
             <div className="error-message">
@@ -182,6 +194,7 @@ const index: FC = () => {
                   });
                 }}
               />
+              <div className="error-message text-center">{categoryError}</div>
             </div>
           </div>
           <div>
@@ -198,14 +211,17 @@ const index: FC = () => {
               type="submit"
               text={"Preview"}
               onClick={() => {
-                if (!title) {
+                if (!title || blogCreationStore.category.id === 0) {
+                  setCategoryError("Category required");
                   setTitleError("Title required");
                   if (titleInputRef.current) {
                     titleInputRef.current.scrollIntoView({
                       behavior: "smooth",
-                      block: "nearest",
+                      block: "center",
                     });
                   }
+                } else if (blogCreationStore.category.id === 0) {
+                  setCategoryError("Category required");
                 } else {
                   setTitleError("");
                   editor.update(async () => {
