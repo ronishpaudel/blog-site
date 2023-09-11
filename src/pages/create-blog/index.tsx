@@ -29,11 +29,6 @@ function getBase64ImageSize(base64String: string): number {
   return sizeInBytes;
 }
 
-const formSchema = z.object({
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(1, "dsf"),
-});
-
 const index: FC = () => {
   const { title } = useSnapshot(blogCreationStore);
   const { description } = useSnapshot(blogCreationStore);
