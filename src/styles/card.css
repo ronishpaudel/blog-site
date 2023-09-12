@@ -76,13 +76,28 @@
 }
 
 .card-title {
-  display: flex;
-  align-items: stretch;
-
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   font-size: 23px;
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  line-height: 1em;
+  max-height: 2em;
+  overflow: hidden;
+  white-space: normal;
+}
+.card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 18px;
+  font-style: normal;
+  padding-left: 1px;
+  line-height: 1em;
+  max-height: 2em;
+  overflow: hidden;
+  white-space: normal;
 }
 
 .card-author {
@@ -133,10 +148,11 @@
 
 .card-parent {
   max-width: 1216px;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 @media (max-width: 1215px) {

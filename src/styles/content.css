@@ -82,6 +82,15 @@
   font-weight: 600;
   margin-bottom: 24px;
   cursor: pointer;
+  margin-right: 12px;
+  line-height: 1em;
+  max-height: 2em;
+  /* display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; */
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
 }
 
 /* Ad css */
