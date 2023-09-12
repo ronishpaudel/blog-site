@@ -1,5 +1,5 @@
 import React, { DOMAttributes } from "react";
-
+import parse from "html-react-parser";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
@@ -13,6 +13,7 @@ interface CardProps extends DOMAttributes<HTMLDivElement> {
   onCardClick: () => void;
   onProfileClick: () => void;
   user?: string;
+  description: string;
 }
 
 function Card({
@@ -22,6 +23,7 @@ function Card({
   createdAt,
   profilePic,
   title,
+  description,
   thumbnailImage,
   onCardClick,
   onProfileClick,
@@ -54,6 +56,14 @@ function Card({
             }}
           >
             {title}
+          </div>
+          <div
+            className="card-desc"
+            style={{
+              color: THEME_PALETTE[themeSnap.theme].textColor,
+            }}
+          >
+            {parse(description)}
           </div>
           <div className="card-author" onClick={onProfileClick}>
             <img src="/rbg.jpg" />
