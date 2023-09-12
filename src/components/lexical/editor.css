@@ -110,7 +110,6 @@ h1 {
 }
 
 .editor-text-code {
-  background-color: rgb(240, 242, 245);
   padding: 1px 0.25rem;
   font-family: Menlo, Consolas, Monaco, monospace;
   font-size: 94%;
@@ -474,7 +473,6 @@ i.chevron-down {
   display: inline-block;
   height: 8px;
   width: 8px;
-  background-image: url(/public/images/icons/chevron-down.svg);
 }
 
 #block-controls button {
@@ -670,84 +668,4 @@ i.chevron-down {
   height: 20px;
   width: 20px;
   vertical-align: -0.25em;
-}
-
-i.undo {
-  background-image: url(/public/images/icons/arrow-counterclockwise.svg);
-}
-
-i.redo {
-  background-image: url(/public/images/icons/arrow-clockwise.svg);
-}
-
-.icon.paragraph {
-  background-image: url(/public/images/icons/text-paragraph.svg);
-}
-
-.icon.large-heading,
-.icon.h1 {
-  background-image: url(/public/images/icons/type-h1.svg);
-}
-
-.icon.small-heading,
-.icon.h2 {
-  background-image: url(/public/images/icons/type-h2.svg);
-}
-
-.icon.bullet-list,
-.icon.ul {
-  background-image: url(/public/images/icons/list-ul.svg);
-}
-
-.icon.numbered-list,
-.icon.ol {
-  background-image: url(/public/images/icons/list-ol.svg);
-}
-
-.icon.quote {
-  background-image: url(/public/images/icons/chat-square-quote.svg);
-}
-
-.icon.code {
-  background-image: url(/public/images/icons/code.svg);
-}
-
-i.bold {
-  background-image: url(/public/images/icons/type-bold.svg);
-}
-
-i.italic {
-  background-image: url(/public/images/icons/type-italic.svg);
-}
-
-i.underline {
-  background-image: url(/public/images/icons/type-underline.svg);
-}
-
-i.strikethrough {
-  background-image: url(/public/images/icons/type-strikethrough.svg);
-}
-
-i.code {
-  background-image: url(/public/images/icons/code.svg);
-}
-
-i.link {
-  background-image: url(/public/images/icons/link.svg);
-}
-
-i.left-align {
-  background-image: url(/public/images/icons/text-left.svg);
-}
-
-i.center-align {
-  background-image: url(/public/images/icons/text-center.svg);
-}
-
-i.right-align {
-  background-image: url(/public/images/icons/text-right.svg);
-}
-
-i.justify-align {
-  background-image: url(/public/images/icons/justify.svg);
 }
