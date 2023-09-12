@@ -10,6 +10,7 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { modalStore } from "@/store/modalStore";
 import { Logout } from "./Logout";
 import { BsSearch } from "react-icons/bs";
+import { RxCross2 } from "react-icons/rx";
 
 function setThemePreference(theme: string) {
   localStorage.setItem("themePreference", theme);
@@ -23,6 +24,7 @@ const Header: FC = () => {
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
   const themeSnap = useSnapshot(themeStore);
   const { query } = useSnapshot(blogCreationStore);
+  const [searchLogo, setSearchLogo] = useState(false);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("themePreference");
@@ -38,7 +40,6 @@ const Header: FC = () => {
 
   async function handleLogin() {
     modalStore.signInModal.setOpen(true);
-    console.log({ loggedIn });
   }
 
   function handleLogout() {
@@ -72,10 +73,18 @@ const Header: FC = () => {
 
   async function handleSearch(e: any) {
     blogCreationStore.setQuery(e.target.value);
+    if (e.target.value) {
+      setSearchLogo(true);
+    }
   }
+  async function handleCrossClick(e: any) {
+    blogCreationStore.setQuery("");
 
+    setSearchLogo(false);
+  }
   function onPush() {
     push("/");
+    setSearchLogo(false);
     blogCreationStore.setQuery("");
   }
 
@@ -109,10 +118,21 @@ const Header: FC = () => {
                     }}
                     onChange={handleSearch}
                   />
-                  <img
-                    src="/search-outline.png"
-                    style={{ cursor: "pointer" }}
-                  />
+
+                  {!searchLogo ? (
+                    <img
+                      src="/search-outline.png"
+                      style={{ cursor: "pointer" }}
+                    />
+                  ) : (
+                    <RxCross2
+                      style={{
+                        color: THEME_PALETTE[themeSnap.theme].baseColor,
+                      }}
+                      className="cursor-pointer text-xl "
+                      onClick={handleCrossClick}
+                    />
+                  )}
                 </div>
               </>
             )}
