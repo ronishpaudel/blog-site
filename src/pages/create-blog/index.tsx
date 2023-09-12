@@ -37,7 +37,7 @@ const index: FC = () => {
   const [imageSizeError, setImageSizeError] = useState<string>("");
   const [fileType, setFileType] = useState("");
   const [titleError, setTitleError] = useState("");
-  const [categoryError, setCategoryError] = useState("");
+  const [categoryError, setCategoryError] = useState(false);
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -187,13 +187,16 @@ const index: FC = () => {
                     id: Number(parsedVal.id),
                     displayName: parsedVal.displayName,
                   });
+                  setCategoryError(false);
                 }}
               />
-              <div className="error-message text-center">{categoryError}</div>
+              <div className="error-message text-center">
+                {categoryError && <div>Category required</div>}
+              </div>
             </div>
           </div>
           <div>
-            <Editor value={description} onChange={handleDescriptionChange} />
+            <Editor />
           </div>
           <div
             style={{
@@ -207,7 +210,7 @@ const index: FC = () => {
               text={"Preview"}
               onClick={() => {
                 if (!title || blogCreationStore.category.id === 0) {
-                  setCategoryError("Category required");
+                  setCategoryError(true);
                   setTitleError("Title required");
                   if (titleInputRef.current) {
                     titleInputRef.current.scrollIntoView({
@@ -216,9 +219,10 @@ const index: FC = () => {
                     });
                   }
                 } else if (blogCreationStore.category.id === 0) {
-                  setCategoryError("Category required");
+                  setCategoryError(true);
                 } else {
                   setTitleError("");
+
                   editor.update(async () => {
                     const htmlString = $generateHtmlFromNodes(editor, null);
                     blogCreationStore.setDescription(htmlString);
