@@ -25,26 +25,26 @@ const BlogCardList = () => {
 
   return (
     <>
+      {/* <div className="card-parent mt-20" id="main"> */}
+      {searchLoading ? <CardSkeleton amount={9} /> : ""}
+      {!blogSearch?.pages?.[0]?.[0]?.id && !searchLoading && !searchFetching ? (
+        <div
+          style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+          className="mt-10 mb-20 text-center"
+        >
+          No results match that query.🔍
+        </div>
+      ) : (
+        ""
+      )}
       <div className="card-parent mt-20" id="main">
-        {searchLoading ? <CardSkeleton amount={9} /> : ""}
-        {!blogSearch?.pages?.[0]?.[0]?.id &&
-        !searchLoading &&
-        !searchFetching ? (
-          <div
-            style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-            className="mt-10 mb-20"
-          >
-            No results match that query
-          </div>
-        ) : (
-          ""
-        )}
         {blogSearch?.pages.map((page: any) =>
           page.map((blog: Iblog) => (
             <Card
               key={blog.id}
               category={blog?.category?.name}
               title={blog.title}
+              description={blog.description}
               thumbnailImage={blog.thumbImageUrl}
               user={` ${blog?.user?.username}`}
               createdAt={dateFormat(blog.createdAt)}
