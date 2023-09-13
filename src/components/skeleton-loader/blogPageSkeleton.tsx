@@ -53,7 +53,6 @@ const BlogPageSkeleton = ({ amount }: any) => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   ));
 };
