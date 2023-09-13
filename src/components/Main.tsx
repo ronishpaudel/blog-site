@@ -124,7 +124,7 @@ const Main = () => {
                 },
               })
             }
-            description={firstItem?.description}
+            description={String(firstItem?.description)}
           />
 
           <BlogCardList />
