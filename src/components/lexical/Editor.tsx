@@ -50,7 +50,7 @@ export const editorConfig = {
   ],
 };
 
-export default function Editor({}: {}) {
+export default function Editor({ onChange }: { onChange?: () => void }) {
   const themeSnap = useSnapshot(themeStore);
 
   return (
@@ -65,6 +65,7 @@ export default function Editor({}: {}) {
                 backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
                 color: THEME_PALETTE[themeSnap.theme].textColor,
               }}
+              onClick={onChange}
             />
           }
           placeholder={<Placeholder />}
