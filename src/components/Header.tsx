@@ -99,43 +99,45 @@ const Header: FC = () => {
           </div>
 
           <div className="lastchildheaderparent">
-            {pathname !== "/create-blog" && pathname !== "/recheck-blog" && (
-              <>
-                <div
-                  className="header-search"
-                  style={{
-                    backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="rounded-lg"
-                    value={query}
+            {pathname !== "/create-blog" &&
+              pathname !== "/recheck-blog" &&
+              pathname !== "/[id]" && (
+                <>
+                  <div
+                    className="header-search"
                     style={{
                       backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                      color: THEME_PALETTE[themeSnap.theme].textColor,
                     }}
-                    onChange={handleSearch}
-                  />
-
-                  {!searchLogo ? (
-                    <img
-                      src="/search-outline.png"
-                      style={{ cursor: "pointer" }}
-                    />
-                  ) : (
-                    <RxCross2
+                  >
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      className="rounded-lg"
+                      value={query}
                       style={{
-                        color: THEME_PALETTE[themeSnap.theme].baseColor,
+                        backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                        color: THEME_PALETTE[themeSnap.theme].textColor,
                       }}
-                      className="cursor-pointer text-xl "
-                      onClick={handleCrossClick}
+                      onChange={handleSearch}
                     />
-                  )}
-                </div>
-              </>
-            )}
+
+                    {!searchLogo ? (
+                      <img
+                        src="/search-outline.png"
+                        style={{ cursor: "pointer" }}
+                      />
+                    ) : (
+                      <RxCross2
+                        style={{
+                          color: THEME_PALETTE[themeSnap.theme].baseColor,
+                        }}
+                        className="cursor-pointer text-xl "
+                        onClick={handleCrossClick}
+                      />
+                    )}
+                  </div>
+                </>
+              )}
             {/* <div
               className={`header-toggle ${
                 isLightMode ? "left-to-right" : "right-to-left"
