@@ -22,7 +22,7 @@ const BlogCardList = () => {
   } = useQueryBlog(query);
 
   const themeSnap = useSnapshot(themeStore);
-
+  console.log(blogSearch);
   return (
     <>
       {/* <div className="card-parent mt-20" id="main"> */}
@@ -30,7 +30,7 @@ const BlogCardList = () => {
       {!blogSearch?.pages?.[0]?.[0]?.id && !searchLoading && !searchFetching ? (
         <div
           style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-          className="mt-10 mb-20 text-center"
+          className="mt-16 mb-20 text-center"
         >
           No results match that query.🔍
         </div>
@@ -74,6 +74,7 @@ const Main = () => {
 
   const firstItem = blogSearch?.pages?.[0]?.[0];
   const handleViewNextPost = async () => {
+    console.log("View All Post clicked");
     if (hasNextPage) {
       await fetchNextPage();
     }
