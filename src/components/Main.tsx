@@ -9,6 +9,7 @@ import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import CardSkeleton from "./skeleton-loader/cardSkeleton";
 import { Input } from "./ui/input";
+import { ContentSkeleton } from "./skeleton-loader/contentSkeleton";
 
 const BlogCardList = () => {
   const { push } = useRouter();
@@ -26,7 +27,13 @@ const BlogCardList = () => {
   return (
     <>
       {/* <div className="card-parent mt-20" id="main"> */}
-      {searchLoading ? <CardSkeleton amount={9} /> : ""}
+      {searchLoading ? (
+        <div className="card-parent mt-20" id="main">
+          <CardSkeleton amount={9} />
+        </div>
+      ) : (
+        ""
+      )}
       {!blogSearch?.pages?.[0]?.[0]?.id && !searchLoading && !searchFetching ? (
         <div
           style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
@@ -66,7 +73,13 @@ const BlogCardList = () => {
 };
 
 const Main = () => {
-  const { data: blogSearch, hasNextPage, fetchNextPage } = useQueryBlog("");
+  const {
+    data: blogSearch,
+    isLoading,
+    isFetching,
+    hasNextPage,
+    fetchNextPage,
+  } = useQueryBlog("");
 
   const themeSnap = useSnapshot(themeStore);
   const { push } = useRouter();
@@ -97,6 +110,7 @@ const Main = () => {
           <div className="image-wrappper">
             <img src="/Image.png" className="Image" alt="Blog Image" />
           </div>
+
           <Content
             title={firstItem?.title}
             category={firstItem?.category?.name}
@@ -110,6 +124,7 @@ const Main = () => {
                 },
               })
             }
+            description={firstItem?.description}
           />
 
           <BlogCardList />
