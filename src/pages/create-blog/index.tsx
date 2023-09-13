@@ -32,6 +32,7 @@ function getBase64ImageSize(base64String: string): number {
 const index: FC = () => {
   const { title } = useSnapshot(blogCreationStore);
   const { description } = useSnapshot(blogCreationStore);
+  const [t, setT] = useState(title);
   const { push } = useRouter();
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
   const [imageSizeError, setImageSizeError] = useState<string>("");
@@ -41,15 +42,12 @@ const index: FC = () => {
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [descError, setDescError] = useState(false);
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     blogCreationStore.setTitle(e.target.value);
-
+    setT(e.target.value);
     setTitleError("");
-  }
-
-  function handleDescriptionChange(e: React.ChangeEvent<HTMLInputElement>) {
-    blogCreationStore.setDescription(e.target.value);
   }
 
   const handleImageSelect = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -102,6 +100,36 @@ const index: FC = () => {
     }
   };
   const titleInputRef = useRef<HTMLInputElement | null>(null);
+  const { category } = useSnapshot(blogCreationStore);
+
+  function handleOnClick() {
+    if (!title) {
+      setTitleError("Title Required");
+      if (titleInputRef.current) {
+        titleInputRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    } else if (category.id === 0) {
+      setCategoryError(true);
+      if (titleInputRef.current) {
+        titleInputRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
+    } else {
+      setTitleError("");
+      editor.update(async () => {
+        const htmlString = $generateHtmlFromNodes(editor, null);
+        blogCreationStore.setDescription(htmlString);
+        blogCreationStore.setTitle(title);
+        blogCreationStore.setImage(file);
+      });
+      push("/recheck-blog");
+    }
+  }
   return (
     <>
       <Header />
@@ -121,6 +149,7 @@ const index: FC = () => {
               placeholder="Enter your desired title"
               name="title"
               onChange={handleTitleChange}
+              value={t}
               className="h-14 mt-2"
               ref={titleInputRef}
             />
@@ -197,6 +226,9 @@ const index: FC = () => {
           </div>
           <div>
             <Editor />
+            {/* <div className="error-message text-center">
+              {descError && <div>Description required</div>}
+            </div> */}
           </div>
           <div
             style={{
@@ -208,30 +240,7 @@ const index: FC = () => {
             <Button
               type="submit"
               text={"Preview"}
-              onClick={() => {
-                if (!title || blogCreationStore.category.id === 0) {
-                  setCategoryError(true);
-                  setTitleError("Title required");
-                  if (titleInputRef.current) {
-                    titleInputRef.current.scrollIntoView({
-                      behavior: "smooth",
-                      block: "center",
-                    });
-                  }
-                } else if (blogCreationStore.category.id === 0) {
-                  setCategoryError(true);
-                } else {
-                  setTitleError("");
-
-                  editor.update(async () => {
-                    const htmlString = $generateHtmlFromNodes(editor, null);
-                    blogCreationStore.setDescription(htmlString);
-                    blogCreationStore.setTitle(title);
-                    blogCreationStore.setImage(file);
-                  });
-                  push("/recheck-blog");
-                }
-              }}
+              onClick={handleOnClick}
               className="mb-10"
             />
           </div>
