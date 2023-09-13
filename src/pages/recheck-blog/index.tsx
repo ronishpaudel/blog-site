@@ -52,6 +52,7 @@ function index() {
           },
         });
       }
+      blogCreationStore.setTitle("");
     },
   });
 
