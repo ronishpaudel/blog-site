@@ -1,6 +1,6 @@
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { dateFormat } from "@/utils/dateFormat";
-import { useRouter } from "next/router";
+import parse from "html-react-parser";
 import React from "react";
 import { useSnapshot } from "valtio";
 
@@ -13,6 +13,7 @@ interface ContentProps {
   createdAt: string;
   onCardClick?: () => void;
   user?: string;
+  description: string;
 }
 
 const Content = ({
@@ -22,9 +23,9 @@ const Content = ({
   createdAt,
   profilePic,
   title,
+  description,
   thumbnailImage,
   onCardClick,
-
   ...rest
 }: ContentProps) => {
   const themeSnap = useSnapshot(themeStore);
@@ -41,7 +42,7 @@ const Content = ({
         onClick={onCardClick}
       >
         <div className="heading">
-          <p className="category">{category}</p>
+          <div className="category">{category}</div>
           <h1
             className="content-title"
             style={{
@@ -50,6 +51,14 @@ const Content = ({
           >
             {title}
           </h1>
+          <div
+            className="content-description"
+            style={{
+              color: THEME_PALETTE[themeSnap.theme].textColor,
+            }}
+          >
+            {parse(description)}
+          </div>
         </div>
         <div className="author">
           <img src="/rbg.jpg" className="author-img" />
