@@ -1,4 +1,3 @@
-import { TextInput } from "@/components/TextInput";
 import React, { ChangeEvent, FC, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "@/components/Button";
@@ -42,7 +41,6 @@ const index: FC = () => {
   const { data } = useCategoryQuery();
   const [editor] = useLexicalComposerContext();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [descError, setDescError] = useState(false);
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     blogCreationStore.setTitle(e.target.value);
