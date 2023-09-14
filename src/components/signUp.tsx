@@ -234,30 +234,31 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
                   </Button>
                 )}
               </div>
+
+              <div className="relative flex justify-center text-xs uppercase">
+                <span
+                  className="bg-background px-2 text-muted-foreground"
+                  style={{
+                    color: THEME_PALETTE[themeSnap.theme].textColor,
+                    backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+                  }}
+                >
+                  Or continue with
+                </span>
+              </div>
+              <div className="w-full grid grid-cols-2 gap-4   ">
+                <GoogleOAuthProvider clientId={CLIENT_ID}>
+                  <GoogleLogin
+                    size="large"
+                    shape="square"
+                    width={367}
+                    onSuccess={handleGoogleLoginSuccess}
+                    onError={handleGoogleLoginError}
+                  />
+                </GoogleOAuthProvider>
+              </div>
             </form>
           </Form>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span
-              className="bg-background px-2 text-muted-foreground"
-              style={{
-                color: THEME_PALETTE[themeSnap.theme].textColor,
-                backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
-              }}
-            >
-              Or continue with
-            </span>
-          </div>
-          <div className="w-full grid grid-cols-2 gap-4   ">
-            <GoogleOAuthProvider clientId={CLIENT_ID}>
-              <GoogleLogin
-                size="large"
-                shape="square"
-                width={367}
-                onSuccess={handleGoogleLoginSuccess}
-                onError={handleGoogleLoginError}
-              />
-            </GoogleOAuthProvider>
-          </div>
         </DialogContent>
       </Dialog>
     </div>
