@@ -31,8 +31,7 @@ function index() {
   const { title, description, imageUrl, category, thumbImageUrl } =
     useSnapshot(blogCreationStore);
   const themeSnap = useSnapshot(themeStore);
-  console.log("Review Category ID:", category.id);
-  console.log("Review Category Name:", blogCreationStore.category.displayName);
+
   const { push } = useRouter();
 
   const [fileType, setFileType] = useState("");
