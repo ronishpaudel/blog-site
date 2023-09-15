@@ -9,6 +9,7 @@ type Itheme = {
     dailogBg: string;
     baseColor: string;
     highlightColor: string;
+    descColor: string;
   };
   light: {
     footerBg: string;
@@ -18,6 +19,7 @@ type Itheme = {
     dailogBg: string;
     baseColor: string;
     highlightColor: string;
+    descColor: string;
   };
 };
 
@@ -30,6 +32,7 @@ export const THEME_PALETTE: Itheme = {
     dailogBg: "#191b2abf",
     baseColor: "#434343c7",
     highlightColor: "#696a75e3",
+    descColor: "#a2a2a2",
   },
   light: {
     footerBg: "#f6f6f7",
@@ -39,6 +42,7 @@ export const THEME_PALETTE: Itheme = {
     dailogBg: "#ffffff8a",
     baseColor: "#d9d9d9",
     highlightColor: "#f5f5f5",
+    descColor: "#000000",
   },
 };
 
