@@ -75,8 +75,7 @@ const BlogCardList = () => {
 const Main = () => {
   const {
     data: blogSearch,
-    isLoading,
-    isFetching,
+
     hasNextPage,
     fetchNextPage,
   } = useQueryBlog("");
@@ -109,6 +108,7 @@ const Main = () => {
           </div>
           <div className="image-wrappper">
             <img src="/Image.png" className="Image" alt="Blog Image" />
+            {/* <img src={firstItem?.imageUrl} className="Image" alt="Blog Image" /> */}
           </div>
 
           <Content
