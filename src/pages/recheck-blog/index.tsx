@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import Header from "@/components/Header";
-import Button from "@/components/Button";
 import { useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -19,6 +18,8 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { dateFormat } from "@/utils/dateFormat";
 import { ColorRing } from "react-loader-spinner";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import { Button } from "@/components/ui/button";
+import { useDraftBlog } from "@/hooks/useDraftBlog";
 
 type UploadResponse = {
   message: string;
@@ -55,6 +56,11 @@ function index() {
     },
   });
 
+  const { mutateAsync: blogDraft } = useDraftBlog({
+    onSuccess: async (res: any) => {
+      console.log("hello");
+    },
+  });
   const uploadToS3 = async (val: { uploadUrl: string; blobData: Blob }) => {
     return await axios({
       method: "put",
@@ -115,6 +121,47 @@ function index() {
       },
     });
 
+  const { mutate: blogWithImage } = useUploadUrl({
+    onSuccess: async (res: UploadResponse) => {
+      if (imageUrl && thumbImageUrl) {
+        editor.update(async () => {
+          const htmlString = $generateHtmlFromNodes(editor, null);
+          const blobData = await fileToBlob(imageUrl, fileType);
+          const thumbBlobData = await fileToBlob(thumbImageUrl, fileType);
+
+          await s3Mutate({
+            uploadUrl: res.data.normalUpload.uploadUrl,
+            blobData: blobData,
+          });
+          await s3Mutate({
+            uploadUrl: res.data.thumbnailUpload.uploadUrl,
+            blobData: thumbBlobData,
+          });
+
+          await blogDraft({
+            title,
+            description: htmlString,
+            imageUrl: res.data.normalUpload.url,
+            thumbImageUrl: res.data.thumbnailUpload.url,
+            categoryId: category.id,
+          });
+        });
+      } else {
+        editor.update(async () => {
+          const htmlString = $generateHtmlFromNodes(editor, null);
+          await blogDraft({
+            title,
+            description: htmlString,
+            categoryId: category.id,
+          });
+          console.log({ id: category.id });
+        });
+      }
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+  });
   const handleOnSubmit = async () => {
     if (isCreating || isUploading || isCreatingUpload || !title) {
       return;
@@ -122,7 +169,9 @@ function index() {
 
     createBlogWithImage({});
   };
-
+  function handleBlogDraft() {
+    blogWithImage({});
+  }
   return (
     <div>
       <Header />
@@ -184,7 +233,14 @@ function index() {
               colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
             />
           ) : (
-            <Button text={"Publish"} onClick={() => handleOnSubmit()} />
+            <div className="flex justify-between gap-10">
+              <Button onClick={() => handleBlogDraft()} variant={"yellow"}>
+                Save as draft
+              </Button>
+              <Button onClick={() => handleOnSubmit()} variant={"blue"}>
+                Publish
+              </Button>
+            </div>
           )}
         </div>
       </div>
