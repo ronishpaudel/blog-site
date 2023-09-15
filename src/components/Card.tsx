@@ -60,14 +60,14 @@ function Card({
           <div
             className="card-desc"
             style={{
-              color: THEME_PALETTE[themeSnap.theme].textColor,
+              color: THEME_PALETTE[themeSnap.theme].descColor,
             }}
           >
             {parse(description)}
           </div>
           <div className="card-author" onClick={onProfileClick}>
             <img src="/rbg.jpg" />
-            <div style={{ display: "flex", gap: "30px" }}>
+            <div style={{ display: "flex", gap: "30px", fontSize: "14px" }}>
               <p> {user}</p>
               <p> {createdAt}</p>
             </div>
