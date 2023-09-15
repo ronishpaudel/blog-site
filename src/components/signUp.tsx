@@ -188,6 +188,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
                     <>
                       <FormControl>
                         <Input
+                          type="password"
                           placeholder=" Password"
                           {...field}
                           className="max-w-sm  border-gray-400 h-12"
