@@ -54,7 +54,7 @@ const Content = ({
           <div
             className="content-description"
             style={{
-              color: THEME_PALETTE[themeSnap.theme].textColor,
+              color: THEME_PALETTE[themeSnap.theme].descColor,
             }}
           >
             {parse(description)}
