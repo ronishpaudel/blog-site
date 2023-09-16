@@ -16,7 +16,6 @@ import Dropdown from "@/components/Dropdown";
 import { jsonParse } from "@/utils/jsonParse";
 import { BsUpload } from "react-icons/bs";
 import Footer from "@/components/Footer";
-import { z } from "zod";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -137,110 +136,113 @@ const index: FC = () => {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
           <div className="title-input mt-24">
-            <div
-              style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-              className="text-lg"
-            >
-              Title
-            </div>
-            <Input
-              placeholder="Enter your desired title"
-              name="title"
-              onChange={handleTitleChange}
-              value={t}
-              className="h-14 mt-2"
-              ref={titleInputRef}
-            />
-            <div className="error-message">
-              {titleError && <div>Title required</div>}
-            </div>
-          </div>
-          <div className="flex justify-between items-center my-2">
-            <div className="uploadImg">
-              <input
-                type="file"
-                onChange={handleImageSelect}
-                ref={fileInputRef}
-                style={{
-                  backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
-                  display: "none",
-                }}
-              />
+            <div className="rounded-xl border border-slate-800 ">
               <div
-                className="w-40 h-9 p-2 text-white flex gap-1 justify-between items-center rounded-lg "
-                onClick={triggerFileInputClick}
                 style={{
-                  border: `1px solid ${
-                    THEME_PALETTE[themeSnap.theme].textColor
-                  }`,
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                  backgroundColor: THEME_PALETTE[themeStore.theme].inputBg,
                 }}
+                className="p-8 rounded-lg"
               >
-                <BsUpload />
-                <div>Click to Upload</div>
-              </div>
-              {file && (
-                <div className="selected-image-container">
-                  <img
-                    src={file}
-                    alt="Selected Image"
-                    style={{ marginLeft: "70px" }}
-                  />
-                  <p
-                    style={{
-                      position: "relative",
-                      right: "2%",
-                      cursor: "pointer",
-                      fontWeight: "650",
-                      color: THEME_PALETTE[themeSnap.theme].textColor,
-                    }}
-                    onClick={removeImage}
-                  >
-                    x
-                  </p>
-                  <canvas id="canvas" style={{ display: "none" }} />
+                <div className="flex justify-between items-center my-2">
+                  <div className="uploadImg">
+                    <input
+                      type="file"
+                      onChange={handleImageSelect}
+                      ref={fileInputRef}
+                      style={{
+                        backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+                        display: "none",
+                      }}
+                    />
+                    <div
+                      className="w-100 h-9 p-2 text-white flex gap-4 items-center rounded-lg "
+                      onClick={triggerFileInputClick}
+                      style={{
+                        border: `1px solid ${
+                          THEME_PALETTE[themeSnap.theme].textColor
+                        }`,
+                        color: THEME_PALETTE[themeSnap.theme].textColor,
+                        width: "180px",
+                        marginBottom: "5px",
+                      }}
+                    >
+                      <BsUpload />
+                      <div>Click to Upload</div>
+                    </div>
+                    {file && (
+                      <div className="selected-image-container">
+                        <img
+                          src={file}
+                          alt="Selected Image"
+                          style={{ marginLeft: "70px" }}
+                        />
+                        <p
+                          style={{
+                            position: "relative",
+                            right: "2%",
+                            cursor: "pointer",
+                            fontWeight: "650",
+                            color: THEME_PALETTE[themeSnap.theme].textColor,
+                          }}
+                          onClick={removeImage}
+                        >
+                          x
+                        </p>
+                        <canvas id="canvas" style={{ display: "none" }} />
+                      </div>
+                    )}
+                    {imageSizeError && (
+                      <div className="error-message">{imageSizeError}</div>
+                    )}
+                  </div>
                 </div>
-              )}
-              {imageSizeError && (
-                <div className="error-message">{imageSizeError}</div>
-              )}
-            </div>
-            <div className="create-dropdown">
-              <Dropdown
-                options={categoryOptions || []}
-                onChange={(val) => {
-                  const parsedVal = jsonParse(val);
-                  blogCreationStore.setCategory({
-                    id: Number(parsedVal.id),
-                    displayName: parsedVal.displayName,
-                  });
-                  setCategoryError(false);
-                }}
-              />
-              <div className="error-message text-center">
-                {categoryError && <div>Category required</div>}
+                <div className="create-dropdown">
+                  <Dropdown
+                    options={categoryOptions || []}
+                    onChange={(val) => {
+                      const parsedVal = jsonParse(val);
+                      blogCreationStore.setCategory({
+                        id: Number(parsedVal.id),
+                        displayName: parsedVal.displayName,
+                      });
+                      setCategoryError(false);
+                    }}
+                  />
+                  <div className="error-message text-center">
+                    {categoryError && <div>Category required</div>}
+                  </div>
+                </div>
+                <Input
+                  placeholder="Enter your desired title..."
+                  name="title"
+                  onChange={handleTitleChange}
+                  value={t}
+                  className="h-14 mt-8 text-2xl border-none  focus:border-blue-400 "
+                  ref={titleInputRef}
+                />
+                <div className="error-message">
+                  {titleError && <div>Title required</div>}
+                </div>
+              </div>
+
+              <div>
+                <Editor />
               </div>
             </div>
-          </div>
-          <div>
-            <Editor />
-            {/* <div className="error-message text-center">
-              {descError && <div>Description required</div>}
-            </div> */}
-          </div>
-          <div
-            style={{
-              paddingBottom: "20px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              type="submit"
-              text={"Preview"}
-              onClick={handleOnClick}
-              className="mb-10"
-            />
+            <div
+              style={{
+                paddingBottom: "20px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Button
+                type="submit"
+                text={"Preview"}
+                onClick={handleOnClick}
+                className="mb-10"
+              />
+            </div>
           </div>
         </div>
       </div>
