@@ -87,7 +87,11 @@ const Header: FC = () => {
     setSearchLogo(false);
     blogCreationStore.setQuery("");
   }
-
+  const hideItems =
+    pathname !== "/create-blog" &&
+    pathname !== "/recheck-blog" &&
+    pathname !== "/auth/reset-password" &&
+    pathname !== "/[id]";
   return (
     <>
       <header
@@ -99,45 +103,43 @@ const Header: FC = () => {
           </div>
 
           <div className="lastchildheaderparent">
-            {pathname !== "/create-blog" &&
-              pathname !== "/recheck-blog" &&
-              pathname !== "/[id]" && (
-                <>
-                  <div
-                    className="header-search"
+            {hideItems && (
+              <>
+                <div
+                  className="header-search"
+                  style={{
+                    backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="rounded-lg"
+                    value={query}
                     style={{
                       backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                      color: THEME_PALETTE[themeSnap.theme].textColor,
                     }}
-                  >
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      className="rounded-lg"
-                      value={query}
-                      style={{
-                        backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                        color: THEME_PALETTE[themeSnap.theme].textColor,
-                      }}
-                      onChange={handleSearch}
-                    />
+                    onChange={handleSearch}
+                  />
 
-                    {!searchLogo ? (
-                      <img
-                        src="/search-outline.png"
-                        style={{ cursor: "pointer" }}
-                      />
-                    ) : (
-                      <RxCross2
-                        style={{
-                          color: THEME_PALETTE[themeSnap.theme].baseColor,
-                        }}
-                        className="cursor-pointer text-xl "
-                        onClick={handleCrossClick}
-                      />
-                    )}
-                  </div>
-                </>
-              )}
+                  {!searchLogo ? (
+                    <img
+                      src="/search-outline.png"
+                      style={{ cursor: "pointer" }}
+                    />
+                  ) : (
+                    <RxCross2
+                      style={{
+                        color: THEME_PALETTE[themeSnap.theme].baseColor,
+                      }}
+                      className="cursor-pointer text-xl "
+                      onClick={handleCrossClick}
+                    />
+                  )}
+                </div>
+              </>
+            )}
             {/* <div
               className={`header-toggle ${
                 isLightMode ? "left-to-right" : "right-to-left"
@@ -168,7 +170,7 @@ const Header: FC = () => {
                 <img src="/sunny.png" />
               </div>
             </div> */}
-            {pathname !== "/create-blog" && pathname !== "/recheck-blog" && (
+            {hideItems && (
               <div
                 className={`header-items ${isMenuOpen ? "menu-open" : ""} `}
                 onClick={() => setIsMenuOpen(false)}
