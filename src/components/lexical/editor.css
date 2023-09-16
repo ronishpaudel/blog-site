@@ -44,7 +44,6 @@ h1 {
 }
 
 .editor-container {
-  border: 1px solid;
   margin: 20px auto 20px auto;
   border-radius: 2px;
   max-width: 600px;
@@ -60,7 +59,6 @@ h1 {
 }
 
 .editor-inner {
-  background: #fff;
   position: relative;
 }
 
@@ -74,6 +72,7 @@ h1 {
   outline: 0;
   padding: 15px 10px;
   caret-color: #444;
+  border-radius: 12px;
 }
 
 .editor-placeholder {
@@ -87,6 +86,9 @@ h1 {
   user-select: none;
   display: inline-block;
   pointer-events: none;
+  padding: 30px;
+  font-weight: 500;
+  font-size: 24px;
 }
 
 .editor-text-bold {
@@ -212,6 +214,8 @@ h1 {
   margin: 0;
   margin-bottom: 8px;
   position: relative;
+  /* padding: 30px; */
+  font-size: 18px;
 }
 
 .editor-paragraph:last-child {
@@ -345,7 +349,7 @@ pre::-webkit-scrollbar-thumb {
 
 .toolbar {
   display: flex;
-  margin-bottom: 1px;
+  margin-bottom: 15px;
   background: #fff;
   padding: 4px;
   border-top-left-radius: 10px;
