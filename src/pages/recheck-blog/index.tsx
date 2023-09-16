@@ -235,7 +235,7 @@ function index() {
           ) : (
             <div className="flex justify-between gap-10">
               <Button onClick={() => handleBlogDraft()} variant={"yellow"}>
-                Save as draft
+                Save draft
               </Button>
               <Button onClick={() => handleOnSubmit()} variant={"blue"}>
                 Publish
