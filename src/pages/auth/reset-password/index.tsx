@@ -7,6 +7,8 @@ import { useUpdatePassword } from "@/hooks/useUpdatePassword";
 import { useRouter } from "next/router";
 import Header from "@/components/Header";
 import { ColorRing } from "react-loader-spinner";
+import { saveItemToLocalStorage } from "@/store/storage";
+import { authStore } from "@/store/authStore";
 
 function index() {
   const [password, setPassword] = useState("");
@@ -16,7 +18,8 @@ function index() {
 
   const { mutate, isLoading, isSuccess } = useUpdatePassword({
     onSuccess: async (res: { token: string }) => {
-      localStorage.setItem("auth", JSON.stringify(query.token));
+      saveItemToLocalStorage("auth", res.token);
+      authStore.setLoggedIn();
     },
   });
 
@@ -74,6 +77,7 @@ function index() {
             <Input
               className="max-w-md mt-2.5 border-gray-400 h-12"
               value={password}
+              type="password"
               onChange={handlePasswordChange}
               style={{
                 backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
