@@ -20,7 +20,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         blue: "max-w-sm w-full  text-center text-white bg-blue-500 hover:bg-blue-600 cursor-pointer",
         yellow:
-          "max-w-xl w-full  text-center text-black bg-yellow-400 hover:bg-yellow-600 cursor-pointer",
+          "max-w-xl w-full  text-center text-white bg-yellow-400 hover:bg-yellow-600 cursor-pointer",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
