@@ -24,7 +24,7 @@ import { Form, FormControl, FormField, FormMessage } from "./ui/form";
 
 const formSchema = z.object({
   email: z.string().email("Enter a valid email"),
-  password: z.string().min(1, "dsf"),
+  password: z.string().min(1),
 });
 
 function SignIn({ onClick }: { onClick?: () => void }) {
@@ -33,7 +33,7 @@ function SignIn({ onClick }: { onClick?: () => void }) {
   const [errorMessage, setErrorMessage] = useState("");
   const { toast } = useToast();
 
-  const { mutate, isLoading, isSuccess, isError } = useSignInMutation({
+  const { mutate, isLoading, isError } = useSignInMutation({
     onSuccess: async (res: { token: string }) => {
       saveItemToLocalStorage("auth", res.token);
       authStore.setLoggedIn();
@@ -191,7 +191,8 @@ function SignIn({ onClick }: { onClick?: () => void }) {
                       <>
                         <FormControl>
                           <Input
-                            placeholder=" Email Address"
+                            type="password"
+                            placeholder="Password"
                             className="max-w-sm  border-gray-400 h-12 "
                             {...field}
                           />
