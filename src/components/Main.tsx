@@ -10,17 +10,19 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import CardSkeleton from "./skeleton-loader/cardSkeleton";
 import { Input } from "./ui/input";
 import { ContentSkeleton } from "./skeleton-loader/contentSkeleton";
+import { useDebounce } from "@/hooks/useDebounce";
 
 const BlogCardList = () => {
   const { push } = useRouter();
   const { query } = useSnapshot(blogCreationStore);
+  const debouncedQuery = useDebounce(query, 300);
 
   // const { data: blogSearch, isLoading: searchLoading } = useBlogSearch(query);
   const {
     data: blogSearch,
     isLoading: searchLoading,
     isFetching: searchFetching,
-  } = useQueryBlog(query);
+  } = useQueryBlog(debouncedQuery);
 
   const themeSnap = useSnapshot(themeStore);
   console.log(blogSearch);
