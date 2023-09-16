@@ -624,7 +624,7 @@ export default function ToolbarPlugin() {
       className="toolbar"
       ref={toolbarRef}
       style={{
-        backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+        backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
         color: THEME_PALETTE[themeSnap.theme].textColor,
       }}
     >
