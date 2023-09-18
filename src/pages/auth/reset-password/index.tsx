@@ -19,7 +19,6 @@ function index() {
   const { mutate, isLoading, isSuccess } = useUpdatePassword({
     onSuccess: async (res: { token: string }) => {
       saveItemToLocalStorage("auth", res.token);
-      authStore.setLoggedIn();
     },
   });
 
