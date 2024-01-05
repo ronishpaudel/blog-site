@@ -9,7 +9,6 @@ import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import CardSkeleton from "./skeleton-loader/cardSkeleton";
 import { Input } from "./ui/input";
-import { ContentSkeleton } from "./skeleton-loader/contentSkeleton";
 import { useDebounce } from "@/hooks/useDebounce";
 
 const BlogCardList = () => {
