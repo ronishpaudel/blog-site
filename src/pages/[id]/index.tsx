@@ -4,17 +4,23 @@ import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
 import { Tag } from "@/components/Tag";
 import { useRouter } from "next/router";
-import { useOneBlog } from "@/hooks/useQueryBlog";
+import { Iblog, useOneBlog, useQueryBlog } from "@/hooks/useQueryBlog";
 import parse from "html-react-parser";
 import { dateFormat } from "@/utils/dateFormat";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
+import { LatestBlog } from "@/components/latestBlog";
 
 const index: FC = () => {
   const { push, query } = useRouter();
   const { data, isLoading, isFetching } = useOneBlog(query?.id as string);
   const themeSnap = useSnapshot(themeStore);
+  const { data: latestBlog } = useQueryBlog("");
+
+  const blogPages = Array.isArray(latestBlog?.pages) ? latestBlog.pages[0] : [];
+  const limitedBlogPages = blogPages.slice(0, 5);
+  console.log({ blogPages, limitedBlogPages });
 
   return (
     <div>
@@ -30,12 +36,12 @@ const index: FC = () => {
         </div>
       ) : (
         <div
-          className="page-wrapper"
+          className="page-wrapper flex justify-center "
           style={{
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
           }}
         >
-          <div className="blog-wrapper">
+          <div className="blog-wrapper ">
             <div className="blog-info">
               <Tag category={data?.category} />
               <h1
@@ -82,8 +88,30 @@ const index: FC = () => {
               {data?.description && parse(data?.description)}
             </div>
           </div>
+          <div className="w-1/5 text-white mt-[115px]">
+            <div className="border-2 border-slate-400 flex flex-col items-center justify-center py-4 px-6 rounded-lg bg-gray-800">
+              <div className="text-2xl font-bold mb-4">Latest Blogs</div>
+              {limitedBlogPages.map((blog: Iblog) => (
+                <LatestBlog
+                  image={blog.thumbImageUrl as string}
+                  title={blog.title}
+                  description={blog.description}
+                  onCardClick={() => {
+                    const newTab = window.open(
+                      `/[id]?id=${blog.slug}`,
+                      "_blank"
+                    );
+                    if (newTab) {
+                      newTab.focus();
+                    }
+                  }}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       )}
+
       <Footer />
     </div>
   );
