@@ -99,7 +99,11 @@ const Header: FC = () => {
       >
         <div className="header">
           <div className="header-logo" onClick={onPush}>
-            {isLightMode ? <img src="/logo.png" alt="asd" /> : <Meta />}
+            {isLightMode ? (
+              <img src="/techEra/techera-gray.png" alt="asd" />
+            ) : (
+              <img src="/techEra/techera-gray.png" alt="asd" />
+            )}
           </div>
 
           <div className="lastchildheaderparent">
