@@ -100,9 +100,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   return (
     <div>
       <Dialog open={signUpModal.open}>
-        <DialogContent
-          onCloseClick={() => modalStore.signUpModal.setOpen(false)}
-        >
+        <DialogContent onClick={() => modalStore.signUpModal.setOpen(false)}>
           <div className="flex items-center justify-between  ">
             <div>
               <h1

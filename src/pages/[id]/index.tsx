@@ -20,7 +20,6 @@ const index: FC = () => {
 
   const blogPages = Array.isArray(latestBlog?.pages) ? latestBlog.pages[0] : [];
   const limitedBlogPages = blogPages.slice(0, 5);
-  console.log({ blogPages, limitedBlogPages });
 
   return (
     <div>

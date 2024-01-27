@@ -4,7 +4,6 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import { modalStore } from "@/store/modalStore";
 
 const Dialog = DialogPrimitive.Root;
 
@@ -40,7 +39,7 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
->(({ className, children, onCloseClick, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
   const themeSnap = useSnapshot(themeStore);
 
   return (
@@ -63,7 +62,7 @@ const DialogContent = React.forwardRef<
         <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
           <X
             className="h-6 w-8"
-            onClick={onCloseClick}
+            // onClick={onCloseClick}
             style={{
               color: `${THEME_PALETTE[themeSnap.theme].textColor}`,
             }}

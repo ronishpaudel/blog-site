@@ -122,9 +122,7 @@ function SignIn({ onClick }: { onClick?: () => void }) {
   return (
     <div>
       <Dialog open={signInModal.open}>
-        <DialogContent
-          onCloseClick={() => modalStore.signInModal.setOpen(false)}
-        >
+        <DialogContent onClick={() => modalStore.signInModal.setOpen(false)}>
           <DialogHeader>
             <div className="flex items-center justify-between  ">
               <div>
