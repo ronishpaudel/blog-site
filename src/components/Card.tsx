@@ -50,7 +50,7 @@ function Card({
         <div className="card-content">
           <div className="card-category">{category}</div>
           <div
-            className="card-title"
+            className="line-clamp-1 text-[16px] font-semibold uppercase"
             style={{
               color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
@@ -58,7 +58,7 @@ function Card({
             {title}
           </div>
           <div
-            className="card-desc"
+            className="line-clamp-2 text-[14px]"
             style={{
               color: THEME_PALETTE[themeSnap.theme].descColor,
             }}
