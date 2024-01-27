@@ -80,6 +80,7 @@ header {
   left: 0;
   right: 0;
   z-index: 999;
+  border-bottom: 1px solid #00000042;
 }
 
 .header-logo {
@@ -341,7 +342,7 @@ main {
   height: auto;
   width: 100%;
   padding-top: 20px;
-  margin-top: 105px;
+  margin-top: 90px;
 }
 @media screen and (max-width: 768px) {
   .Image {
