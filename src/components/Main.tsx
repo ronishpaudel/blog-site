@@ -8,7 +8,6 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import CardSkeleton from "./skeleton-loader/cardSkeleton";
-import { Input } from "./ui/input";
 import { useDebounce } from "@/hooks/useDebounce";
 
 const BlogCardList = () => {
@@ -74,12 +73,7 @@ const BlogCardList = () => {
 };
 
 const Main = () => {
-  const {
-    data: blogSearch,
-
-    hasNextPage,
-    fetchNextPage,
-  } = useQueryBlog("");
+  const { data: blogSearch, hasNextPage, fetchNextPage } = useQueryBlog("");
 
   const themeSnap = useSnapshot(themeStore);
   const { push } = useRouter();
@@ -104,9 +98,6 @@ const Main = () => {
         </div>
       ) : (
         <div className="main">
-          <div className="main-search">
-            <Input type="search" placeholder="Search" className="h-full" />
-          </div>
           <div className="image-wrappper">
             <img src="/Image.png" className="Image" alt="Blog Image" />
             {/* <img src={firstItem?.imageUrl} className="Image" alt="Blog Image" /> */}
