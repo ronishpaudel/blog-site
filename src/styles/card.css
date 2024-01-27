@@ -76,18 +76,13 @@
 }
 
 .card-title {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  font-size: 23px;
-  font-style: normal;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1em;
   min-height: 2em;
-  overflow: hidden;
   white-space: normal;
 }
-.card-desc {
+/* .card-desc {
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -100,7 +95,7 @@
   overflow: hidden;
   white-space: normal;
   margin-top: 10px;
-}
+} */
 
 .card-author {
   display: flex;
