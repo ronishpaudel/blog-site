@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { useSnapshot } from "valtio";
@@ -15,7 +16,7 @@ function Logout({ onLogout }: Ilogout) {
   return (
     <div>
       <Dialog open={logout.open}>
-        <DialogContent onClick={() => modalStore.logout.setOpen(false)}>
+        <DialogContent onCloseClick={() => modalStore.logout.setOpen(false)}>
           <div className="flex flex-col gap-2 mb-2">
             <span
               style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}

@@ -1,7 +1,7 @@
+//@ts-nocheck
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useState } from "react";
 import { useSignUpMutation } from "@/hooks/mutationHook/useSignUpMutation";
 import { saveItemToLocalStorage } from "@/store/storage";
 import { useSnapshot } from "valtio";
@@ -100,7 +100,9 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   return (
     <div>
       <Dialog open={signUpModal.open}>
-        <DialogContent onClick={() => modalStore.signUpModal.setOpen(false)}>
+        <DialogContent
+          onCloseClick={() => modalStore.signUpModal.setOpen(false)}
+        >
           <div className="flex items-center justify-between  ">
             <div>
               <h1

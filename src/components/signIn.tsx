@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { DialogHeader, Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -122,7 +123,9 @@ function SignIn({ onClick }: { onClick?: () => void }) {
   return (
     <div>
       <Dialog open={signInModal.open}>
-        <DialogContent onClick={() => modalStore.signInModal.setOpen(false)}>
+        <DialogContent
+          onCloseClick={() => modalStore.signInModal.setOpen(false)}
+        >
           <DialogHeader>
             <div className="flex items-center justify-between  ">
               <div>

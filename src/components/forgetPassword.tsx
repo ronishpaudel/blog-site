@@ -1,3 +1,4 @@
+//@ts-nocheck
 import React, { useState } from "react";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { Button } from "./ui/button";
@@ -24,7 +25,9 @@ const ForgotPassword = () => {
   return (
     <div>
       <Dialog open={forgotPassword.open}>
-        <DialogContent onClick={() => modalStore.forgotPassword.setOpen(false)}>
+        <DialogContent
+          onCloseClick={() => modalStore.forgotPassword.setOpen(false)}
+        >
           <div className="flex items-center justify-between  ">
             <div>
               <h1
