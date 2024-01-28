@@ -6,7 +6,7 @@ import Editor from "@/components/lexical/Editor";
 import Header from "@/components/Header";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { useCategoryQuery } from "@/hooks/useGetCategory";
+import { useCategoryQuery } from "@/hooks/queryHook/useGetCategory";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { resizeImage2 } from "@/utils/resizeImage";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";

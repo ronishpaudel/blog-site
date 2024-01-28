@@ -5,11 +5,8 @@ import { SrLogo } from "../../../../public";
 import { TextInput } from "@/components/TextInput";
 import Button from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
-import AuthFooter from "@/components/AuthFooter";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useSignUpMutation } from "@/hooks/useSignUpMutation";
+import { useSignUpMutation } from "@/hooks/mutationHook/useSignUpMutation";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
 
 interface IFormData {
@@ -19,6 +16,7 @@ interface IFormData {
   phoneNumber: number;
   password: string;
   cPassword: string;
+  username: string;
 }
 
 const SignUp: FC = () => {
@@ -32,6 +30,9 @@ const SignUp: FC = () => {
     onSuccess: () => {
       push("/auth/email-sent");
     },
+    onError(E: any) {
+      console.log(E);
+    },
   });
 
   const onSubmit = async (data: IFormData) => {
@@ -39,10 +40,9 @@ const SignUp: FC = () => {
     try {
       await createUser({
         email: data.email,
-        fname: data.fname,
-        lname: data.lname,
-        phoneNumber: data.phoneNumber,
+
         password: data.password,
+        username: data.username,
       });
     } catch (error) {
       console.error("Error signing up:", error);

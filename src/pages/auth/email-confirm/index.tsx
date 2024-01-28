@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useSignUpVerifyTokenMutation } from "@/hooks/useSignUpVerifyTokenMutation";
+import { useSignUpVerifyTokenMutation } from "@/hooks/mutationHook/useSignUpVerifyTokenMutation";
 import { FC, useEffect } from "react";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
 import { saveItemToLocalStorage } from "@/store/storage";

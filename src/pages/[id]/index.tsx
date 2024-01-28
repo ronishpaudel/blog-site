@@ -4,7 +4,11 @@ import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
 import { Tag } from "@/components/Tag";
 import { useRouter } from "next/router";
-import { Iblog, useOneBlog, useQueryBlog } from "@/hooks/useQueryBlog";
+import {
+  Iblog,
+  useOneBlog,
+  useQueryBlog,
+} from "@/hooks/queryHook/useQueryBlog";
 import parse from "html-react-parser";
 import { dateFormat } from "@/utils/dateFormat";
 import { useSnapshot } from "valtio";
@@ -18,7 +22,9 @@ const index: FC = () => {
   const themeSnap = useSnapshot(themeStore);
   const { data: latestBlog } = useQueryBlog("");
 
-  const blogPages = Array.isArray(latestBlog?.pages) ? latestBlog.pages[0] : [];
+  const blogPages = Array.isArray(latestBlog?.pages)
+    ? latestBlog?.pages[0]
+    : [];
   const limitedBlogPages = blogPages.slice(0, 5);
 
   return (

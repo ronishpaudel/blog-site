@@ -1,5 +1,5 @@
 import { API } from "@/api/API";
-import { QueryFunction, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export interface TUser {
   id?: number;

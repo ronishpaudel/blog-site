@@ -2,7 +2,7 @@ import { Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { useSignUpMutation } from "@/hooks/useSignUpMutation";
+import { useSignUpMutation } from "@/hooks/mutationHook/useSignUpMutation";
 import { saveItemToLocalStorage } from "@/store/storage";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
@@ -18,8 +18,8 @@ import {
   FormField,
   FormMessage,
 } from "@/components/ui/form";
-import { useRegistration } from "@/hooks/useRegistration";
-import { TUser } from "@/hooks/useAuthorInfo";
+import { useRegistration } from "@/hooks/mutationHook/useRegistration";
+import { TUser } from "@/hooks/queryHook/useAuthorInfo";
 import { ColorRing } from "react-loader-spinner";
 import { z } from "zod";
 import { useForm } from "react-hook-form";

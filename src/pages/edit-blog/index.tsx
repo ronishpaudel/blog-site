@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useRouter } from "next/router";
 import Button from "@/components/Button";
 
-import { useEditBlog } from "./useEditblog";
+import { useEditBlog } from "../../hooks/mutationHook/useEditblog";
 import Editor from "@/components/lexical/Editor";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";

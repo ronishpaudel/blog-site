@@ -3,7 +3,7 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { useSnapshot } from "valtio";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useUpdatePassword } from "@/hooks/useUpdatePassword";
+import { useUpdatePassword } from "@/hooks/mutationHook/useUpdatePassword";
 import { useRouter } from "next/router";
 import Header from "@/components/Header";
 import { ColorRing } from "react-loader-spinner";

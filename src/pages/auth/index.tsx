@@ -8,7 +8,7 @@ import { SrLogo } from "../../../public";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSignInMutation } from "@/hooks/useSigninMutation";
+import { useSignInMutation } from "@/hooks/mutationHook/useSigninMutation";
 import { authStore } from "@/store/authStore";
 import { saveItemToLocalStorage } from "@/store/storage";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
@@ -46,6 +46,9 @@ const index: FC = () => {
 
       console.log("Token received:", res.token);
       await push("/");
+    },
+    onError: async (res: any) => {
+      console.log(res);
     },
   });
 

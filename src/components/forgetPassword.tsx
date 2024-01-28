@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { modalStore } from "@/store/modalStore";
 import { Input } from "./ui/input";
-import { useResetPw } from "@/hooks/useResetPw";
+import { useResetPw } from "@/hooks/mutationHook/useResetPw";
 import { ColorRing } from "react-loader-spinner";
 
 const ForgotPassword = () => {

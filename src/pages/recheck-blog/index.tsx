@@ -1,7 +1,7 @@
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
 import { useSnapshot } from "valtio";
 import parse from "html-react-parser";
-import { useCreateBlog } from "../create-blog/useCreateBlog";
+import { useCreateBlog } from "../../hooks/mutationHook/useCreateBlog";
 import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
@@ -10,7 +10,7 @@ import Header from "@/components/Header";
 import { useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useUploadUrl } from "@/hooks/useImageUploadUrl";
+import { useUploadUrl } from "@/hooks/mutationHook/useImageUploadUrl";
 import { fileToBlob } from "@/utils/filetoBlob";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { authStore } from "@/store/authStore";
@@ -19,7 +19,7 @@ import { dateFormat } from "@/utils/dateFormat";
 import { ColorRing } from "react-loader-spinner";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { Button } from "@/components/ui/button";
-import { useDraftBlog } from "@/hooks/useDraftBlog";
+import { useDraftBlog } from "@/hooks/mutationHook/useDraftBlog";
 
 type UploadResponse = {
   message: string;

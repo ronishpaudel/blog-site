@@ -1,5 +1,5 @@
 import { API } from "@/api/API";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface IUserData {
   username: string;

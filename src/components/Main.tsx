@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Iblog, useQueryBlog } from "@/hooks/useQueryBlog";
+import { Iblog, useQueryBlog } from "@/hooks/queryHook/useQueryBlog";
 import { dateFormat } from "@/utils/dateFormat";
 import { Content } from "./Content";
 import Card from "./Card";
@@ -8,7 +8,7 @@ import { blogCreationStore } from "@/store/blogCreationStore";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import CardSkeleton from "./skeleton-loader/cardSkeleton";
-import { useDebounce } from "@/hooks/useDebounce";
+import { useDebounce } from "@/hooks/debounceHook/useDebounce";
 
 const BlogCardList = () => {
   const { push } = useRouter();

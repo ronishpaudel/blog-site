@@ -1,15 +1,15 @@
 import { DialogHeader, Dialog, DialogContent } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { useSignInMutation } from "@/hooks/useSigninMutation";
+import { useSignInMutation } from "@/hooks/mutationHook/useSigninMutation";
 import { saveItemToLocalStorage } from "@/store/storage";
 import { authStore } from "@/store/authStore";
 import { useState } from "react";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { useSnapshot } from "valtio";
 import { modalStore } from "@/store/modalStore";
-import { TUser } from "@/hooks/useAuthorInfo";
-import { useRegistration } from "@/hooks/useRegistration";
+import { TUser } from "@/hooks/queryHook/useAuthorInfo";
+import { useRegistration } from "@/hooks/mutationHook/useRegistration";
 import {
   CredentialResponse,
   GoogleLogin,
