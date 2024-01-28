@@ -32,12 +32,9 @@ function index() {
   const { title, description, imageUrl, category, thumbImageUrl } =
     useSnapshot(blogCreationStore);
   const themeSnap = useSnapshot(themeStore);
-
   const { push } = useRouter();
-
   const [fileType, setFileType] = useState("");
   const [editor] = useLexicalComposerContext();
-
   const { dbUser } = useSnapshot(authStore);
   const queryClient = useQueryClient();
 
@@ -53,6 +50,7 @@ function index() {
         });
       }
       blogCreationStore.setTitle("");
+      blogCreationStore.setDescription("");
     },
   });
 
@@ -176,7 +174,7 @@ function index() {
     <div>
       <Header />
       <div
-        className="page-wrapper"
+        className="page-wrapper flex justify-center items-center"
         style={{
           backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
         }}
@@ -223,21 +221,31 @@ function index() {
           </div>
 
           {isCreating || isUploading || isCreatingUpload ? (
-            <ColorRing
-              visible={true}
-              height="80"
-              width="80"
-              ariaLabel="blocks-loading"
-              wrapperStyle={{}}
-              wrapperClass="blocks-wrapper"
-              colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
-            />
+            <div className="text-center flex justify-center items-center">
+              <ColorRing
+                visible={true}
+                height="80"
+                width="80"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={["#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb", "#4b6bfb"]}
+              />
+            </div>
           ) : (
-            <div className="flex justify-between gap-10">
-              <Button onClick={() => handleBlogDraft()} variant={"yellow"}>
+            <div className="flex justify-evenly">
+              <Button
+                onClick={() => handleBlogDraft()}
+                variant={"yellow"}
+                className="w-[250px] text-black"
+              >
                 Save draft
               </Button>
-              <Button onClick={() => handleOnSubmit()} variant={"blue"}>
+              <Button
+                onClick={() => handleOnSubmit()}
+                variant={"blue"}
+                className="w-[250px] text-black"
+              >
                 Publish
               </Button>
             </div>
