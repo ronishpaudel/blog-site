@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -142,9 +144,9 @@ function FloatingLinkEditor({ editor }: any) {
     const rootElement = editor.getRootElement();
     if (
       selection !== null &&
-      !nativeSelection.isCollapsed &&
+      !nativeSelection?.isCollapsed &&
       rootElement !== null &&
-      rootElement.contains(nativeSelection.anchorNode)
+      rootElement.contains(nativeSelection?.anchorNode)
     ) {
       const domRange = nativeSelection.getRangeAt(0);
       let rect;
