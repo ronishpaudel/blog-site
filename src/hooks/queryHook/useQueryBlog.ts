@@ -24,7 +24,7 @@ const fetchBlogs = async (
   const res = await API.get(`/blogs`, {
     params: {
       page: _context.pageParam,
-      pageSize: 10,
+      pageSize: 9,
       q: queryVal || "",
     },
   });
