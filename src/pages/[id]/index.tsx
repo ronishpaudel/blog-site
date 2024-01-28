@@ -36,6 +36,8 @@ const index: FC = () => {
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
             height: "100vh",
           }}
+          className="flex
+          justify-center items-center"
         >
           <BlogPageSkeleton />
         </div>
@@ -99,6 +101,7 @@ const index: FC = () => {
               <div className="text-2xl font-bold mb-4">Latest Blogs</div>
               {limitedBlogPages.map((blog: Iblog) => (
                 <LatestBlog
+                  key={blog.id}
                   image={blog.thumbImageUrl as string}
                   title={blog.title}
                   description={blog.description}

@@ -6,7 +6,6 @@ import Editor from "@/components/lexical/Editor";
 import Header from "@/components/Header";
 import { $generateHtmlFromNodes } from "@lexical/html";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { useCategoryQuery } from "@/hooks/queryHook/useGetCategory";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { resizeImage2 } from "@/utils/resizeImage";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
@@ -16,6 +15,7 @@ import Dropdown from "@/components/Dropdown";
 import { jsonParse } from "@/utils/jsonParse";
 import { BsUpload } from "react-icons/bs";
 import Footer from "@/components/Footer";
+import { useCategoryQuery } from "@/hooks/queryHook/useGetCategory";
 
 function getBase64ImageSize(base64String: string): number {
   const paddingIndex = base64String.indexOf("=");
@@ -123,6 +123,7 @@ const index: FC = () => {
         blogCreationStore.setDescription(htmlString);
         blogCreationStore.setTitle(title);
         blogCreationStore.setImage(file);
+        console.log({ htmlString });
       });
       push("/recheck-blog");
     }
