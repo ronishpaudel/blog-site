@@ -9,6 +9,7 @@ interface IUserData {
 
 const createUser = async (newUser: IUserData) => {
   const response = await API.post("/user/signup", newUser);
+  console.log({ response });
   return response.data;
 };
 const useSignUpMutation = ({
