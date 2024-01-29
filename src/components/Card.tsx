@@ -34,7 +34,7 @@ function Card({
   return (
     <>
       <div
-        className="m-post-card-grid hover:scale-105"
+        className="m-post-card-grid hover:scale-105 h-[475px]"
         onClick={onCardClick}
         style={{
           backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
