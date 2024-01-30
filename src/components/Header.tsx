@@ -4,7 +4,6 @@ import { useSnapshot } from "valtio";
 import { authStore } from "@/store/authStore";
 import { AiOutlinePlus } from "react-icons/ai";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import { Meta } from "../../public";
 import { Button } from "./ui/button";
 import { blogCreationStore } from "@/store/blogCreationStore";
 import { modalStore } from "@/store/modalStore";
@@ -25,6 +24,7 @@ const Header: FC = () => {
   const themeSnap = useSnapshot(themeStore);
   const { query } = useSnapshot(blogCreationStore);
   const [searchLogo, setSearchLogo] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("themePreference");
@@ -69,6 +69,9 @@ const Header: FC = () => {
       themeStore.setTheme("light");
       setThemePreference("light");
     }
+  }
+  function onClickSearchBar() {
+    setShowSearchBar(true);
   }
 
   async function handleSearch(e: any) {
@@ -221,21 +224,58 @@ const Header: FC = () => {
             )}
           </div>
         </div>
-        <button
-          className="search-logo-btn mr-4"
-          onClick={() => blogCreationStore.setSearchBar(true)}
-        >
-          <BsSearch
-            style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-          />
-        </button>
-        <button
-          className="menu-button"
-          onClick={handleToggleMenu}
-          style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-        >
-          Menu
-        </button>
+        <div className="flex items-center">
+          {showSearchBar ? (
+            <div
+              style={{
+                backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+              }}
+              className="flex items-center rounded-lg px-[4px] w-[170px]"
+            >
+              <input
+                type="text"
+                placeholder="Search"
+                className="rounded-lg p-[8px] w-[100%]"
+                value={query}
+                style={{
+                  backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
+                  color: THEME_PALETTE[themeSnap.theme].textColor,
+                }}
+                onChange={handleSearch}
+              />
+              {!searchLogo ? (
+                <img
+                  src="/search-outline.png"
+                  style={{ cursor: "pointer" }}
+                  className="w-[15px] h-[15px]"
+                />
+              ) : (
+                <RxCross2
+                  style={{
+                    color: THEME_PALETTE[themeSnap.theme].baseColor,
+                  }}
+                  className="cursor-pointer text-xl "
+                  onClick={handleCrossClick}
+                />
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center">
+              <div className="search-logo-btn mr-4" onClick={onClickSearchBar}>
+                <BsSearch
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                />
+              </div>
+              <div
+                className="menu-button"
+                onClick={handleToggleMenu}
+                style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+              >
+                Menu
+              </div>
+            </div>
+          )}
+        </div>
       </header>
     </>
   );
