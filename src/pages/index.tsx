@@ -22,7 +22,6 @@ const index = () => {
         <Header />
         <Main />
         <Toaster />
-
         <Footer />
         <SignUp />
         <SignIn />
