@@ -48,6 +48,8 @@
     border-radius: unset;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
+    padding: 18px;
+    border: 1px solid #00000042;
   }
 }
 .heading {
