@@ -32,7 +32,7 @@ function index() {
   const { title, description, imageUrl, category, thumbImageUrl } =
     useSnapshot(blogCreationStore);
   const themeSnap = useSnapshot(themeStore);
-  const { push } = useRouter();
+  const { push, back } = useRouter();
   const [fileType, setFileType] = useState("");
   const [editor] = useLexicalComposerContext();
   const { dbUser } = useSnapshot(authStore);
@@ -233,13 +233,13 @@ function index() {
               />
             </div>
           ) : (
-            <div className="flex justify-evenly">
+            <div className="flex justify-evenly gap-2">
               <Button
-                onClick={() => handleBlogDraft()}
+                onClick={back}
                 variant={"yellow"}
                 className="w-[250px] text-black"
               >
-                Save draft
+                Go Back
               </Button>
               <Button
                 onClick={() => handleOnSubmit()}

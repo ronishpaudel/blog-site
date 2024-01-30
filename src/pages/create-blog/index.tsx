@@ -132,10 +132,13 @@ const index: FC = () => {
     <>
       <Header />
       <div
-        className="form-container "
+        className="form-container px-[7%] "
         style={{ backgroundColor: THEME_PALETTE[themeStore.theme].cardBg }}
       >
-        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "5px" }}
+          className="max-w-[600px] w-full"
+        >
           <div className="title-input mt-24">
             <div className="rounded-xl border border-slate-800 ">
               <div
