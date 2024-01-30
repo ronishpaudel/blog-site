@@ -354,6 +354,7 @@ pre::-webkit-scrollbar-thumb {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   vertical-align: middle;
+  flex-wrap: wrap;
 }
 
 .toolbar button.toolbar-item {

@@ -4,6 +4,7 @@
   max-width: 800px;
   padding: var(--spacing);
   gap: 32px;
+  width: 100%;
 }
 
 .blog-image {
