@@ -8,10 +8,10 @@ const BlogPageSkeleton = ({ amount }: any) => {
   const loadCards = Array(amount).fill(1);
   const themeSnap = useSnapshot(themeStore);
   return loadCards.map((card, i) => (
-    <div className="mt-20">
+    <div key={i}>
       <Header />
       <div
-        className="mt-20"
+        className="flex justify-center"
         style={{
           backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
         }}
@@ -32,24 +32,13 @@ const BlogPageSkeleton = ({ amount }: any) => {
               <Skeleton width={100} />
             </div>
 
-            <div className="image-wrappper-skeleton mt-10">
-              <Skeleton style={{ height: "678px" }} />
+            <div className="image-wrappper-skeleton">
+              <Skeleton style={{ height: "500px" }} />
             </div>
-            <div className="mt-10">
-              <Skeleton count={10} />
+            <div>
+              <Skeleton count={4} />
             </div>
             <br />
-            <div>
-              <Skeleton count={10} />
-            </div>
-            <br />
-            <div>
-              <Skeleton count={10} />
-            </div>
-            <br />
-            <div>
-              <Skeleton count={10} />
-            </div>
           </div>
         </div>
       </div>

@@ -36,14 +36,12 @@ const index: FC = () => {
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
             height: "100vh",
           }}
-          className="flex
-          justify-center items-center"
         >
           <BlogPageSkeleton />
         </div>
       ) : (
         <div
-          className="page-wrapper flex justify-center  "
+          className="page-wrapper flex justify-center px-[20px]"
           style={{
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
           }}
@@ -96,7 +94,7 @@ const index: FC = () => {
               {data?.description && parse(data?.description)}
             </div>
           </div>
-          <div className="w-[350px] text-white mt-[115px]  lg:block hidden">
+          <div className="max-w-[400px] w-full text-white mt-[115px]  lg:block hidden">
             <div className="border-2 border-slate-400 flex flex-col items-center justify-center py-4 px-6 rounded-lg bg-gray-800">
               <div className="text-2xl font-bold mb-4">Latest Blogs</div>
               {limitedBlogPages.map((blog: Iblog) => (

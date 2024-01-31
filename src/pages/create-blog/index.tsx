@@ -178,7 +178,8 @@ const index: FC = () => {
                         <img
                           src={file}
                           alt="Selected Image"
-                          style={{ marginLeft: "70px" }}
+                          style={{ marginLeft: "80px" }}
+                          className="object-cover "
                         />
                         <p
                           style={{

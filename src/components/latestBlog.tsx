@@ -23,7 +23,7 @@ const LatestBlog = ({
         alt="latest"
         className="w-[50px] h-[50px] object-cover rounded-md mt-1"
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col max-w-[285px] w-full">
         <div className="text-lg font-bold line-clamp-1">{title}</div>
         <div className=" line-clamp-1">{parse(String(description))}</div>
       </div>
