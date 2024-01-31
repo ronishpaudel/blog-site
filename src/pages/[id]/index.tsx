@@ -82,7 +82,7 @@ const index: FC = () => {
                 /> */}
               </div>
             </div>
-            <img src={data?.imageUrl} className="blog-image" />
+            <img src={data?.thumbImageUrl} className="blog-image" />
             <div
               style={{
                 fontWeight: "400",
