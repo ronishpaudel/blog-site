@@ -6,7 +6,7 @@ import {
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const API = axios.create({
-  baseURL: "http://localhost:3007",
+  baseURL: process.env.NEXT_PUBLIC_URL,
 });
 
 // Request interceptor
