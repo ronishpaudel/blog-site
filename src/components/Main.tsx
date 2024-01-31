@@ -45,27 +45,31 @@ const BlogCardList = () => {
         ""
       )}
       <div className="card-parent mt-20" id="main">
-        {blogSearch?.pages.map((page: any) =>
-          page.map((blog: Iblog) => (
-            <Card
-              key={blog.id}
-              category={blog?.category?.name}
-              title={blog.title}
-              description={blog.description}
-              thumbnailImage={blog.thumbImageUrl}
-              user={` ${blog?.user?.username}`}
-              createdAt={dateFormat(blog.createdAt)}
-              onCardClick={() => {
-                push({
-                  pathname: "/[id]",
-                  query: {
-                    id: blog.slug,
-                  },
-                });
-              }}
-              onProfileClick={() => console.log("navigate to profile with id")}
-            />
-          ))
+        {Array.isArray(
+          blogSearch?.pages.map((page: any) =>
+            page.map((blog: Iblog) => (
+              <Card
+                key={blog.id}
+                category={blog?.category?.name}
+                title={blog.title}
+                description={blog.description}
+                thumbnailImage={blog.thumbImageUrl}
+                user={` ${blog?.user?.username}`}
+                createdAt={dateFormat(blog.createdAt)}
+                onCardClick={() => {
+                  push({
+                    pathname: "/[id]",
+                    query: {
+                      id: blog.slug,
+                    },
+                  });
+                }}
+                onProfileClick={() =>
+                  console.log("navigate to profile with id")
+                }
+              />
+            ))
+          )
         )}
       </div>
     </>
