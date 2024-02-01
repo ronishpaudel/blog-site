@@ -5,8 +5,10 @@ import {
 } from "@/store/storage";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
+const url = process.env.NEXT_PUBLIC_LOCAL_HOST || process.env.NEXT_PUBLIC_URL;
+
 export const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_URL,
+  baseURL: url,
 });
 
 // Request interceptor
