@@ -44,7 +44,7 @@ const Content = ({
         <div className="heading">
           <div className="category">{category}</div>
           <h1
-            className="content-title"
+            className="content-title max-w-[800px] w-full"
             style={{
               color: THEME_PALETTE[themeSnap.theme].textColor,
             }}
@@ -52,7 +52,7 @@ const Content = ({
             {title}
           </h1>
           <div
-            className="content-description"
+            className="content-description max-w-[800px] w-full"
             style={{
               color: THEME_PALETTE[themeSnap.theme].descColor,
             }}
@@ -61,7 +61,7 @@ const Content = ({
           </div>
         </div>
         <div className="author">
-          <img src="/rbg.jpg" className="author-img" />
+          <img src="/batman.png" className="author-img" />
           <p className="ronish">{user}</p>
           <p>{dateFormat(createdAt)}</p>
         </div>

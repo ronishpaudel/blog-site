@@ -9,7 +9,7 @@ interface IUserInfo {
 const Author = ({ style, name, createdAt }: IUserInfo) => {
   return (
     <div className="author">
-      <img src="/rbg.jpg" className="author-img" alt="Author" />
+      <img src="/batman.png" className="author-img" alt="Author" />
       <p className="ronish" style={style}>
         {name}
       </p>

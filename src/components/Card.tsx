@@ -58,7 +58,7 @@ function Card({
             {title}
           </div>
           <div
-            className="line-clamp-2 text-[14px]"
+            className="line-clamp-2 text-[14px] max-w-[330px] w-full"
             style={{
               color: THEME_PALETTE[themeSnap.theme].descColor,
             }}
@@ -66,7 +66,7 @@ function Card({
             {parse(description)}
           </div>
           <div className="card-author" onClick={onProfileClick}>
-            <img src="/rbg.jpg" />
+            <img src="/batman.png" />
             <div style={{ display: "flex", gap: "30px", fontSize: "14px" }}>
               <p> {user}</p>
               <p> {createdAt}</p>
