@@ -42,7 +42,6 @@ export default function App({ Component, pageProps }: AppProps) {
     typeof window !== "undefined" ? getItemFromLocalStorage("auth") : "";
 
   const fetchDBUser = async () => {
-    console.log("hello user");
     const res = await API.get("/user/me");
     return res.data;
   };

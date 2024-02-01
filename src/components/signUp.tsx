@@ -24,6 +24,8 @@ import { ColorRing } from "react-loader-spinner";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { isError } from "@tanstack/react-query";
 
 const formSchema = z.object({
   email: z.string().email("Enter a valid email"),
@@ -36,11 +38,23 @@ const formSchema = z.object({
 });
 
 function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
-  const { mutate, isSuccess, isLoading } = useSignUpMutation({
+  const [errorMessage, setErrorMessage] = useState("");
+  const { mutate, isSuccess, isLoading, isError } = useSignUpMutation({
     onSuccess: async (res: { token: string }) => {
       console.log(res.token);
     },
-    onError: (res: string) => {},
+    onError: (error) => {
+      if (error) {
+        const { errorType, message } = error;
+        setErrorMessage(message);
+
+        if (errorType === "User_already_exists") {
+          setErrorMessage("User already exists");
+        }
+      } else {
+        setErrorMessage("An unexpected error occurred.");
+      }
+    },
   });
 
   function handleOnClick() {
@@ -219,6 +233,14 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
                       ]}
                     />
                   </div>
+                ) : isError ? (
+                  <>
+                    <div className="flex flex-col items-center">
+                      <div className="text-red-500 text-center">
+                        {errorMessage}
+                      </div>
+                    </div>
+                  </>
                 ) : isSuccess ? (
                   <div
                     className="text-xl text-center"
