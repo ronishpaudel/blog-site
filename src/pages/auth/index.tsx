@@ -1,5 +1,5 @@
 import Button from "@/components/Button";
-import React, { ElementRef, FC, useRef } from "react";
+import React, { FC } from "react";
 import { TextInput } from "@/components/TextInput";
 import AuthHeaderlogo from "@/components/AuthHeaderlogo";
 import { useRouter } from "next/router";
