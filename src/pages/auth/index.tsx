@@ -12,7 +12,6 @@ import { useSignInMutation } from "@/hooks/mutationHook/useSigninMutation";
 import { authStore } from "@/store/authStore";
 import { saveItemToLocalStorage } from "@/store/storage";
 import { PublicRoute } from "@/components/hoc/PublicRoute";
-
 interface ISignInData {
   id: number;
   email: string;
