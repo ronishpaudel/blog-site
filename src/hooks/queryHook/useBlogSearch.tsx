@@ -14,6 +14,7 @@ const fetchBlogData: QueryFunction<Iblog[], TSearchQueryKey> = async (
 ) => {
   const query = context.queryKey[1].query;
   const response = await API.get(`/blogs?q=${query}`);
+
   return response.data;
 };
 
