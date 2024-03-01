@@ -8,7 +8,6 @@ import { useRouter } from "next/router";
 import Header from "@/components/Header";
 import { ColorRing } from "react-loader-spinner";
 import { saveItemToLocalStorage } from "@/store/storage";
-import { authStore } from "@/store/authStore";
 
 function index() {
   const [password, setPassword] = useState("");
