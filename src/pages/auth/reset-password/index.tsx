@@ -13,6 +13,7 @@ function index() {
   const [password, setPassword] = useState("");
   const [retypePassword, setRetypePassword] = useState("");
   const { push, query } = useRouter();
+
   console.log({ token: query.token });
 
   const { mutate, isLoading, isSuccess } = useUpdatePassword({
