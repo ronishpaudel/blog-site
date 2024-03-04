@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
@@ -16,11 +16,32 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 import { LatestBlog } from "@/components/latestBlog";
 
-const index: FC = () => {
+const Index: FC = () => {
   const { push, query } = useRouter();
-  const { data, isLoading, isFetching } = useOneBlog(query?.id as string);
+  const [selectedBlogId, setSelectedBlogId] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const themeSnap = useSnapshot(themeStore);
+  const { data, isLoading, isFetching } = useOneBlog(selectedBlogId!);
   const { data: latestBlog } = useQueryBlog("");
+
+  useEffect(() => {
+    if (query?.id) {
+      setSelectedBlogId(query.id as string);
+      setLoading(true);
+    }
+  }, [query]);
+
+  useEffect(() => {
+    if (data) {
+      setLoading(false);
+    }
+  }, [data]);
+
+  const handleCardClick = (blogId: string) => {
+    setSelectedBlogId(blogId);
+    push(`/${blogId}`);
+    setLoading(true);
+  };
 
   const blogPages = Array.isArray(latestBlog?.pages)
     ? latestBlog?.pages[0]
@@ -37,7 +58,7 @@ const index: FC = () => {
             height: "100vh",
           }}
         >
-          <BlogPageSkeleton />
+          {loading ? <BlogPageSkeleton /> : null}
         </div>
       ) : (
         <div
@@ -46,7 +67,7 @@ const index: FC = () => {
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
           }}
         >
-          <div className="blog-wrapper ">
+          <div className="blog-wrapper">
             <div className="blog-info">
               <Tag category={data?.category} />
               <h1
@@ -56,7 +77,6 @@ const index: FC = () => {
               >
                 {data?.title}
               </h1>
-
               <div
                 style={{
                   display: "flex",
@@ -69,17 +89,6 @@ const index: FC = () => {
                   name={`${data?.user.username} `}
                   createdAt={dateFormat(data?.createdAt)}
                 />
-                {/* <AiOutlineEdit
-                  style={{ fontSize: "25px", color: " #97989f" }}
-                  onClick={() =>
-                    push({
-                      pathname: "/edit-blog",
-                      query: {
-                        id: query.id,
-                      },
-                    })
-                  }
-                /> */}
               </div>
             </div>
             <img src={data?.thumbImageUrl} className="blog-image" />
@@ -103,15 +112,7 @@ const index: FC = () => {
                   image={blog.thumbImageUrl as string}
                   title={blog.title}
                   description={blog.description}
-                  onCardClick={() => {
-                    const newTab = window.open(
-                      `/[id]?id=${blog.slug}`,
-                      "_blank"
-                    );
-                    if (newTab) {
-                      newTab.focus();
-                    }
-                  }}
+                  onCardClick={() => handleCardClick(blog.slug)}
                 />
               ))}
             </div>
@@ -124,4 +125,4 @@ const index: FC = () => {
   );
 };
 
-export default index;
+export default Index;
