@@ -16,32 +16,12 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 import { LatestBlog } from "@/components/latestBlog";
 
-const Index: FC = () => {
+const index: FC = () => {
   const { push, query } = useRouter();
-  const [selectedBlogId, setSelectedBlogId] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+
   const themeSnap = useSnapshot(themeStore);
-  const { data, isLoading, isFetching } = useOneBlog(selectedBlogId!);
+  const { data, isLoading, isFetching } = useOneBlog(query?.id as string);
   const { data: latestBlog } = useQueryBlog("");
-
-  useEffect(() => {
-    if (query?.id) {
-      setSelectedBlogId(query.id as string);
-      setLoading(true);
-    }
-  }, [query]);
-
-  useEffect(() => {
-    if (data) {
-      setLoading(false);
-    }
-  }, [data]);
-
-  const handleCardClick = (blogId: string) => {
-    setSelectedBlogId(blogId);
-    push(`/${blogId}`);
-    setLoading(true);
-  };
 
   const blogPages = Array.isArray(latestBlog?.pages)
     ? latestBlog?.pages[0]
@@ -58,7 +38,7 @@ const Index: FC = () => {
             height: "100vh",
           }}
         >
-          {loading ? <BlogPageSkeleton /> : null}
+          <BlogPageSkeleton />
         </div>
       ) : (
         <div
@@ -112,7 +92,7 @@ const Index: FC = () => {
                   image={blog.thumbImageUrl as string}
                   title={blog.title}
                   description={blog.description}
-                  onCardClick={() => handleCardClick(blog.slug)}
+                  onCardClick={() => push(`/[...id]`, `/${blog.slug}`)}
                 />
               ))}
             </div>
@@ -125,4 +105,4 @@ const Index: FC = () => {
   );
 };
 
-export default Index;
+export default index;

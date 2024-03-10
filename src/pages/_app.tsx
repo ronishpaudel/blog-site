@@ -5,7 +5,7 @@ import "../styles/content.css";
 import "../styles/card.css";
 import "../styles/footer.css";
 import "../styles/newsLetter.css";
-import "../pages/[id]/index.css";
+import "./[id]/index.css";
 import "../pages/auth/index.css";
 import "./auth/signup/index.css";
 import "./auth/email-confirm/index.css";
