@@ -35,6 +35,14 @@ const fetchOneBlog = async (slug: string) => {
   const res = await API.get(`/blogs/${slug}`);
   return res.data as Iblog;
 };
+const fetchOwnBlog = async () => {
+  const jwtToken = localStorage.getItem("jwtToken");
+  const res = await API.get("/myblogs", {
+    headers: { token: jwtToken },
+  });
+  console.log({ resdata: res.data });
+  return res.data;
+};
 
 function useQueryBlog(queryVal: string, ...rest: any) {
   return useInfiniteQuery(
@@ -60,5 +68,12 @@ function useOneBlog(id: string) {
     enabled: !!id,
   });
 }
+function useOwnBlog() {
+  return useQuery({
+    queryKey: ["ownBlog"],
 
-export { useQueryBlog, useOneBlog, fetchBlogs, fetchOneBlog };
+    queryFn: () => fetchOwnBlog(),
+  });
+}
+
+export { useQueryBlog, useOneBlog, fetchBlogs, fetchOneBlog, useOwnBlog };
