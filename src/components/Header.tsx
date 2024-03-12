@@ -94,7 +94,8 @@ const Header: FC = () => {
     pathname !== "/create-blog" &&
     pathname !== "/recheck-blog" &&
     pathname !== "/auth/reset-password" &&
-    pathname !== "/[id]";
+    pathname !== "/[id]" &&
+    pathname !== "/myBlogs";
   return (
     <>
       <header
@@ -112,6 +113,14 @@ const Header: FC = () => {
           <div className="lastchildheaderparent">
             {hideItems && (
               <>
+                {loggedIn ? (
+                  <div
+                    className="text-gray-500 text-[16px] hover:scale-105 cursor-pointer"
+                    onClick={() => push("/myBlogs")}
+                  >
+                    MyBlogs
+                  </div>
+                ) : null}
                 <div
                   className="header-search"
                   style={{
