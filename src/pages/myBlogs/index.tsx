@@ -3,8 +3,6 @@ import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 import { useOwnBlog } from "@/hooks/queryHook/useQueryBlog";
 import React from "react";
 import Footer from "@/components/Footer";
-import { Tag } from "@/components/Tag";
-import parse from "html-react-parser";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
@@ -15,55 +13,24 @@ const index = () => {
   return (
     <div>
       <Header />
-      {!data || isLoading || isFetching ? (
-        <div
-          style={{
-            backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
-            height: "100vh",
-          }}
-        >
-          <BlogPageSkeleton />
-        </div>
-      ) : (
-        <div
-          className="page-wrapper flex justify-center px-[20px]"
-          style={{
-            backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
-          }}
-        >
-          <div className="blog-wrapper">
-            <div className="blog-info">
-              <Tag category={data?.category} />
-              <h1
-                style={{
-                  color: THEME_PALETTE[themeSnap.theme].textColor,
-                }}
-              >
-                {data?.title}
-              </h1>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  cursor: "pointer",
-                }}
-              ></div>
-            </div>
-            <img src={data?.thumbImageUrl} className="blog-image" />
-            <div
-              style={{
-                fontWeight: "400",
-                width: "100%",
-                fontSize: "18px",
-                color: THEME_PALETTE[themeStore.theme].textColor,
-              }}
-            >
-              {data?.description && parse(data?.description)}
+
+      <div
+        className="page-wrapper flex justify-center px-[20px] py-[20px] placeholder:"
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+        }}
+      >
+        <div className="mt-32 max-w-[1980px] w-full  border border-gray-100 border-solid">
+          <div className="flex">
+            <img src="/batman.png" className="max-w-[250px]  w-full" />
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-gray-300">a</div>
+
+              <div className="text-gray-300">b</div>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       <Footer />
     </div>
