@@ -21,9 +21,9 @@ const index = () => {
         }}
       >
         <div className="mt-32 max-w-[1980px] w-full  border border-gray-100 border-solid">
-          <div className="flex">
+          <div className="flex gap-10 px-[2%]">
             <img src="/batman.png" className="max-w-[250px]  w-full" />
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center w-[60%]">
               <div className="text-gray-300">a</div>
 
               <div className="text-gray-300">b</div>
