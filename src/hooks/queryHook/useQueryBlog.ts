@@ -73,7 +73,16 @@ function useOwnBlog() {
     queryKey: ["ownBlog"],
 
     queryFn: () => fetchOwnBlog(),
+    cacheTime: 5 * 60 * 1000,
+    staleTime: 4 * 60 * 1000,
   });
 }
 
-export { useQueryBlog, useOneBlog, fetchBlogs, fetchOneBlog, useOwnBlog };
+export {
+  useQueryBlog,
+  useOneBlog,
+  fetchBlogs,
+  fetchOneBlog,
+  useOwnBlog,
+  fetchOwnBlog,
+};
