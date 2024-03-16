@@ -25,7 +25,6 @@ const index = () => {
             <img src="/batman.png" className="max-w-[250px]  w-full" />
             <div className="flex flex-col items-center justify-center w-[60%]">
               <div className="text-gray-300">a</div>
-
               <div className="text-gray-300">b</div>
             </div>
           </div>
