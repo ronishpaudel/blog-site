@@ -35,14 +35,6 @@ const fetchOneBlog = async (slug: string) => {
   const res = await API.get(`/blogs/${slug}`);
   return res.data as Iblog;
 };
-const fetchOwnBlog = async () => {
-  const jwtToken = localStorage.getItem("jwtToken");
-  const res = await API.get("/myblogs", {
-    headers: { token: jwtToken },
-  });
-  console.log({ resdata: res.data });
-  return res.data;
-};
 
 function useQueryBlog(queryVal: string, ...rest: any) {
   return useInfiniteQuery(
@@ -69,13 +61,23 @@ function useOneBlog(id: string) {
   });
 }
 function useOwnBlog() {
-  return useQuery({
-    queryKey: ["ownBlog"],
-
-    queryFn: () => fetchOwnBlog(),
+  return useQuery(["ownBlog"], fetchOwnBlog, {
     cacheTime: 5 * 60 * 1000,
     staleTime: 4 * 60 * 1000,
   });
+}
+
+async function fetchOwnBlog() {
+  try {
+    const jwtToken = localStorage.getItem("jwtToken");
+    const res = await API.get("/myblogs", {
+      headers: { authorization: jwtToken },
+    });
+    console.log(res);
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to fetch own blogs");
+  }
 }
 
 export {
