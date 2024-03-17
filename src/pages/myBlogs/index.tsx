@@ -1,34 +1,56 @@
 import Header from "@/components/Header";
-import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
-import { useOwnBlog } from "@/hooks/queryHook/useQueryBlog";
+import { Iblog, useOwnBlog } from "@/hooks/queryHook/useQueryBlog";
 import React from "react";
 import Footer from "@/components/Footer";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import parse from "html-react-parser";
 
 const index = () => {
   const { data, isFetching, isLoading } = useOwnBlog();
-  console.log({ data });
   const themeSnap = useSnapshot(themeStore);
+
   return (
     <div>
       <Header />
 
       <div
-        className="page-wrapper flex justify-center px-[20px] py-[20px] placeholder:"
+        className=" flex justify-center px-[20px] py-[20px] flex-col gap-[10px] "
         style={{
           backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
         }}
       >
-        <div className="mt-32 max-w-[1980px] w-full  border border-gray-100 border-solid">
-          <div className="flex gap-10 px-[2%]">
-            <img src="/batman.png" className="max-w-[250px]  w-full" />
-            <div className="flex flex-col items-center justify-center w-[60%]">
-              <div className="text-gray-300">a</div>
-              <div className="text-gray-300">b</div>
+        <div className=" text-gray-100 text-2xl flex justify-start mt-32 font-bold underline">
+          CRAFTED BLOGS
+        </div>
+        {data?.map((blogs: Iblog) => (
+          <div
+            key={blogs.id}
+            className=" max-w-[1980px] w-full border border-gray-100 border-solid rounded-lg overflow-hidden"
+          >
+            <div className="flex gap-[10px] p-[4px] md:flex-nowrap flex-wrap  justify-center">
+              <img
+                src={blogs.thumbImageUrl}
+                className="max-w-[300px] w-full h-[240px] object-cover object-center rounded-lg"
+                alt={blogs.title}
+              />
+              <div className="flex flex-col justify-start">
+                <div className="text-gray-100 font-semibold text-lg mb-2">
+                  <div className="flex justify-between">
+                    {blogs.title}
+                    <div className="flex gap-2">
+                      <div className="text-gray-100">edit</div>
+                      <div className="text-gray-100">delete</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-gray-400 line-clamp-6">
+                  {parse(blogs.description)}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
 
       <Footer />
