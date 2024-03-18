@@ -26,7 +26,7 @@ const index = () => {
         {data?.map((blogs: Iblog) => (
           <div
             key={blogs.id}
-            className=" max-w-[1980px] w-full border border-gray-100 border-solid rounded-lg overflow-hidden"
+            className="cursor-pointer max-w-[1980px] w-full border border-gray-100 border-solid rounded-lg overflow-hidden"
           >
             <div className="flex gap-[10px] p-[4px] md:flex-nowrap flex-wrap  justify-center">
               <img
@@ -38,9 +38,9 @@ const index = () => {
                 <div className="text-gray-100 font-semibold text-lg mb-2">
                   <div className="flex justify-between">
                     {blogs.title}
-                    <div className="flex gap-2">
-                      <div className="text-gray-100">edit</div>
-                      <div className="text-gray-100">delete</div>
+                    <div className="flex gap-2 flex-wrap">
+                      <div className="text-gray-100 cursor-pointer">edit</div>
+                      <div className="text-gray-100 cursor-pointer">delete</div>
                     </div>
                   </div>
                 </div>
