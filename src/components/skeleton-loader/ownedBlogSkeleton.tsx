@@ -7,32 +7,59 @@ const MyBlogSkeleton = () => {
   const themeSnap = useSnapshot(themeStore);
 
   return (
-    <>
+    <div className="flex flex-col gap-10">
       <div
-        className="content"
         style={{
           backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
           border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
         }}
-        id="content"
       >
-        <div className="heading mb-4">
-          <Skeleton width={100} height={30} />
-        </div>
-        <Skeleton count={4} />
-
         <div className="flex gap-5 items-center mt-4">
-          <Skeleton circle width={40} height={40} className="author-img" />
+          <Skeleton width={200} height={160} className="author-img" />
 
-          <div style={{ maxWidth: "100px", width: "100%" }}>
-            <Skeleton />
-          </div>
-          <div style={{ maxWidth: "176px", width: "100%" }}>
-            <Skeleton />
+          <div
+            style={{ maxWidth: "1900px", width: "100%" }}
+            className="flex flex-col"
+          >
+            <Skeleton count={7} />
           </div>
         </div>
       </div>
-    </>
+      <div
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+          border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
+        }}
+      >
+        <div className="flex gap-5 items-center mt-4">
+          <Skeleton width={200} height={160} className="author-img" />
+
+          <div
+            style={{ maxWidth: "1900px", width: "100%" }}
+            className="flex flex-col"
+          >
+            <Skeleton count={7} />
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+          border: `1px solid ${THEME_PALETTE[themeSnap.theme].footerBg}`,
+        }}
+      >
+        <div className="flex gap-5 items-center mt-4">
+          <Skeleton width={200} height={160} className="author-img" />
+
+          <div
+            style={{ maxWidth: "1900px", width: "100%" }}
+            className="flex flex-col"
+          >
+            <Skeleton count={7} />
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
