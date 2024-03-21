@@ -35,14 +35,6 @@ const index = () => {
               data?.map((blogs: Iblog) => (
                 <div
                   key={blogs.id}
-                  onClick={() => {
-                    push({
-                      pathname: "/[id]",
-                      query: {
-                        id: blogs.slug,
-                      },
-                    });
-                  }}
                   className="cursor-pointer max-w-[1980px] w-full border border-gray-100 border-solid rounded-lg overflow-hidden"
                 >
                   <div className="flex gap-[10px] p-[4px] md:flex-nowrap flex-wrap  justify-center">
@@ -53,10 +45,23 @@ const index = () => {
                     />
                     <div className="flex flex-col justify-start">
                       <div className="text-gray-100 font-semibold text-lg mb-2">
-                        <div className="flex justify-between">
+                        <div
+                          className="flex justify-between"
+                          onClick={() => {
+                            push({
+                              pathname: "/[id]",
+                              query: {
+                                id: blogs.slug,
+                              },
+                            });
+                          }}
+                        >
                           {blogs.title}
                           <div className="flex gap-2 flex-wrap">
-                            <div className="text-gray-100 cursor-pointer">
+                            <div
+                              className="text-gray-100 cursor-pointer"
+                              onClick={() => push("/edit-blog")}
+                            >
                               edit
                             </div>
                             <div className="text-gray-100 cursor-pointer">
