@@ -75,7 +75,6 @@ const index: FC = () => {
         }
       };
       reader.readAsDataURL(file);
-
       setFileType(file.type);
     }
   };
