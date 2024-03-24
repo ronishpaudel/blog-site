@@ -1,5 +1,4 @@
 import React, { ComponentType, useEffect } from "react";
-import Router from "next/router";
 import { useSnapshot } from "valtio";
 import { authStore } from "@/store/authStore";
 import { modalStore } from "@/store/modalStore";
