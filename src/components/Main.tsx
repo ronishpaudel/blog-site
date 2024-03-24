@@ -15,7 +15,6 @@ const BlogCardList = () => {
   const { query } = useSnapshot(blogCreationStore);
   const debouncedQuery = useDebounce(query, 300);
 
-  // const { data: blogSearch, isLoading: searchLoading } = useBlogSearch(query);
   const {
     data: blogSearch,
     isLoading: searchLoading,
