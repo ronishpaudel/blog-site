@@ -74,6 +74,7 @@ const index: FC = () => {
           blogCreationStore.setThumbImageUrl(String(resizedImageURL));
         }
       };
+
       reader.readAsDataURL(file);
       setFileType(file.type);
     }
