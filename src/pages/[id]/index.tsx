@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
