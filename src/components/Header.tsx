@@ -61,15 +61,15 @@ const Header: FC = () => {
     }
   }
 
-  function handleOnClick() {
-    if (isLightMode) {
-      themeStore.setTheme("dark");
-      setThemePreference("dark");
-    } else {
-      themeStore.setTheme("light");
-      setThemePreference("light");
-    }
-  }
+  // function handleOnClick() {
+  //   if (isLightMode) {
+  //     themeStore.setTheme("dark");
+  //     setThemePreference("dark");
+  //   } else {
+  //     themeStore.setTheme("light");
+  //     setThemePreference("light");
+  //   }
+  // }
   function onClickSearchBar() {
     setShowSearchBar(true);
   }
