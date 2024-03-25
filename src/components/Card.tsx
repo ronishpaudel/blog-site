@@ -32,7 +32,7 @@ function Card({
   const themeSnap = useSnapshot(themeStore);
 
   return (
-    <>
+    <div>
       <div
         className="m-post-card-grid hover:scale-105 h-[475px]"
         onClick={onCardClick}
@@ -74,7 +74,7 @@ function Card({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
