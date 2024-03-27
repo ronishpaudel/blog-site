@@ -13,9 +13,7 @@ const ForgotPassword = () => {
   const themeSnap = useSnapshot(themeStore);
   const { forgotPassword } = useSnapshot(modalStore);
   const [email, setEmail] = useState("");
-  const { mutate, isLoading, isSuccess } = useResetPw({
-    onSuccess: async () => {},
-  });
+  const { mutate, isLoading, isSuccess } = useResetPw({});
   function handleEmailChange(e: any) {
     setEmail(e.target.value);
   }
