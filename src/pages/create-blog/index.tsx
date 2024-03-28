@@ -29,7 +29,6 @@ function getBase64ImageSize(base64String: string): number {
 
 const index: FC = () => {
   const { title } = useSnapshot(blogCreationStore);
-  const { description } = useSnapshot(blogCreationStore);
   const [t, setT] = useState(title);
   const { push } = useRouter();
   const [file, setFile] = useState<any>(blogCreationStore.imageUrl);
