@@ -6,7 +6,6 @@ import { modalStore } from "@/store/modalStore";
 const PrivateRoute = (AuthComponent: ComponentType) => {
   function PrivateComponent({ children }: any) {
     const { loggedIn, tokenFetching } = useSnapshot(authStore);
-
     useEffect(() => {
       if (!loggedIn && !tokenFetching) {
         modalStore.signInModal.setOpen(true);
