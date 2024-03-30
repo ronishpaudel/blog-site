@@ -7,13 +7,16 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
 	],
-  theme: {
+  theme: {   screens: {
+    "2xxl": "1400px",
+"1060":"1060px"
+  },
     container: {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
-    
+        "2xxl": "1400px",
+
       },
     },
     extend: {
