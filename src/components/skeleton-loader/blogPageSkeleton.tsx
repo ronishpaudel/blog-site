@@ -33,9 +33,11 @@ const BlogPageSkeleton = ({ amount }: any) => {
             </div>
 
             <div className="image-wrappper-skeleton">
-              <Skeleton style={{ height: "500px" }} />
+              <Skeleton style={{ height: "300px" }} />
             </div>
-            <div>
+            <div className="1060:block hidden ">
+              <Skeleton count={4} />
+              <Skeleton count={4} />
               <Skeleton count={4} />
             </div>
             <br />
