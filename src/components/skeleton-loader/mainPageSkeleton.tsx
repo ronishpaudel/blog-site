@@ -6,6 +6,7 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 
 const MainPageSkeleton = ({ amount }: any) => {
   const loadCards = Array(amount).fill(1);
+
   const themeSnap = useSnapshot(themeStore);
   return loadCards.map((card, i) => (
     <main
