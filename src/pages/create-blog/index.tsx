@@ -170,7 +170,7 @@ const index: FC = () => {
                       }}
                     >
                       <BsUpload />
-                      <div>Click to Upload</div>
+                      <div className="md:text-2xl text-xl">Click to Upload</div>
                     </div>
                     {file && (
                       <div className="selected-image-container">

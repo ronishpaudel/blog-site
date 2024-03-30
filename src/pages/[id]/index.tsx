@@ -35,14 +35,13 @@ const index: FC = () => {
         <div
           style={{
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
-            height: "100vh",
           }}
         >
           <BlogPageSkeleton />
         </div>
       ) : (
         <div
-          className="page-wrapper flex justify-center px-[20px]"
+          className="page-wrapper flex justify-center"
           style={{
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
           }}
