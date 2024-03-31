@@ -146,19 +146,11 @@
 .card-parent {
   max-width: 1216px;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
 }
-@media (max-width: 1215px) {
-  .card-parent {
-    max-width: 1216px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
-  }
+.card-parent,
+.viewPost {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 10px;
+  place-items: center;
 }
