@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
+import Link from "next/link";
 
 const Footer: FC = () => {
   const themeSnap = useSnapshot(themeStore);
@@ -27,33 +28,64 @@ const Footer: FC = () => {
                 enim ad minim veniam
               </p>
             </div>
-            <div>
-              <p>Email : info@gmai.com</p>
-              <p>Phone no. : 092712688</p>
+            <div className="flex flex-col gap-2">
+              <Link href="mailto:paudelronish@gmail.com">
+                Email : paudelronish@gmail.com
+              </Link>
+              <Link href="tel:9840268759" className="cursor-pointer">
+                Phone no. : 9840268759
+              </Link>
             </div>
           </div>
           <div className="link">
             <div className="quick-link">
               <p className="bolder">Quick Link</p>
-              <div className="link-list">
-                <p>Home</p>
-                <p>About</p>
-                <p>Blog</p>
-                <p>Archived</p>
-                <p>Author </p>
-                <p>Contact</p>
+              <div className="link-list cursor-pointer">
+                <Link href="/">Home</Link>
+                <Link href="#footer">About</Link>
+                <Link href="#main">Blog</Link>
+
+                <Link href="#footer">Author </Link>
+                <Link href="mailto:paudelronish@gmail.com">Contact</Link>
               </div>
             </div>
             <div className="footer-category">
               <p className="bolder"> Category</p>
 
               <div className="category-list">
-                <p>Lifestyle</p>
-                <p>Technology</p>
-                <p>Business</p>
-                <p>Travel</p>
-                <p>Economy </p>
-                <p>Sports</p>
+                <Link
+                  href="https://www.bloggingherway.com/what-is-a-lifestyle-blog/"
+                  target="_blank"
+                >
+                  Lifestyle
+                </Link>
+                <Link
+                  href="https://bloggingguide.com/best-tech-blog-examples/"
+                  target="_blank"
+                >
+                  Technology
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://uk.indeed.com/career-advice/career-development/what-is-a-business-blog"
+                >
+                  Business
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://arrivalshall.com/2018/03/14/what-is-a-travel-blog/"
+                >
+                  Travel
+                </Link>
+                <Link
+                  target="_blank"
+                  href="https://www.intelligenteconomist.com/economics-blogs/"
+                >
+                  Economy
+                </Link>
+                <Link target="_blank" href="https://detailed.com/sports-blogs/">
+                  Sports
+                </Link>
               </div>
             </div>
           </div>

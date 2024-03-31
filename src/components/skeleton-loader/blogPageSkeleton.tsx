@@ -1,7 +1,6 @@
 import Skeleton from "react-loading-skeleton";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import Footer from "../Footer";
 import Header from "../Header";
 
 const BlogPageSkeleton = ({ amount }: any) => {
