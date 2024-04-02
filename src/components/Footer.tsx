@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import Link from "next/link";
 
-const Footer = () => {
+const Footer: FC = () => {
   const themeSnap = useSnapshot(themeStore);
   return (
     <>
