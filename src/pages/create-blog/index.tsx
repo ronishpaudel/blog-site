@@ -51,7 +51,6 @@ const index: FC = () => {
 
     if (file) {
       const reader = new FileReader();
-
       reader.onload = async (e) => {
         const mainResizeImage = await resizeImage2(
           e?.target?.result as string,
