@@ -9,7 +9,8 @@ module.exports = {
 	],
   theme: {   screens: {
     "2xxl": "1400px",
-"1060":"1060px"
+"1060":"1060px",
+"1000":"1000px"
   },
     container: {
       center: true,
