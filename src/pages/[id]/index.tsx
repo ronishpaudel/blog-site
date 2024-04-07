@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
@@ -17,11 +17,16 @@ import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 import { LatestBlog } from "@/components/latestBlog";
 
 const index: FC = () => {
-  const { push, query } = useRouter();
-
+  const { query, push } = useRouter();
   const themeSnap = useSnapshot(themeStore);
-  const { data, isLoading, isFetching } = useOneBlog(query?.id as string);
+  const { data, isLoading, isFetching, refetch } = useOneBlog(
+    query?.id as string
+  );
   const { data: latestBlog } = useQueryBlog("");
+
+  useEffect(() => {
+    refetch();
+  }, [query?.id]);
 
   const blogPages = Array.isArray(latestBlog?.pages)
     ? latestBlog?.pages[0]
@@ -91,7 +96,14 @@ const index: FC = () => {
                   image={blog.thumbImageUrl as string}
                   title={blog.title}
                   description={blog.description}
-                  onCardClick={() => push(`/[...id]`, `/${blog.slug}`)}
+                  onCardClick={() =>
+                    push({
+                      pathname: "[id]",
+                      query: {
+                        id: blog.slug,
+                      },
+                    })
+                  }
                 />
               ))}
             </div>
