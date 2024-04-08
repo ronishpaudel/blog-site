@@ -36,7 +36,7 @@ const index: FC = () => {
   return (
     <div>
       <Header />
-      {!data || isLoading || isFetching ? (
+      {!data || (isLoading && isFetching) ? (
         <div
           style={{
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
