@@ -2,7 +2,6 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Main from "@/components/Main";
-
 import { SignIn } from "@/components/signIn";
 import ForgotPassword from "@/components/forgetPassword";
 import { SkeletonTheme } from "react-loading-skeleton";
