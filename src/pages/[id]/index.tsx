@@ -32,7 +32,7 @@ const index: FC = () => {
     ? latestBlog?.pages[0]
     : [];
   const limitedBlogPages = blogPages.slice(0, 5);
-
+  console.log({ iddata: data, isFetching, isLoading });
   return (
     <div>
       <Header />
