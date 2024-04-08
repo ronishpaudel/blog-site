@@ -29,6 +29,7 @@ import { useSnapshot } from "valtio";
 import { API } from "@/api/API";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { editorConfig } from "@/components/lexical/Editor";
+import { Analytics } from "@vercel/analytics/react";
 import React from "react";
 
 const workSans = Work_Sans({
@@ -77,6 +78,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Hydrate state={pageProps.dehydratedState}>
           <LexicalComposer initialConfig={editorConfig}>
             <Component {...pageProps} />
+            <Analytics />
           </LexicalComposer>
         </Hydrate>
       </QueryClientProvider>
