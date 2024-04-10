@@ -5,7 +5,6 @@ import Header from "../Header";
 
 const BlogPageSkeleton = ({ amount }: any) => {
   const loadCards = Array(amount).fill(1);
-
   const themeSnap = useSnapshot(themeStore);
   return loadCards.map((card, i) => (
     <div key={i}>
