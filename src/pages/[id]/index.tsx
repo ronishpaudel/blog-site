@@ -26,13 +26,13 @@ const index: FC = () => {
 
   useEffect(() => {
     refetch();
-  }, [query?.id]);
+  }, [query.id]);
 
   const blogPages = Array.isArray(latestBlog?.pages)
     ? latestBlog?.pages[0]
     : [];
   const limitedBlogPages = blogPages.slice(0, 5);
-  console.log({ iddata: data, isFetching, isLoading });
+
   return (
     <div>
       <Header />
@@ -87,7 +87,7 @@ const index: FC = () => {
               {data?.description && parse(data?.description)}
             </div>
           </div>
-          <div className="max-w-[400px] w-full text-white mt-[115px] px-[10px] 1000:block hidden ">
+          <div className="max-w-[400px] w-full text-white mt-[115px] px-[10px] lg:block hidden ">
             <div className="border-2 border-slate-400 flex flex-col items-center justify-center py-4 px-6 rounded-lg bg-gray-800">
               <div className="text-2xl font-bold mb-4">Latest Blogs</div>
               {limitedBlogPages.map((blog: Iblog) => (
