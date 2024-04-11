@@ -130,7 +130,6 @@ const Header: FC = () => {
             <div className="header-logo" onClick={onPush}>
               <img src="/techEra/techera-gray.png" alt="asd" />
             </div>
-
             <div className="lastchildheaderparent">
               {hideItems && (
                 <>
@@ -142,27 +141,6 @@ const Header: FC = () => {
                       MyBlogs
                     </div>
                   )}
-                  <div
-                    className="header-search"
-                    style={{
-                      backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                    }}
-                  >
-                    {!searchLogo ? (
-                      <img
-                        src="/search-outline.png"
-                        style={{ cursor: "pointer" }}
-                      />
-                    ) : (
-                      <RxCross2
-                        style={{
-                          color: THEME_PALETTE[themeSnap.theme].baseColor,
-                        }}
-                        className="cursor-pointer text-xl "
-                        onClick={handleCrossClick}
-                      />
-                    )}
-                  </div>
                 </>
               )}
 
@@ -213,99 +191,74 @@ const Header: FC = () => {
               )}
             </div>
 
-            <div className="flex items-center">
-              {showSearchBar ? (
+            <div className="md:hidden block">
+              <div className="flex items-center">
                 <div
-                  style={{
-                    backgroundColor: THEME_PALETTE[themeSnap.theme].inputBg,
-                  }}
-                  className="flex items-center rounded-lg px-[4px] w-[170px]"
+                  className="search-logo-btn mr-4"
+                  onClick={onClickSearchBar}
                 >
-                  {!searchLogo ? (
-                    <img
-                      src="/search-outline.png"
-                      style={{ cursor: "pointer" }}
-                      className="w-[15px] h-[15px]"
-                    />
-                  ) : (
-                    <RxCross2
-                      style={{
-                        color: THEME_PALETTE[themeSnap.theme].baseColor,
-                      }}
-                      className="cursor-pointer text-xl "
-                      onClick={handleCrossClick}
-                    />
-                  )}
+                  <BsSearch
+                    style={{
+                      color: THEME_PALETTE[themeSnap.theme].textColor,
+                    }}
+                  />
                 </div>
-              ) : (
-                <div className="flex items-center">
+                <div
+                  className="menu-button"
+                  onClick={handleToggleMenu}
+                  style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
+                >
+                  Menu
+                </div>
+                {isMenuOpen && (
                   <div
-                    className="search-logo-btn mr-4"
-                    onClick={onClickSearchBar}
+                    style={{
+                      backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
+                    }}
+                    className="absolute mt-2 max-w-[768px] top-[66%] right-[1%] bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
-                    <BsSearch
-                      style={{
-                        color: THEME_PALETTE[themeSnap.theme].textColor,
-                      }}
-                    />
-                  </div>
-                  <div
-                    className="menu-button"
-                    onClick={handleToggleMenu}
-                    style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-                  >
-                    Menu
-                  </div>
-                  {isMenuOpen && (
-                    <div
-                      style={{
-                        backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
-                      }}
-                      className="absolute mt-2 max-w-[768px] top-[66%] right-[1%] bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    >
-                      <div className="py-1">
-                        <a
-                          href="/myBlogs"
-                          className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
-                        >
-                          My Crafted Blogs
-                        </a>
-                        <a
-                          href="/create-blog"
-                          className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
-                        >
-                          Start crafting
-                        </a>
-                        <a
-                          href="https://techera.io"
-                          className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-100"
-                        >
-                          Support
-                        </a>
-                        <div
-                          className="block w-full px-4 py-2 text-left text-sm text-gray-100 hover:bg-gray-100"
-                          role="menuitem"
-                        >
-                          <div>
-                            {loggedIn ? (
-                              <>
-                                <button onClick={handleLogoutConfirmation}>
-                                  Sign out
-                                </button>
-                                {showLogoutConfirmation && (
-                                  <Logout onLogout={handleLogout} />
-                                )}
-                              </>
-                            ) : (
-                              <button onClick={handleLogin}>Sign in</button>
-                            )}
-                          </div>
+                    <div className="py-1">
+                      <a
+                        href="/myBlogs"
+                        className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
+                      >
+                        My Crafted Blogs
+                      </a>
+                      <a
+                        href="/create-blog"
+                        className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
+                      >
+                        Start crafting
+                      </a>
+                      <a
+                        href="https://techera.io"
+                        className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-100"
+                      >
+                        Support
+                      </a>
+                      <div
+                        className="block w-full px-4 py-2 text-left text-sm text-gray-100 hover:bg-gray-100"
+                        role="menuitem"
+                      >
+                        <div>
+                          {loggedIn ? (
+                            <>
+                              <button onClick={handleLogoutConfirmation}>
+                                Sign out
+                              </button>
+                              {showLogoutConfirmation && (
+                                <Logout onLogout={handleLogout} />
+                              )}
+                            </>
+                          ) : (
+                            <button onClick={handleLogin}>Sign in</button>
+                          )}
                         </div>
                       </div>
                     </div>
-                  )}
-                </div>
-              )}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
