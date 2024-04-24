@@ -25,7 +25,6 @@ const Header: FC = () => {
   const themeSnap = useSnapshot(themeStore);
   const { query } = useSnapshot(blogCreationStore);
   const [searchLogo, setSearchLogo] = useState(false);
-
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   useEffect(() => {
