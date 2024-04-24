@@ -12,9 +12,9 @@ import { BsSearch } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { Input } from "./ui/input";
 
-function setThemePreference(theme: string) {
-  localStorage.setItem("themePreference", theme);
-}
+// function setThemePreference(theme: string) {
+//   localStorage.setItem("themePreference", theme);
+// }
 
 const Header: FC = () => {
   const { push, pathname } = useRouter();
