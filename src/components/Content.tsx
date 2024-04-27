@@ -26,7 +26,6 @@ const Content = ({
   description,
   thumbnailImage,
   onCardClick,
-  ...rest
 }: ContentProps) => {
   const themeSnap = useSnapshot(themeStore);
 
