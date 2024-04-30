@@ -11,7 +11,6 @@ interface Ilogout {
 
 function Logout({ onLogout }: Ilogout) {
   const themeSnap = useSnapshot(themeStore);
-  
   const { logout } = useSnapshot(modalStore);
 
   return (
