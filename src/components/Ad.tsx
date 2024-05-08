@@ -2,7 +2,7 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import React from "react";
 import { useSnapshot } from "valtio";
 
-const Ad = ({ style }: any) => {
+const Ad = () => {
   const themeSnap = useSnapshot(themeStore);
   return (
     <>
