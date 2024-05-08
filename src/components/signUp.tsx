@@ -25,7 +25,6 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { isError } from "@tanstack/react-query";
 
 const formSchema = z.object({
   email: z.string().email("Enter a valid email"),
