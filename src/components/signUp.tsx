@@ -40,7 +40,7 @@ function SignUp({ onSignInClick }: { onSignInClick?: () => void }) {
   const [errorMessage, setErrorMessage] = useState("");
   const { mutate, isSuccess, isLoading, isError } = useSignUpMutation({
     onSuccess: async (res: { token: string }) => {
-      console.log(res.token);
+      // console.log(res.token);
     },
     onError: (error) => {
       if (error) {
