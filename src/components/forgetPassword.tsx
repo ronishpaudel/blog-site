@@ -17,6 +17,7 @@ const ForgotPassword = () => {
   function handleEmailChange(e: any) {
     setEmail(e.target.value);
   }
+
   function handleOnClick() {
     modalStore.forgotPassword.setOpen(false);
   }
