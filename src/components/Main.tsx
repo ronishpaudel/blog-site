@@ -19,7 +19,6 @@ const BlogCardList = () => {
     isLoading: searchLoading,
     isFetching: searchFetching,
   } = useQueryBlog(debouncedQuery);
-
   const themeSnap = useSnapshot(themeStore);
   console.log(blogSearch);
   return (
