@@ -21,6 +21,7 @@ const BlogCardList = () => {
   } = useQueryBlog(debouncedQuery);
   const themeSnap = useSnapshot(themeStore);
   console.log(blogSearch);
+
   return (
     <>
       {/* <div className="card-parent mt-20" id="main"> */}
