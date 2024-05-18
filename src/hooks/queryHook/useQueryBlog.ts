@@ -54,7 +54,6 @@ function useQueryBlog(queryVal: string, ...rest: any) {
 function useOneBlog(id: string) {
   return useQuery({
     queryKey: ["blog"],
-
     queryFn: () => fetchOneBlog(id),
     enabled: !!id,
   });
