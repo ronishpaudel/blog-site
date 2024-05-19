@@ -40,7 +40,6 @@ const TextInput: FC<InputProps> = forwardRef(
       className,
       maxWidth = "mW440",
       register,
-      validateObj,
       number,
       value,
       type,
