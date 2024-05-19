@@ -20,7 +20,7 @@ const index: FC = () => {
   const { query, push } = useRouter();
   const themeSnap = useSnapshot(themeStore);
   const { data, isLoading, isFetching, refetch } = useOneBlog(
-    query?.id as string
+    query.id as string
   );
   const { data: latestBlog } = useQueryBlog("");
 
