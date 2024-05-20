@@ -23,7 +23,6 @@ const index: FC = () => {
     query.id as string
   );
   const { data: latestBlog } = useQueryBlog("");
-
   useEffect(() => {
     refetch();
   }, [query.id]);
