@@ -35,7 +35,6 @@ API.interceptors.response.use(
       authStore.setDbUser(null);
       authStore.setLogOut();
     }
-
     return Promise.reject({
       message: "Error occured",
       ...error?.response?.data,
