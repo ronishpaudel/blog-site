@@ -5,7 +5,7 @@ import {
 } from "@/store/storage";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
-const url = process.env.NEXT_PUBLIC_URL;
+const url = process.env.NEXT_PUBLIC_LOCAL_HOST || process.env.NEXT_PUBLIC_URL;
 
 export const API = axios.create({
   baseURL: url,
@@ -14,7 +14,7 @@ export const API = axios.create({
 // Request interceptor
 API.interceptors.request.use(
   async (axiosConfig) => {
-    console.log("Api Call", axiosConfig.url);
+    //console.log("Api Call", axiosConfig.url);
     const token = await getItemFromLocalStorage("auth");
     if (token && axiosConfig.headers) {
       axiosConfig.headers.Authorization = `${token}`;
