@@ -68,7 +68,6 @@ const Header: FC = () => {
 
   async function handleSearch(e: any) {
     blogCreationStore.setQuery(e.target.value);
-
     if (e.target.value) {
       setSearchLogo(true);
     }
