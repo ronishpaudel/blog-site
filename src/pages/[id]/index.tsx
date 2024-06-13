@@ -41,7 +41,9 @@ const index: FC = () => {
             backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
           }}
         >
-          <BlogPageSkeleton />
+          <div className=" w-full flex justify-center items-center h-[100vh]">
+            <img src="/loader/loader.gif" alt="loader" className="w-[100px]" />
+          </div>
         </div>
       ) : (
         <div
