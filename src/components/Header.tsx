@@ -11,7 +11,6 @@ import { Logout } from "./Logout";
 import { BsSearch } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { Input } from "./ui/input";
-
 // function setThemePreference(theme: string) {
 //   localStorage.setItem("themePreference", theme);
 // }
@@ -218,15 +217,17 @@ const Header: FC = () => {
                     className="absolute mt-2 max-w-[768px] top-[66%] right-[1%] bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
                     <div className="py-1">
+                      {loggedIn && (
+                        <a
+                          href="/myBlogs"
+                          className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
+                        >
+                          My Crafted Blogs
+                        </a>
+                      )}
                       <a
-                        href="/myBlogs"
-                        className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
-                      >
-                        My Crafted Blogs
-                      </a>
-                      <a
-                        href="/create-blog"
-                        className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
+                        onClick={handlePush}
+                        className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300 cursor-pointer"
                       >
                         Start crafting
                       </a>
