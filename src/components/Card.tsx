@@ -2,7 +2,6 @@ import React, { DOMAttributes } from "react";
 import parse from "html-react-parser";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-
 interface CardProps extends DOMAttributes<HTMLDivElement> {
   thumbnailImage?: string;
   category?: string;
