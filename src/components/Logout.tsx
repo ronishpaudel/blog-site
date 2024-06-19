@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { modalStore } from "@/store/modalStore";
-
 interface Ilogout {
   onLogout: () => void;
 }
