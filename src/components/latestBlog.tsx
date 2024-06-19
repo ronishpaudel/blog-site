@@ -1,6 +1,5 @@
 import React from "react";
 import parse from "html-react-parser";
-
 interface ILatestBlog {
   image: string;
   title: string;
