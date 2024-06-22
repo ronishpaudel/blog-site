@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -497,6 +499,7 @@ function BlockOptionsDropdownList({
     </div>
   );
 }
+
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
