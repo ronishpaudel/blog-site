@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -499,7 +497,6 @@ function BlockOptionsDropdownList({
     </div>
   );
 }
-
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
@@ -679,7 +676,13 @@ export default function ToolbarPlugin() {
                 }}
               />
             </span>
-            <span className="text">{blockTypeToBlockName[blockType]}</span>
+            <span className="text">
+              {
+                blockTypeToBlockName[
+                  blockType as keyof typeof blockTypeToBlockName
+                ]
+              }
+            </span>
             <i className="chevron-down">
               <Chevrondown
                 style={{
