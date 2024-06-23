@@ -29,6 +29,8 @@ const formSchema = z.object({
 });
 
 function SignIn({ onClick }: { onClick?: () => void }) {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const { toast } = useToast();
 
