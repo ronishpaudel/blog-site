@@ -27,7 +27,6 @@ const formSchema = z.object({
   email: z.string().email("Enter a valid email"),
   password: z.string().min(1),
 });
-
 function SignIn({ onClick }: { onClick?: () => void }) {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
