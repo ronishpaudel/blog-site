@@ -15,6 +15,7 @@ import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 import { LatestBlog } from "@/components/latestBlog";
+import Loading from "@/components/loading";
 
 const index: FC = () => {
   const { query, push } = useRouter();
@@ -42,7 +43,7 @@ const index: FC = () => {
           }}
         >
           <div className=" w-full flex justify-center items-center h-[100vh]">
-            <img src="/loader/loader.gif" alt="loader" className="w-[100px]" />
+            <Loading />
           </div>
         </div>
       ) : (
