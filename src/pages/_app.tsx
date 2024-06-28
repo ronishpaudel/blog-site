@@ -1,4 +1,5 @@
-import type { AppProps } from "next/app";
+import { useEffect, useState } from "react";
+import { AppProps } from "next/app";
 import "../styles/style.css";
 import "../styles/header.css";
 import "../styles/content.css";
@@ -19,7 +20,6 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { Work_Sans } from "@next/font/google";
-import { useEffect } from "react";
 import { authStore } from "@/store/authStore";
 import {
   getItemFromLocalStorage,
@@ -30,14 +30,19 @@ import { API } from "@/api/API";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { editorConfig } from "@/components/lexical/Editor";
 import { Analytics } from "@vercel/analytics/react";
+
+import Router from "next/router";
 import React from "react";
+import Loading from "@/components/loading";
 
 const workSans = Work_Sans({
   subsets: ["latin"],
 });
+
 export default function App({ Component, pageProps }: AppProps) {
   const [queryClient] = React.useState(() => new QueryClient());
   const { dbUser } = useSnapshot(authStore);
+  const [loading, setLoading] = useState(true);
 
   const token =
     typeof window !== "undefined" ? getItemFromLocalStorage("auth") : "";
@@ -56,28 +61,46 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   useEffect(() => {
+    const handleRouteChangeStart = () => setLoading(true);
+    const handleRouteChangeComplete = () => setLoading(false);
+
+    Router.events.on("routeChangeStart", handleRouteChangeStart);
+    Router.events.on("routeChangeComplete", handleRouteChangeComplete);
+    Router.events.on("routeChangeError", handleRouteChangeComplete);
+
     if (token) {
       authStore.setLoggedIn();
       authStore.setTokenFetching(false);
       try {
         if (!dbUser?.id && token) {
-          fetchUser();
+          fetchUser().finally(() => setLoading(false));
+        } else {
+          setLoading(false);
         }
       } catch (error) {
         authStore.setLogOut();
         removeItemFromLocalStorage("auth");
+        setLoading(false);
       }
     } else {
       authStore.setLogOut();
       authStore.setTokenFetching(false);
+      setLoading(false);
     }
+
+    return () => {
+      Router.events.off("routeChangeStart", handleRouteChangeStart);
+      Router.events.off("routeChangeComplete", handleRouteChangeComplete);
+      Router.events.off("routeChangeError", handleRouteChangeComplete);
+    };
   }, [token]);
+
   return (
     <div className={workSans.className}>
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <LexicalComposer initialConfig={editorConfig}>
-            <Component {...pageProps} />
+            {loading ? <Loading /> : <Component {...pageProps} />}
             <Analytics />
           </LexicalComposer>
         </Hydrate>
