@@ -9,6 +9,7 @@ import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import CardSkeleton from "./skeleton-loader/cardSkeleton";
 import { useDebounce } from "@/hooks/debounceHook/useDebounce";
+import { ContentSkeleton } from "./skeleton-loader/contentSkeleton";
 
 const BlogCardList = () => {
   const { push } = useRouter();
@@ -71,7 +72,12 @@ const BlogCardList = () => {
 };
 
 const Main = () => {
-  const { data: blogSearch, hasNextPage, fetchNextPage } = useQueryBlog("");
+  const {
+    isLoading,
+    data: blogSearch,
+    hasNextPage,
+    fetchNextPage,
+  } = useQueryBlog("");
 
   const themeSnap = useSnapshot(themeStore);
   const { push } = useRouter();
@@ -100,23 +106,25 @@ const Main = () => {
             <img src="/Image.png" className="Image" alt="Blog Image" />
             {/* <img src={firstItem?.imageUrl} className="Image" alt="Blog Image" /> */}
           </div>
-
-          <Content
-            title={firstItem?.title}
-            category={firstItem?.category?.name}
-            createdAt={firstItem?.createdAt}
-            user={firstItem?.user?.username}
-            onCardClick={() =>
-              push({
-                pathname: "/[id]",
-                query: {
-                  id: firstItem?.slug,
-                },
-              })
-            }
-            description={String(firstItem?.description)}
-          />
-
+          {isLoading ? (
+            <ContentSkeleton />
+          ) : (
+            <Content
+              title={firstItem?.title}
+              category={firstItem?.category?.name}
+              createdAt={firstItem?.createdAt}
+              user={firstItem?.user?.username}
+              onCardClick={() =>
+                push({
+                  pathname: "/[id]",
+                  query: {
+                    id: firstItem?.slug,
+                  },
+                })
+              }
+              description={String(firstItem?.description)}
+            />
+          )}
           <BlogCardList />
           <div className="viewPost mb-16" onClick={handleViewNextPost}>
             View All Post
