@@ -30,7 +30,6 @@ import { API } from "@/api/API";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { editorConfig } from "@/components/lexical/Editor";
 import { Analytics } from "@vercel/analytics/react";
-
 import Router from "next/router";
 import React from "react";
 import Loading from "@/components/loading";
