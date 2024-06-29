@@ -1,75 +1,12 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { Iblog, useQueryBlog } from "@/hooks/queryHook/useQueryBlog";
-import { dateFormat } from "@/utils/dateFormat";
-import { Content } from "./Content";
-import Card from "./Card";
-import { blogCreationStore } from "@/store/blogCreationStore";
 import { useSnapshot } from "valtio";
+import { useQueryBlog } from "@/hooks/queryHook/useQueryBlog";
+import { blogCreationStore } from "@/store/blogCreationStore";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import CardSkeleton from "./skeleton-loader/cardSkeleton";
-import { useDebounce } from "@/hooks/debounceHook/useDebounce";
 import { ContentSkeleton } from "./skeleton-loader/contentSkeleton";
-
-const BlogCardList = () => {
-  const { push } = useRouter();
-  const { query } = useSnapshot(blogCreationStore);
-  const debouncedQuery = useDebounce(query, 300);
-  const {
-    data: blogSearch,
-    isLoading: searchLoading,
-    isFetching: searchFetching,
-  } = useQueryBlog(debouncedQuery);
-  const themeSnap = useSnapshot(themeStore);
-  console.log(blogSearch);
-
-  return (
-    <>
-      {/* <div className="card-parent mt-20" id="main"> */}
-      {searchLoading ? (
-        <div className="card-parent mt-20" id="main">
-          <CardSkeleton amount={9} />
-        </div>
-      ) : (
-        ""
-      )}
-      {!blogSearch?.pages?.[0]?.[0]?.id && !searchLoading && !searchFetching ? (
-        <div
-          style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
-          className="mt-16 mb-20 text-center"
-        >
-          No results match that query.🔍
-        </div>
-      ) : (
-        ""
-      )}
-      <div className="card-parent mt-20" id="main">
-        {blogSearch?.pages.map((page: any) =>
-          page.map((blog: Iblog) => (
-            <Card
-              key={blog.id}
-              category={blog?.category?.name}
-              title={blog.title}
-              description={blog.description}
-              thumbnailImage={blog.thumbImageUrl}
-              user={` ${blog?.user?.username}`}
-              createdAt={dateFormat(blog.createdAt)}
-              onCardClick={() => {
-                push({
-                  pathname: "/[id]",
-                  query: {
-                    id: blog.slug,
-                  },
-                });
-              }}
-              onProfileClick={() => console.log("navigate to profile with id")}
-            />
-          ))
-        )}
-      </div>
-    </>
-  );
-};
+import { Content } from "./Content";
+import BlogCardList from "./BlogCardList";
 
 const Main = () => {
   const {
@@ -78,7 +15,6 @@ const Main = () => {
     hasNextPage,
     fetchNextPage,
   } = useQueryBlog("");
-
   const themeSnap = useSnapshot(themeStore);
   const { push } = useRouter();
   const { query: blogQuery } = useSnapshot(blogCreationStore);
@@ -90,6 +26,7 @@ const Main = () => {
       await fetchNextPage();
     }
   };
+
   return (
     <main
       style={{
@@ -126,9 +63,11 @@ const Main = () => {
             />
           )}
           <BlogCardList />
-          <div className="viewPost mb-16" onClick={handleViewNextPost}>
-            View All Post
-          </div>
+          {hasNextPage && (
+            <div className="viewPost mb-16" onClick={handleViewNextPost}>
+              View All Post
+            </div>
+          )}
         </div>
       )}
     </main>
