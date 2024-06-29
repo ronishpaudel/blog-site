@@ -1,10 +1,21 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import Link from "next/link";
 
 const Footer: FC = () => {
   const themeSnap = useSnapshot(themeStore);
+  const [email, setEmail] = useState("");
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+  const handleSubscribe = () => {
+    if (email) {
+      // You can add more logic here, like sending the email to your backend
+      setIsSubscribed(true);
+      setEmail("");
+    }
+  };
+
   return (
     <>
       <footer
@@ -44,14 +55,12 @@ const Footer: FC = () => {
                 <Link href="/">Home</Link>
                 <Link href="#footer">About</Link>
                 <Link href="#main">Blog</Link>
-
                 <Link href="#footer">Author </Link>
                 <Link href="mailto:paudelronish@gmail.com">Contact</Link>
               </div>
             </div>
             <div className="footer-category">
               <p className="bolder"> Category</p>
-
               <div className="category-list">
                 <Link
                   href="https://www.bloggingherway.com/what-is-a-lifestyle-blog/"
@@ -115,14 +124,17 @@ const Footer: FC = () => {
             >
               <input
                 placeholder="Your Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 style={{
                   backgroundColor: THEME_PALETTE[themeSnap.theme].cardBg,
                 }}
               />
               <img src="/mail.png" alt="photo" />
             </div>
-
-            <button className="news-btn">Subscribe</button>
+            <button className="news-btn" onClick={handleSubscribe}>
+              {isSubscribed ? "Successfully Subscribed" : "Subscribe"}
+            </button>
           </div>
         </div>
       </footer>
