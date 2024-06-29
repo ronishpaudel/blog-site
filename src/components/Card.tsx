@@ -64,12 +64,17 @@ function Card({
           >
             {parse(description)}
           </div>
-          <div className="card-author" onClick={onProfileClick}>
-            <img src="/batman.png" />
-            <div style={{ display: "flex", gap: "30px", fontSize: "14px" }}>
-              <p> {user}</p>
-              <p> {createdAt}</p>
+          <div
+            className="card-author w-full justify-between"
+            onClick={onProfileClick}
+          >
+            <div className="flex items-center">
+              <img src="/batman.png" />
+              <div style={{ display: "flex", gap: "30px", fontSize: "14px" }}>
+                <p> {user}</p>
+              </div>
             </div>
+            <p> {createdAt}</p>
           </div>
         </div>
       </div>

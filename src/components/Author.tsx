@@ -8,12 +8,14 @@ interface IUserInfo {
 
 const Author = ({ style, name, createdAt }: IUserInfo) => {
   return (
-    <div className="author">
+    <div className="author w-full justify-between">
       <img src="/batman.png" className="author-img" alt="Author" />
-      <p className="ronish" style={style}>
-        {name}
-      </p>
-      <p>{createdAt}</p>
+      <div className="flex">
+        <p className="ronish" style={style}>
+          {name}
+        </p>
+        <p>{createdAt}</p>
+      </div>
     </div>
   );
 };
