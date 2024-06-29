@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Author } from "@/components/Author";
@@ -24,6 +24,27 @@ const index: FC = () => {
     query.id as string
   );
   const { data: latestBlog } = useQueryBlog("");
+
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [views, setViews] = useState(0);
+
+  useEffect(() => {
+    if (data) {
+      setLikes(data.likes || 0);
+      setDislikes(data.dislikes || 0);
+      setViews(data.views ? data.views + 1 : 1); // Increment view count
+    }
+  }, [data]);
+
+  const handleLike = () => {
+    setLikes(likes + 1);
+  };
+
+  const handleDislike = () => {
+    setDislikes(dislikes + 1);
+  };
+
   useEffect(() => {
     refetch();
   }, [query.id]);
@@ -87,6 +108,17 @@ const index: FC = () => {
               }}
             >
               {data?.description && parse(data?.description)}
+            </div>
+            <div className="flex justify-between items-center mt-4">
+              <div className="flex items-center">
+                <button onClick={handleLike} className="mr-2 text-white">
+                  👍 {likes}
+                </button>
+                <button onClick={handleDislike} className="mr-2 text-white">
+                  👎 {dislikes}
+                </button>
+              </div>
+              <div className="views text-white">👁️ {views} views</div>
             </div>
           </div>
           <div className="max-w-[400px] w-full text-white mt-[115px] px-[10px] lg:block hidden ">

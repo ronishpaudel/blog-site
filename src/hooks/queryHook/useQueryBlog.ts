@@ -6,6 +6,9 @@ import {
 } from "@tanstack/react-query";
 
 export interface Iblog {
+  likes: number;
+  dislikes: number;
+  views: any;
   id: string;
   title: string;
   description: string;
