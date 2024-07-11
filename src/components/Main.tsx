@@ -7,6 +7,7 @@ import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
 import { ContentSkeleton } from "./skeleton-loader/contentSkeleton";
 import { Content } from "./Content";
 import BlogCardList from "./BlogCardList";
+import Image from "next/image";
 
 const Main = () => {
   const {
@@ -40,7 +41,7 @@ const Main = () => {
       ) : (
         <div className="main">
           <div className="image-wrappper">
-            <img src="/Image.png" className="Image" alt="Blog Image" />
+            <Image src="/Image.png" className="Image" alt="Blog Image" />
             {/* <img src={firstItem?.imageUrl} className="Image" alt="Blog Image" /> */}
           </div>
           {isLoading ? (
