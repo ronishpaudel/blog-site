@@ -41,7 +41,7 @@ const Main = () => {
       ) : (
         <div className="main">
           <div className="image-wrappper">
-            <Image src="/Image.png" className="Image" alt="Blog Image" />
+            <img src="/Image.png" className="Image" alt="Blog Image" />
             {/* <img src={firstItem?.imageUrl} className="Image" alt="Blog Image" /> */}
           </div>
           {isLoading ? (
