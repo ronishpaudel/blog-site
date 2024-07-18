@@ -17,6 +17,9 @@ module.exports = {
       },
     },
     extend: {
+      backgroundImage: {
+        'banner-black': 'radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.78) 100%)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
