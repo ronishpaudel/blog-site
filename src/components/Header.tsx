@@ -11,6 +11,7 @@ import { Logout } from "./Logout";
 import { BsSearch } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { Input } from "./ui/input";
+import Link from "next/link";
 // function setThemePreference(theme: string) {
 //   localStorage.setItem("themePreference", theme);
 // }
@@ -218,12 +219,12 @@ const Header: FC = () => {
                   >
                     <div className="py-1">
                       {loggedIn && (
-                        <a
+                        <Link
                           href="/myBlogs"
                           className="block px-4 py-2 text-sm text-gray-100 hover:bg-gray-300"
                         >
                           My Crafted Blogs
-                        </a>
+                        </Link>
                       )}
                       <a
                         onClick={handlePush}
