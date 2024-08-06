@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import React, { ChangeEvent, FC, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "@/components/Button";
 import { PrivateRoute } from "@/components/hoc/PrivateRoute";
