@@ -1,6 +1,5 @@
 import { API } from "@/api/API";
 import { useMutation } from "@tanstack/react-query";
-
 interface IUserData {
   password: string;
   token: string;
