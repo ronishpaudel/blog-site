@@ -13,7 +13,6 @@ import parse from "html-react-parser";
 import { dateFormat } from "@/utils/dateFormat";
 import { useSnapshot } from "valtio";
 import { THEME_PALETTE, themeStore } from "@/store/colorPalette.store";
-import BlogPageSkeleton from "@/components/skeleton-loader/blogPageSkeleton";
 import { LatestBlog } from "@/components/latestBlog";
 import Loading from "@/components/loading";
 
