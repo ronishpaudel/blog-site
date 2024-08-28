@@ -128,7 +128,9 @@ const Header: FC = () => {
         ) : (
           <div className="header">
             <div className="header-logo" onClick={onPush}>
-              <img src="/techEra/techera-gray.png" alt="asd" />
+              <h2 className="text-[26px]  text-white tracking-tighter  font-semibold">
+                PaudelDada
+              </h2>
             </div>
             <div className="lastchildheaderparent">
               {hideItems && (
