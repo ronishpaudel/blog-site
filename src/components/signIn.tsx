@@ -132,7 +132,7 @@ function SignIn({ onClick }: { onClick?: () => void }) {
                   className="text-black text-xl"
                   style={{ color: THEME_PALETTE[themeSnap.theme].textColor }}
                 >
-                  techEra.io
+                  Welcome back
                 </h1>
                 <h1
                   className="text-5xl"

@@ -35,7 +35,7 @@ const Main = () => {
       }}
     >
       {blogQuery ? (
-        <div className="main mt-28 mb-10 ">
+        <div className="main mb-10 ">
           <BlogCardList />
         </div>
       ) : (
