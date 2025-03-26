@@ -92,7 +92,6 @@ header {
 .header {
   display: flex;
   align-items: center;
-  padding: 32px 0 32px 0;
   flex-grow: 1;
   max-width: 1218px;
   width: 100%;
@@ -134,7 +133,7 @@ header {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.7);
   border: 2px solid rgb(0, 0, 0, 0.4);
-  padding: 7px;
+  padding: 8px 16px;
   border-radius: 7px;
   display: flex;
   align-items: center;
@@ -343,7 +342,6 @@ main {
   height: auto;
   width: 100%;
   padding-top: 20px;
-  margin-top: 90px;
 }
 @media screen and (max-width: 768px) {
   .Image {

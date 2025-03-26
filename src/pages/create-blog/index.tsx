@@ -254,4 +254,4 @@ const index: FC = () => {
   );
 };
 
-export default PrivateRoute(index);
+export default index;

@@ -57,7 +57,7 @@ export default function Editor({
   onChange?: () => void;
 }) {
   const themeSnap = useSnapshot(themeStore);
-
+  console.log({ value, onChange });
   return (
     <div className="editor-container">
       <ToolbarPlugin />
